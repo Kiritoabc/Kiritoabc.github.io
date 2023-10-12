@@ -836,7 +836,7 @@
 
 "hexo-render-pug@^2.1.4":
   "integrity" "sha512-i5o+PqOf/hUU4B3ffQwD0egADgMwsU4vGKSM+LoUSlAhSDO4srOj8owlGAA+Vr76/tmNUR7BClSX8tSyEAHQuw=="
-  "resolved" "https://registry.npmmirror.com/hexo-render-pug/-/hexo-render-pug-2.1.4.tgz"
+  "resolved" "https://registry.npmjs.org/hexo-render-pug/-/hexo-render-pug-2.1.4.tgz"
   "version" "2.1.4"
   dependencies:
     "pug" "^2.0.3"
@@ -860,7 +860,7 @@
 
 "hexo-renderer-stylus@^3.0.0":
   "integrity" "sha512-wgKOcjUzq1i4Y70luoyYDbh91QeQcDzJO+v1598LgY+IdREFAm+vy1MWtl/TZsVXyPaEtsULNi3Vi22hdsPUSA=="
-  "resolved" "https://registry.npmmirror.com/hexo-renderer-stylus/-/hexo-renderer-stylus-3.0.0.tgz"
+  "resolved" "https://registry.npmjs.org/hexo-renderer-stylus/-/hexo-renderer-stylus-3.0.0.tgz"
   "version" "3.0.0"
   dependencies:
     "nib" "^1.2.0"
@@ -916,6 +916,11 @@
     "htmlparser2" "^9.0.0"
     "prismjs" "^1.29.0"
     "strip-indent" "^3.0.0"
+
+"hexo-wordcount@^6.0.1":
+  "integrity" "sha512-tbo2P9xRWEKQmRf7+XuPjx9It1MnaE26nA+EEb2DN39gK1x+26W7Nm4Iyp4AugQjBWYYDx7OLn4gp1WFxQpQew=="
+  "resolved" "https://registry.npmjs.org/hexo-wordcount/-/hexo-wordcount-6.0.1.tgz"
+  "version" "6.0.1"
 
 "hexo@^6.3.0":
   "integrity" "sha512-4Jq+rWd8sYvR1YdIQyndN/9WboQ/Mqm6eax8CjrjO+ePFm2oMVafSOx9WEyJ42wcLOHjfyMfnlQhnUuNmJIpPg=="
