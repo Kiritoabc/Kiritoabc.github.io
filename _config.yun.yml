@@ -1,0 +1,293 @@
+avatar:
+  enable: true
+  url: /images/avatar.jpg
+  rounded: true
+  opacity: 1
+  mickey_mouse: true
+  status:
+    enable: true
+    emoji: 😭
+    message: 不想上学
+
+colors:
+  primary: '#6200ee'
+  # bg: "#F5F5F5"
+  selection_bg: '#8e71c1' # 选取文字时的背景色
+  # 标签云中标签的起始色和结束色
+  # tag_start_color:
+  # tag_end_color:
+
+tags:
+  Vue: '#4fc08d'
+  Hexo: '#0E834D'
+  CSS: '#5298d1'
+  Node.js: '#026E00'
+  Git: '#F14E32'
+  React: '#61dafb'
+  Python: '#3776ab'
+  PHP: '#8892BF'
+  VS Code: '#0066B8'
+  JavaScript: '#F4DF4F'
+  TypeScript: '#317AC6'
+  Laravel: '#F4645F'
+
+categories:
+  笔记: dimgray
+
+# cdn:
+#   pre: 'https://cdn.jsdelivr.net/gh/Kiritoabc/Kiritoabc.github.io@latest'
+#   css:
+#   js:
+#     base:
+#       - xxx
+#     async:
+#       # 默认引入的图标资源，使用 iconfont
+#       iconfont: //at.alicdn.com/t/font_1140697_dxory92pb0h.js
+#     defer:
+
+#   preload:
+#     style:
+#       - /css/hexo-theme-yun.css
+#     script:
+#       - /js/hexo-theme-yun.js
+
+#   prefetch:
+#     script:
+#       - /js/sidebar.js
+
+#   dns_prefetch:
+#     - https://cos.yunyoujun.cn
+
+#   # do more(TCP handshake...) than dns-fetch
+#   preconnect:
+#     - https://cdn.jsdelivr.net
+
+
+head:
+  js:
+    async:
+      # 这里是你从 iconfont 处获得的图标链接。
+      iconfont: //at.alicdn.com/t/font_1140697_dxory92pb0h.js
+
+social:
+  # - name: RSS
+  #   # set rss in your root config
+  #   # https://github.com/hexojs/hexo-generator-feed
+  #   link: /atom.xml # config.feed.path
+  #   icon: ri:rss-line
+  #   color: orange
+  - name: GitHub
+    link: https://github.com/Kiritoabc
+    icon: ri:github-line
+    color: '#181717'
+  - name: E-Mail
+    link: 2493381254@qq.com
+    icon: ri:mail-line
+    color: '#8E71C1'
+  # - name: 微博
+  #   link: https://weibo.com/jizhideyunyoujun
+  #   icon: ri:weibo-line
+  #   color: '#E6162D'
+  # - name: 豆瓣
+  #   link: https://www.douban.com/people/yunyoujun/
+  #   icon: ri:douban-line
+  #   color: '#007722'
+  - name: 网易云音乐
+    link: https://music.163.com/#/user/home?id=583001071
+    icon: ri:netease-cloud-music-line
+    color: '#C10D0C'
+  # - name: 知乎
+  #   link: https://www.zhihu.com/people/yunyoujun/
+  #   icon: ri:zhihu-line
+  #   color: '#0084FF'
+  - name: 哔哩哔哩动画
+    link: https://space.bilibili.com/160107797
+    icon: ri:bilibili-line
+    color: '#FF8EB3'
+  # - name: 微信公众号
+  #   link: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/about/white-qrcode-and-search.jpg
+  #   icon: ri:wechat-2-line
+  #   color: '#1AAD19'
+  # - name: Twitter
+  #   link: https://twitter.com/YunYouJun
+  #   icon: ri:twitter-line
+  #   color: '#1da1f2'
+  # - name: Telegram
+  #   link: https://t.me/YunYouJun
+  #   icon: ri:telegram-line
+  #   color: '#0088CC'
+  # - name: Telegram Channel
+  #   link: https://t.me/elpsycn
+  #   icon: ri:telegram-fill
+  #   color: '#0088CC'
+  # - name: Travelling
+  #   link: https://www.travellings.cn/go.html
+  #   icon: ri:send-plane-2-line
+  #   color: black
+
+
+banner:
+  enable: true
+  title: 菠萝的小站
+  border: true
+  cloud:
+    enable: true
+    color: white
+  go_down:
+    enable: true
+    icon: ri:arrow-down-s-line
+
+mode: auto
+
+font:
+  cdn:
+    enable: true
+    lib:
+      - https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap
+  serif:
+    family: '''Songti SC'', ''Noto Serif SC'', STZhongsong, STKaiti, KaiTi, Roboto, serif'
+    weight: 900
+  sans_serif:
+    family: '''PingFang SC'', ''Microsoft YaHei'', Roboto, Arial, sans-serif'
+    weight: 400
+  monospace:
+    family: '''Source Code Pro'', ''Courier New'', Courier, Consolas, Monaco, monospace'
+
+
+fireworks:
+  enable: true
+  colors:
+    - '102, 167, 221'
+    - '62, 131, 225'
+    - '33, 78, 194'
+
+
+# _config.yun.yml
+medium_zoom: true
+
+
+cursor:
+  enable: false
+  default: https://cdn.yunyoujun.cn/css/md-cursors/pointer.cur
+  pointer: https://cdn.yunyoujun.cn/css/md-cursors/link.cur
+  text: https://cdn.yunyoujun.cn/css/md-cursors/text.cur
+
+
+sidebar:
+  bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-1.jpg
+  bg_position: bottom 3rem center
+  tagcloud:
+    enable: false
+    amount: 20
+
+
+menu:
+  home:
+    path: /
+    icon: ri:home-4-line
+  list:
+    - type: archives
+      path: /archives/
+      icon: ri:archive-line
+    - type: categories
+      path: /categories/
+      icon: ri:folder-2-line
+    - type: tags
+      path: /tags/
+      icon: ri:price-tag-3-line
+    # - path: https://www.yunyoujun.cn
+    #   icon: ri:cloud-line
+    #   count: 你猜
+  custom:
+    title: 文档
+    path: https://yun.yunyoujun.cn
+    icon: ri:settings-line
+
+pages:
+  - name: 我的小伙伴们
+    url: /links/
+    icon: ri:genderless-line
+    color: dodgerblue
+
+post_card:
+  opacity: 0.8
+
+types:
+  link:
+    color: blue
+    icon: ri:external-link-line
+  bilibili:
+    color: '#FF8EB3'
+    icon: ri:bilibili-line
+  douban:
+    color: '#007722'
+    icon: ri:douban-line
+  github:
+    color: black
+    icon: ri:github-line
+  netease-cloud-music:
+    color: '#C10D0C'
+    icon: ri:netease-cloud-music-line
+  notion:
+    color: black
+    icon: ri:notion
+  twitter:
+    color: '#1da1f2'
+    icon: ri:twitter-line
+  wechat:
+    color: '#1AAD19'
+    icon: ri:wechat-2-line
+  weibo:
+    color: '#E6162D'
+    icon: ri:weibo-line
+  yuque:
+    color: '#25b864'
+    icon: ant-design:yuque-outlined
+  zhihu:
+    color: '#0084FF'
+    icon: ri:zhihu-line
+
+codeblock:
+  copy_btn: true
+
+
+lazyload:
+  enable: true
+
+footer:
+  since: 2023
+  icon:
+    name: ri:cloud-line
+    animated: true
+    color: '#0078E7'
+  powered:
+    enable: true
+  ive_time:
+    enable: false
+    prefix: 本博客已萌萌哒地运行
+    suffix: (●'◡'●)
+    start_time: '2023-10-12T00:00:00'
+
+say:
+  enable: true
+  api: https://cdn.jsdelivr.net/gh/ElpsyCN/say@gh-pages/sentences.json
+  # https://developer.hitokoto.cn/sentence/
+  hitokoto:
+    enable: true
+    api: https://v1.hitokoto.cn
+
+mourn:
+  enable: true
+  days:
+    - 4-4
+
+wordcloud:
+  enable: true
+
+girls:
+  enable: true
+
+wordcount:
+  enable: true
+  count: true
+  time: true

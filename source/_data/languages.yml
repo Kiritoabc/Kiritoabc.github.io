@@ -1,0 +1,11 @@
+en: # 将要覆盖的语言
+  menu:
+    home: My Index
+
+ja: # 将要覆盖的语言
+  menu:
+    home: マイインデックス
+
+zh-CN: # 将要覆盖的语言
+  menu:
+    home: 我的主页
