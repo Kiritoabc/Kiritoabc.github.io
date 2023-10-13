@@ -294,3 +294,8 @@ wordcount:
 
 
 url: https://Kiritoabc.github.io
+
+post_asset_folder: true
+marked:
+  prependRoot: true
+  postAsset: true

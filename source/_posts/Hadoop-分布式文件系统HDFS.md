@@ -16,6 +16,10 @@ hideTime: true
 
 ![1697163694831](Hadoop-分布式文件系统HDFS\1697163694831.png)
 
+
+
+
+
 ### 2.1 HDFS架构
 
 HDFS 遵循主/从架构，由单个 NameNode(NN) 和多个 DataNode(DN) 组成：
