@@ -415,3 +415,45 @@ function MyButton({ count, onClick }) {
 
 ## 安装React
 
+### 启动一个新的React项目
+
+>**你需要安装 Node.js 用于本地开发**。你也可以选择在生产环境中使用 Node.js，但你不一定要这样。许多 React 框架支持导出 HTML/CSS/JS 等静态文件。
+
+
+
+#### 生产级的React框架
+
+##### 1. Next.js
+
+**Next.js 是一个全栈式的 React 框架**。它用途广泛，可以让你创建任意规模的 React 应用——可以是静态博客，也可以是复杂的动态应用。要创建一个新的 Next.js 项目，请在你的终端运行：
+
+~~~powershell
+npx create-next-app@latest
+~~~
+
+##### 2. Remix
+
+**Remix 是一个具有嵌套路由的全栈式 React 框架**。它可以把你的应用分成嵌套部分，该嵌套部分可以并行加载数据并响应用户操作进行刷新。要创建一个新的 Remix 项目，请运行：
+
+~~~powershell
+npx create-remix
+~~~
+
+##### 3. Gatsby
+
+**Gatsby 是一个快速的支持 CMS 的网站的 React 框架**。其丰富的插件生态系统和 GraphQL 数据层简化了将内容、API 和服务整合到一个网站的过程。要创建一个新的 Gatsby 项目，请运行：
+
+~~~pow
+npx create-gatsby
+~~~
+
+
+
+##### 4. Expo(用于原生应用)
+
+ **Expo 是一个 React 框架，可以让你创建具有真正原生 UI 的应用，包括 Android、iOS，以及 Web 应用**。它为 [React Native](https://reactnative.dev/) 提供了 SDK，使原生部分更容易使用。要创建一个新的 Expo 项目，请运行：
+
+~~~Pow
+npx create-expo-app
+~~~
+
