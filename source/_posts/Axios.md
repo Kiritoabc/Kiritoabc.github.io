@@ -69,3 +69,15 @@ export default {get, post}
 
 
 - 封装完成后可以在 api 文件夹下创建属于自己的 api 用于发送请求，便于管理。
+
+例如
+
+~~~js
+import request from '../../utils/request';
+
+
+export function helloApi(){
+    return request.get("/hello",{})
+}
+~~~
+
