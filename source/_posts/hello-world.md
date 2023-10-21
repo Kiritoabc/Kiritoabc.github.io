@@ -5,38 +5,19 @@ email: 2493381254@qq.com
 readmore: true
 hideTime: true
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
 
-### Create a new post
+> 自我介绍环节
+>
+> > 你不需要一开始很厉害，你需要开始才能很厉害！
 
-``` powershell
-hexo new "My New Post"
-```
-
-More info: [Writing](https://hexo.io/docs/writing.html)
-
-### Run server
-
-``` powershell
-hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` powershell
-hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` powershell
-hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+- 一名懒惰的死宅
+- 是名大学生
+- loving life & loving coding
+- 在为找工作努力学习ing
+- 主要技术栈：
+  - golang
+  - react
+  - vue
+  - java
+- 邮箱:2493381254@qq.com
