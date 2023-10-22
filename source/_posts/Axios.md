@@ -4,6 +4,8 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
+categories: 前端
+tag: 前端开发小技巧
 ---
 
 # Axios
