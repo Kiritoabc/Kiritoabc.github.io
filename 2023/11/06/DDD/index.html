@@ -1,0 +1,661 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="菠萝"><meta name="copyright" content="菠萝"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>DDD | 牵风散步の雲</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"kiritoabc.github.io","root":"/","title":"菠萝的小站","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><meta name="description" content="该思想源于2003年 Eric Evans编写的“Domain-Driven Design领域驱动设计”简称DDD，Evans DDD是一套综合软件系统分析和设计的面向对象建模方法。  服务器后端发展三个阶段	  服务器后端发展三个阶段：  面向过程脚本：初始简单，业务复杂后，维护难度指数上升。–&gt;基本不为主流使用 面向数据库表：初始难度中，业务复杂后，维护难度延迟后再指数上升。—&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDD">
+<meta property="og:url" content="https://kiritoabc.github.io/2023/11/06/DDD/index.html">
+<meta property="og:site_name" content="牵风散步の雲">
+<meta property="og:description" content="该思想源于2003年 Eric Evans编写的“Domain-Driven Design领域驱动设计”简称DDD，Evans DDD是一套综合软件系统分析和设计的面向对象建模方法。  服务器后端发展三个阶段	  服务器后端发展三个阶段：  面向过程脚本：初始简单，业务复杂后，维护难度指数上升。–&gt;基本不为主流使用 面向数据库表：初始难度中，业务复杂后，维护难度延迟后再指数上升。—&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/1698295528635.png">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011150935388-1552511311.jpg">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011150951572-155912044.jpg">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011141738741-950766765.png">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011144310357-948628155.jpg">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011144810021-115106935.png">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011144924979-96628020.png">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011152422827-1548164745.jpg">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/11/06/DDD/584866-20211011152315485-404154610.png">
+<meta property="article:published_time" content="2023-11-06T12:39:44.071Z">
+<meta property="article:modified_time" content="2023-11-06T12:39:44.071Z">
+<meta property="article:author" content="菠萝">
+<meta property="article:tag" content="后端开发小技巧">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kiritoabc.github.io/2023/11/06/DDD/1698295528635.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info mickey-mouse"><a class="site-author-avatar" href="/about/" title="菠萝"><img width="96" loading="lazy" src="/images/avatar.jpg" alt="菠萝"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">菠萝</a></div><span class="site-name">牵风散步の雲</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="我的主页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">5</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">9</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Kiritoabc" title="GitHub" target="_blank" style="color:#181717"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="2493381254@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=583001071" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/160107797" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8E%E7%AB%AF%E5%8F%91%E5%B1%95%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-number">1.</span> <span class="toc-text">服务器后端发展三个阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DDD%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">DDD的特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%90%BD%E5%9C%B0"><span class="toc-number">3.</span> <span class="toc-text">落地</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%BB%E5%9F%9F%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.1.</span> <span class="toc-text">邻域模型设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A2%86%E5%9F%9F%E6%88%98%E7%95%A5%E8%AE%BE%E8%AE%A1%E5%9B%BE"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.领域战略设计图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A2%86%E5%9F%9F%E6%88%98%E6%9C%AF%E8%AE%BE%E8%AE%A1%E5%9B%BE"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.领域战术设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.1.</span> <span class="toc-text">服务调用问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.2.</span> <span class="toc-text">包结构</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#6200ee;"><link itemprop="mainEntityOfPage" href="https://Kiritoabc.github.io/2023/11/06/DDD/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="菠萝"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="牵风散步の雲"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">DDD</h1><div class="post-meta"><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">2.6k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">12m</span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%90%8E%E7%AB%AF/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">后端</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">后端开发小技巧</span></a></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/5964a2fdb6bea3c102dd167bc34b1556?s=20&amp;d=https%3A%2F%2Fcdn.yunyoujun.cn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">菠萝</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><blockquote>
+<p>该思想源于2003年 Eric Evans编写的“Domain-Driven Design领域驱动设计”简称DDD，Evans DDD是一套综合软件系统分析和设计的面向对象建模方法。</p>
+</blockquote>
+<h1 id="服务器后端发展三个阶段"><a href="#服务器后端发展三个阶段" class="headerlink" title="服务器后端发展三个阶段"></a>服务器后端发展三个阶段</h1><img src="/2023/11/06/DDD/1698295528635.png" class="" width="1698295528635" loading="lazy">	
+
+<p>服务器后端发展三个阶段：</p>
+<ol>
+<li>面向<strong>过程脚本</strong>：初始简单，业务复杂后，维护难度指数上升。–&gt;基本不为主流使用</li>
+<li>面向<strong>数据库表</strong>：初始难度中，业务复杂后，维护难度延迟后再指数上升。—&gt;目前市面上主流</li>
+<li>面向<strong>业务模型</strong>：DDD+SOA微服务的事件驱动的<a target="_blank" rel="noopener" href="https://www.jdon.com/cqrs.html">CQRS读写分离架构：</a>应付复杂业务逻辑，<strong>以聚合模型替代数据表模型</strong>，以并发的事件驱动替代串联的消息驱动。真正实现以业务实体为核心的灵活拓展。初始难度高，业务复杂后，维护难度**线性上升(已很不错)**。</li>
+</ol>
+<h1 id="DDD的特点"><a href="#DDD的特点" class="headerlink" title="DDD的特点"></a>DDD的特点</h1><p><strong>DDD革命性在于</strong>：领域模型准确反映了业务语言，而传统微服务数据对象除了简单setter&#x2F;getter方法外，没有任何业务方法，即失血模型，那么DDD领域模型就是<strong>充血模型（业务方法定义在实体对象中）</strong>。</p>
+<h1 id="落地"><a href="#落地" class="headerlink" title="落地"></a>落地</h1><h2 id="邻域模型设计"><a href="#邻域模型设计" class="headerlink" title="邻域模型设计"></a>邻域模型设计</h2><p>以渠道中心（一个微服务）作为例子来做领域模型设计，核心就是设计2个图，一个是战略设计图（宏观）  ，一个是战术设计图（细节）。</p>
+<h3 id="1-领域战略设计图"><a href="#1-领域战略设计图" class="headerlink" title="1.领域战略设计图"></a>1.领域战略设计图</h3><p>战略设计图是从一个限界上下文的角度出发去分析业务场景。主要是宏观上的核心域、子域、实体关系图。demo如下图：</p>
+<img src="/2023/11/06/DDD/584866-20211011150935388-1552511311.jpg" class="" title="img" loading="lazy">
+
+<h3 id="2-领域战术设计图"><a href="#2-领域战术设计图" class="headerlink" title="2.领域战术设计图"></a>2.领域战术设计图</h3><p>战术设计图是从一个限界上下文的角度出发去分析业务场景。细化到核心业务字段、领域实体、值对象、领域服务、领域事件等等。基本上这个图画完，代码已经知道怎么写了。demo如下图：</p>
+<img src="/2023/11/06/DDD/584866-20211011150951572-155912044.jpg" class="" title="img" loading="lazy">
+
+
+
+<h2 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h2><p>整体项目框架分层图如下所示：</p>
+<img src="/2023/11/06/DDD/584866-20211011141738741-950766765.png" class="" title="img" loading="lazy">	
+
+<p>如上图，4层典型DDD分层结构，</p>
+<p>1.展现层：controller层。无业务逻辑</p>
+<p>2.应用服务层：此层可以包含查询逻辑，但核心业务逻辑必须下沉到领域层。</p>
+<p>3.领域服务层：业务在这里组装。仓储（资源库）接口在此层定义。</p>
+<p>4.基础设施层：仓储（资源库）实现层+PO持久化层。</p>
+<p>注：</p>
+<p>1.简单查询不涉及业务，是可以直接从应用层直接穿透到PO查询，不需要经过domain层。如下图所示，DDD本身是不限制非业务类操作跨层调用的。</p>
+<img src="/2023/11/06/DDD/584866-20211011144310357-948628155.jpg" class="" title="img" loading="lazy">	
+
+<p>2.DTO是不能存在于domain层的，DDD设计不认为DTO是业务对象，entity才是。或者传值简单数据类型也是可以的。</p>
+<h3 id="服务调用问题"><a href="#服务调用问题" class="headerlink" title="服务调用问题"></a>服务调用问题</h3><p>1.域内调用</p>
+<p>领域内调用，随便调用，丝般顺滑。至于实现，可以由一个核心域的仓储实现层（第四层）去实现多个Repository接口。（比如这里A是核心域的实体名，B是支撑域、通用域等）</p>
+<img src="/2023/11/06/DDD/584866-20211011144810021-115106935.png" class="" title="img" loading="lazy">
+
+<p> 2.跨域调用</p>
+<img src="/2023/11/06/DDD/584866-20211011144924979-96628020.png" class="" title="img" loading="lazy">
+
+<p>跨域分为</p>
+<ul>
+<li><p>1.同上下文跨域：ACL层-&gt;Adapter适配器层→调用其它域的repository。—&gt;不得已才使用，不推荐使用。</p>
+</li>
+<li><p>推荐：1.使用领域事件 eventbus来做解耦</p>
+<p>​     2.考虑是否有可能合并为一个领域.</p>
+</li>
+<li><p>2.跨上下文（肯定跨域）：ACL层-&gt;Adapter适配器层-&gt;feign调用</p>
+</li>
+</ul>
+<h3 id="包结构"><a href="#包结构" class="headerlink" title="包结构"></a>包结构</h3><p>包结构如下：</p>
+<img src="/2023/11/06/DDD/584866-20211011152422827-1548164745.jpg" class="" title="img" loading="lazy">
+
+<p> 展开包结构如下：</p>
+<img src="/2023/11/06/DDD/584866-20211011152315485-404154610.png" class="" title="img" loading="lazy">
+
+<p><strong>展现层：Controller，</strong>仅做接口的入口定义和编排转发，不做任何的业务处理；</p>
+<p><strong>应用服务层：application，</strong>负责接口参数DTO的简单校验，以及DTO和实体值对象的数据转换，对于简单的业务，也可以在应用层加载实体直接执行实体行为方法；</p>
+<p><strong>领域层：</strong></p>
+<ul>
+<li>模型：根据领域模型分析领域内各实体、聚合、聚合根、值对象等，这些对象在*.domain.model定义，实体内的行为方法只负责维护实体自身的生命周期和状态；</li>
+<li>行为：领域内各实体、聚合、聚合根等，会有相应的行为，在*.domain.model包下定义行为方法；</li>
+<li>领域服务：领域提供的接口服务，需要定义在*.domain.service包下，业务相关的前置业务判断、多个实体或值对象的行为逻辑处理等，都在领域服务中实现，需要注意的是并不是每个实体都有一个对应的领域服务，但是依赖多个实体的行为方法，最好根据这个业务模块是建立一个领域服务；</li>
+<li>仓储：领域服务或上层应用服务需要使用到的基础设施层，包括DB、Feign调用等，定义在*.domain.repository下，在*.infrastructure.repository下实现；</li>
+</ul>
+<p><strong>适配层：</strong>在acl包下的feign定义依赖外部的接口，并在acl的adapter包编写转换，由仓储层操作实体时调用；</p>
+<p><strong>持久层：</strong>与常用DAO定义一致，由仓储层操作实体时调用。</p>
+<p>目前业内没有标杆，github开源地址：<a target="_blank" rel="noopener" href="https://github.com/jovezhao/nest">https://github.com/jovezhao/nest</a>  。这个项目可以练手DDD。</p>
+<pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;192.168.0.116:9001&#x2F;test&#x2F;1112023-09-26 14-08-23.mkv<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>使用flutter写一个视频播放组件，要求有倍速，全屏，音量调节，暂停播放按钮</p>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:video_player/video_player.dart'</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">VideoPlayerWidget</span> <span class="token keyword">extends</span> <span class="token class-name">StatefulWidget</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">final</span> <span class="token class-name">String</span> videoUrl<span class="token punctuation">;</span>
+
+  <span class="token class-name">VideoPlayerWidget</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>required <span class="token keyword">this</span><span class="token punctuation">.</span>videoUrl<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  _VideoPlayerWidgetState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_VideoPlayerWidgetState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> _VideoPlayerWidgetState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">VideoPlayerWidget</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  late <span class="token class-name">VideoPlayerController</span> _controller<span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _controller <span class="token operator">=</span> <span class="token class-name">VideoPlayerController</span><span class="token punctuation">.</span><span class="token function">network</span><span class="token punctuation">(</span>videoUrl<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    _controller<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">AspectRatio</span><span class="token punctuation">(</span>
+      aspectRatio<span class="token punctuation">:</span> _controller<span class="token punctuation">.</span>value<span class="token punctuation">.</span>aspectRatio<span class="token punctuation">,</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">VideoPlayer</span><span class="token punctuation">(</span>_controller<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'video_player_widget.dart'</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyApp</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
+      home<span class="token punctuation">:</span> <span class="token class-name">Scaffold</span><span class="token punctuation">(</span>
+        appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Video Player'</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        body<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>child<span class="token punctuation">:</span> <span class="token class-name">VideoPlayerWidget</span><span class="token punctuation">(</span>videoUrl<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'https://example.com/video.mp4'</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p>使用flutter写一个要求有倍速，全屏，音量调节，暂停播放按钮的视频播放组件，</p>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:video_player/video_player.dart'</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">VideoPlayerWidget</span> <span class="token keyword">extends</span> <span class="token class-name">StatefulWidget</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">final</span> <span class="token class-name">String</span> videoUrl<span class="token punctuation">;</span>
+
+  <span class="token class-name">VideoPlayerWidget</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>required <span class="token keyword">this</span><span class="token punctuation">.</span>videoUrl<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  _VideoPlayerWidgetState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_VideoPlayerWidgetState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> _VideoPlayerWidgetState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">VideoPlayerWidget</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  late <span class="token class-name">VideoPlayerController</span> _controller<span class="token punctuation">;</span>
+  double _volume <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
+  bool _isPlaying <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _controller <span class="token operator">=</span> <span class="token class-name">VideoPlayerController</span><span class="token punctuation">.</span><span class="token function">network</span><span class="token punctuation">(</span>widget<span class="token punctuation">.</span>videoUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _controller<span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    _controller<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">void</span> <span class="token function">_togglePlayPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_controller<span class="token punctuation">.</span>value<span class="token punctuation">.</span>isPlaying<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      _controller<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      _controller<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      _isPlaying <span class="token operator">=</span> <span class="token operator">!</span>_isPlaying<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">void</span> <span class="token function">_setVolume</span><span class="token punctuation">(</span>double value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    _controller<span class="token punctuation">.</span><span class="token function">setVolume</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      _volume <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Stack</span><span class="token punctuation">(</span>
+      children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token class-name">AspectRatio</span><span class="token punctuation">(</span>
+          aspectRatio<span class="token punctuation">:</span> _controller<span class="token punctuation">.</span>value<span class="token punctuation">.</span>aspectRatio<span class="token punctuation">,</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">VideoPlayer</span><span class="token punctuation">(</span>_controller<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Positioned</span><span class="token punctuation">.</span><span class="token function">bottomRight</span><span class="token punctuation">(</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
+            icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span>_isPlaying <span class="token operator">?</span> <span class="token class-name">Icons</span><span class="token punctuation">.</span>pause <span class="token punctuation">:</span> <span class="token class-name">Icons</span><span class="token punctuation">.</span>play_arrow<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            onPressed<span class="token punctuation">:</span> _togglePlayPause<span class="token punctuation">,</span>
+          <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Positioned</span><span class="token punctuation">.</span><span class="token function">bottomLeft</span><span class="token punctuation">(</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">Slider</span><span class="token punctuation">(</span>
+            min<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            max<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+            value<span class="token punctuation">:</span> _volume<span class="token punctuation">,</span>
+            onChanged<span class="token punctuation">:</span> _setVolume<span class="token punctuation">,</span>
+          <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'dart:io'</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:chewie/chewie.dart'</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:chewie_example/app/theme.dart'</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
+<span class="token comment">// ignore: depend_on_referenced_packages</span>
+<span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:video_player/video_player.dart'</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">ChewieDemo</span> <span class="token keyword">extends</span> <span class="token class-name">StatefulWidget</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token class-name">ChewieDemo</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">Key</span><span class="token operator">?</span> key<span class="token punctuation">,</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string-literal"><span class="token string">'Chewie Demo'</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">final</span> <span class="token class-name">String</span> title<span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">StatefulWidget</span><span class="token punctuation">></span></span> <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token function">_ChewieDemoState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> _ChewieDemoState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ChewieDemo</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">TargetPlatform</span><span class="token operator">?</span> _platform<span class="token punctuation">;</span>
+  late <span class="token class-name">VideoPlayerController</span> _videoPlayerController1<span class="token punctuation">;</span>
+  late <span class="token class-name">VideoPlayerController</span> _videoPlayerController2<span class="token punctuation">;</span>
+  <span class="token class-name">ChewieController</span><span class="token operator">?</span> _chewieController<span class="token punctuation">;</span>
+  int<span class="token operator">?</span> bufferDelay<span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">initializePlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    _videoPlayerController1<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _videoPlayerController2<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _chewieController<span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> srcs <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string-literal"><span class="token string">"https://assets.mixkit.co/videos/preview/mixkit-spinning-around-the-earth-29351-large.mp4"</span></span><span class="token punctuation">,</span>
+    <span class="token string-literal"><span class="token string">"https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4"</span></span><span class="token punctuation">,</span>
+    <span class="token string-literal"><span class="token string">"https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"</span></span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">void</span><span class="token punctuation">></span></span> <span class="token function">initializePlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
+    _videoPlayerController1 <span class="token operator">=</span>
+        <span class="token class-name">VideoPlayerController</span><span class="token punctuation">.</span><span class="token function">networkUrl</span><span class="token punctuation">(</span><span class="token class-name">Uri</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>srcs<span class="token punctuation">[</span>currPlayIndex<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _videoPlayerController2 <span class="token operator">=</span>
+        <span class="token class-name">VideoPlayerController</span><span class="token punctuation">.</span><span class="token function">networkUrl</span><span class="token punctuation">(</span><span class="token class-name">Uri</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>srcs<span class="token punctuation">[</span>currPlayIndex<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> <span class="token class-name">Future</span><span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      _videoPlayerController1<span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      _videoPlayerController2<span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">_createChewieController</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">void</span> <span class="token function">_createChewieController</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// final subtitles = [</span>
+    <span class="token comment">//     Subtitle(</span>
+    <span class="token comment">//       index: 0,</span>
+    <span class="token comment">//       start: Duration.zero,</span>
+    <span class="token comment">//       end: const Duration(seconds: 10),</span>
+    <span class="token comment">//       text: 'Hello from subtitles',</span>
+    <span class="token comment">//     ),</span>
+    <span class="token comment">//     Subtitle(</span>
+    <span class="token comment">//       index: 0,</span>
+    <span class="token comment">//       start: const Duration(seconds: 10),</span>
+    <span class="token comment">//       end: const Duration(seconds: 20),</span>
+    <span class="token comment">//       text: 'Whats up? :)',</span>
+    <span class="token comment">//     ),</span>
+    <span class="token comment">//   ];</span>
+
+    <span class="token keyword">final</span> subtitles <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token class-name">Subtitle</span><span class="token punctuation">(</span>
+        index<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        start<span class="token punctuation">:</span> <span class="token class-name">Duration</span><span class="token punctuation">.</span>zero<span class="token punctuation">,</span>
+        end<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Duration</span><span class="token punctuation">(</span>seconds<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        text<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">TextSpan</span><span class="token punctuation">(</span>
+          children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token class-name">TextSpan</span><span class="token punctuation">(</span>
+              text<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Hello'</span></span><span class="token punctuation">,</span>
+              style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>red<span class="token punctuation">,</span> fontSize<span class="token punctuation">:</span> <span class="token number">22</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">TextSpan</span><span class="token punctuation">(</span>
+              text<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">' from '</span></span><span class="token punctuation">,</span>
+              style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">,</span> fontSize<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">TextSpan</span><span class="token punctuation">(</span>
+              text<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'subtitles'</span></span><span class="token punctuation">,</span>
+              style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>blue<span class="token punctuation">,</span> fontSize<span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span>
+          <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token class-name">Subtitle</span><span class="token punctuation">(</span>
+        index<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        start<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Duration</span><span class="token punctuation">(</span>seconds<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        end<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Duration</span><span class="token punctuation">(</span>seconds<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        text<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Whats up? :)'</span></span><span class="token punctuation">,</span>
+        <span class="token comment">// text: const TextSpan(</span>
+        <span class="token comment">//   text: 'Whats up? :)',</span>
+        <span class="token comment">//   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),</span>
+        <span class="token comment">// ),</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    _chewieController <span class="token operator">=</span> <span class="token class-name">ChewieController</span><span class="token punctuation">(</span>
+      videoPlayerController<span class="token punctuation">:</span> _videoPlayerController1<span class="token punctuation">,</span>
+      autoPlay<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      looping<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      progressIndicatorDelay<span class="token punctuation">:</span>
+          bufferDelay <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token class-name">Duration</span><span class="token punctuation">(</span>milliseconds<span class="token punctuation">:</span> bufferDelay<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+      additionalOptions<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">OptionItem</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+          <span class="token class-name">OptionItem</span><span class="token punctuation">(</span>
+            onTap<span class="token punctuation">:</span> toggleVideo<span class="token punctuation">,</span>
+            iconData<span class="token punctuation">:</span> <span class="token class-name">Icons</span><span class="token punctuation">.</span>live_tv_sharp<span class="token punctuation">,</span>
+            title<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Toggle Video Src'</span></span><span class="token punctuation">,</span>
+          <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      subtitle<span class="token punctuation">:</span> <span class="token class-name">Subtitles</span><span class="token punctuation">(</span>subtitles<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      subtitleBuilder<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token keyword">dynamic</span> subtitle<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
+        padding<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        child<span class="token punctuation">:</span> subtitle <span class="token operator">is</span> <span class="token class-name">InlineSpan</span>
+            <span class="token operator">?</span> <span class="token class-name">RichText</span><span class="token punctuation">(</span>
+                text<span class="token punctuation">:</span> subtitle<span class="token punctuation">,</span>
+              <span class="token punctuation">)</span>
+            <span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
+                subtitle<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                style<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">)</span><span class="token punctuation">,</span>
+              <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+      hideControlsTimer<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Duration</span><span class="token punctuation">(</span>seconds<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+      <span class="token comment">// Try playing around with some of these other options:</span>
+
+      <span class="token comment">// showControls: false,</span>
+      <span class="token comment">// materialProgressColors: ChewieProgressColors(</span>
+      <span class="token comment">//   playedColor: Colors.red,</span>
+      <span class="token comment">//   handleColor: Colors.blue,</span>
+      <span class="token comment">//   backgroundColor: Colors.grey,</span>
+      <span class="token comment">//   bufferedColor: Colors.lightGreen,</span>
+      <span class="token comment">// ),</span>
+      <span class="token comment">// placeholder: Container(</span>
+      <span class="token comment">//   color: Colors.grey,</span>
+      <span class="token comment">// ),</span>
+      <span class="token comment">// autoInitialize: true,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  int currPlayIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">void</span><span class="token punctuation">></span></span> <span class="token function">toggleVideo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">await</span> _videoPlayerController1<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    currPlayIndex <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>currPlayIndex <span class="token operator">>=</span> srcs<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      currPlayIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">await</span> <span class="token function">initializePlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
+      title<span class="token punctuation">:</span> widget<span class="token punctuation">.</span>title<span class="token punctuation">,</span>
+      theme<span class="token punctuation">:</span> <span class="token class-name">AppTheme</span><span class="token punctuation">.</span>light<span class="token punctuation">.</span><span class="token function">copyWith</span><span class="token punctuation">(</span>
+        platform<span class="token punctuation">:</span> _platform <span class="token operator">?</span><span class="token operator">?</span> <span class="token class-name">Theme</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span>platform<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      home<span class="token punctuation">:</span> <span class="token class-name">Scaffold</span><span class="token punctuation">(</span>
+        appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
+          title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>widget<span class="token punctuation">.</span>title<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        body<span class="token punctuation">:</span> <span class="token class-name">Column</span><span class="token punctuation">(</span>
+          children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+            <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+              child<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
+                child<span class="token punctuation">:</span> _chewieController <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span>
+                        _chewieController<span class="token operator">!</span>
+                            <span class="token punctuation">.</span>videoPlayerController<span class="token punctuation">.</span>value<span class="token punctuation">.</span>isInitialized
+                    <span class="token operator">?</span> <span class="token class-name">Chewie</span><span class="token punctuation">(</span>
+                        controller<span class="token punctuation">:</span> _chewieController<span class="token operator">!</span><span class="token punctuation">,</span>
+                      <span class="token punctuation">)</span>
+                    <span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Column</span><span class="token punctuation">(</span>
+                        mainAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">MainAxisAlignment</span><span class="token punctuation">.</span>center<span class="token punctuation">,</span>
+                        children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                          <span class="token class-name">CircularProgressIndicator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                          <span class="token class-name">SizedBox</span><span class="token punctuation">(</span>height<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                          <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Loading'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+              <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">TextButton</span><span class="token punctuation">(</span>
+              onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                _chewieController<span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">enterFullScreen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+              child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Fullscreen'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Row</span><span class="token punctuation">(</span>
+              children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+                <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+                  child<span class="token punctuation">:</span> <span class="token class-name">TextButton</span><span class="token punctuation">(</span>
+                    onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                      <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        _videoPlayerController1<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        _videoPlayerController1<span class="token punctuation">.</span><span class="token function">seekTo</span><span class="token punctuation">(</span><span class="token class-name">Duration</span><span class="token punctuation">.</span>zero<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">_createChewieController</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Padding</span><span class="token punctuation">(</span>
+                      padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">16.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"Landscape Video"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+                  child<span class="token punctuation">:</span> <span class="token class-name">TextButton</span><span class="token punctuation">(</span>
+                    onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                      <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        _videoPlayerController2<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        _videoPlayerController2<span class="token punctuation">.</span><span class="token function">seekTo</span><span class="token punctuation">(</span><span class="token class-name">Duration</span><span class="token punctuation">.</span>zero<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        _chewieController <span class="token operator">=</span> _chewieController<span class="token operator">!</span><span class="token punctuation">.</span><span class="token function">copyWith</span><span class="token punctuation">(</span>
+                          videoPlayerController<span class="token punctuation">:</span> _videoPlayerController2<span class="token punctuation">,</span>
+                          autoPlay<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                          looping<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                          <span class="token comment">/* subtitle: Subtitles([
+                            Subtitle(
+                              index: 0,
+                              start: Duration.zero,
+                              end: const Duration(seconds: 10),
+                              text: 'Hello from subtitles',
+                            ),
+                            Subtitle(
+                              index: 0,
+                              start: const Duration(seconds: 10),
+                              end: const Duration(seconds: 20),
+                              text: 'Whats up? :)',
+                            ),
+                          ]),
+                          subtitleBuilder: (context, subtitle) => Container(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              subtitle,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ), */</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Padding</span><span class="token punctuation">(</span>
+                      padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">16.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"Portrait Video"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span>
+              <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Row</span><span class="token punctuation">(</span>
+              children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+                <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+                  child<span class="token punctuation">:</span> <span class="token class-name">TextButton</span><span class="token punctuation">(</span>
+                    onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                      <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        _platform <span class="token operator">=</span> <span class="token class-name">TargetPlatform</span><span class="token punctuation">.</span>android<span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Padding</span><span class="token punctuation">(</span>
+                      padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">16.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"Android controls"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+                  child<span class="token punctuation">:</span> <span class="token class-name">TextButton</span><span class="token punctuation">(</span>
+                    onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                      <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        _platform <span class="token operator">=</span> <span class="token class-name">TargetPlatform</span><span class="token punctuation">.</span>iOS<span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Padding</span><span class="token punctuation">(</span>
+                      padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">16.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"iOS controls"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span>
+              <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Row</span><span class="token punctuation">(</span>
+              children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+                <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+                  child<span class="token punctuation">:</span> <span class="token class-name">TextButton</span><span class="token punctuation">(</span>
+                    onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                      <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        _platform <span class="token operator">=</span> <span class="token class-name">TargetPlatform</span><span class="token punctuation">.</span>windows<span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Padding</span><span class="token punctuation">(</span>
+                      padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">16.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"Desktop controls"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+              <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">Platform</span><span class="token punctuation">.</span>isAndroid<span class="token punctuation">)</span>
+              <span class="token class-name">ListTile</span><span class="token punctuation">(</span>
+                title<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"Delay"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                subtitle<span class="token punctuation">:</span> <span class="token class-name">DelaySlider</span><span class="token punctuation">(</span>
+                  delay<span class="token punctuation">:</span>
+                      _chewieController<span class="token operator">?</span><span class="token punctuation">.</span>progressIndicatorDelay<span class="token operator">?</span><span class="token punctuation">.</span>inMilliseconds<span class="token punctuation">,</span>
+                  onSave<span class="token punctuation">:</span> <span class="token punctuation">(</span>delay<span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>delay <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                      bufferDelay <span class="token operator">=</span> delay <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token keyword">null</span> <span class="token punctuation">:</span> delay<span class="token punctuation">;</span>
+                      <span class="token keyword">await</span> <span class="token function">initializePlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+                  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+              <span class="token punctuation">)</span>
+          <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">DelaySlider</span> <span class="token keyword">extends</span> <span class="token class-name">StatefulWidget</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token class-name">DelaySlider</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token class-name">Key</span><span class="token operator">?</span> key<span class="token punctuation">,</span> required <span class="token keyword">this</span><span class="token punctuation">.</span>delay<span class="token punctuation">,</span> required <span class="token keyword">this</span><span class="token punctuation">.</span>onSave<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">final</span> int<span class="token operator">?</span> delay<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token class-name">Function</span><span class="token punctuation">(</span>int<span class="token operator">?</span><span class="token punctuation">)</span> onSave<span class="token punctuation">;</span>
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">DelaySlider</span><span class="token punctuation">></span></span> <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_DelaySliderState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> _DelaySliderState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">DelaySlider</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  int<span class="token operator">?</span> delay<span class="token punctuation">;</span>
+  bool saved <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token keyword">void</span> <span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    delay <span class="token operator">=</span> widget<span class="token punctuation">.</span>delay<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token metadata function">@override</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> int max <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token class-name">ListTile</span><span class="token punctuation">(</span>
+      title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
+        <span class="token string-literal"><span class="token string">"Progress indicator delay $&#123;delay != null ? "</span></span>$<span class="token punctuation">&#123;</span>delay<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> MS" <span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">""</span></span><span class="token punctuation">&#125;</span>"<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      subtitle<span class="token punctuation">:</span> <span class="token class-name">Slider</span><span class="token punctuation">(</span>
+        value<span class="token punctuation">:</span> delay <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token punctuation">(</span>delay<span class="token operator">!</span> <span class="token operator">/</span> max<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        onChanged<span class="token punctuation">:</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
+          delay <span class="token operator">=</span> <span class="token punctuation">(</span>value <span class="token operator">*</span> max<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            saved <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      trailing<span class="token punctuation">:</span> <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
+        icon<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>save<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        onPressed<span class="token punctuation">:</span> saved
+            <span class="token operator">?</span> <span class="token keyword">null</span>
+            <span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                widget<span class="token punctuation">.</span><span class="token function">onSave</span><span class="token punctuation">(</span>delay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                  saved <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>菠萝</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://kiritoabc.github.io/2023/11/06/DDD/" title="DDD">https://kiritoabc.github.io/2023/11/06/DDD/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2023/11/06/Axios/" rel="prev" title="Axios"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">Axios</span></a></div><div class="post-nav-item"></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 菠萝</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style></body></html>
