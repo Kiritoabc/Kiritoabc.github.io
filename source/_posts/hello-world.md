@@ -4,7 +4,14 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
+description： 关于Axios我在开发中的一些小技巧，欸嘿。
 ---
+
+这里是摘要
+
+<!-- more -->
+
+
 
 
 > 自我介绍环节
