@@ -6,20 +6,17 @@ readmore: true
 hideTime: true
 categories: 前端
 tag: 前端开发小技巧
-description： 关于Axios我在开发中的一些小技巧，欸嘿。
 ---
 
 Axios学习
 
-<!-- more -->
-
-
-
-
-
 # Axios
 
 ## 项目中对于axios的简单二次封装
+
+
+
+<!-- more -->
 
 - 使用yarn添加axios
 

@@ -12,7 +12,7 @@ tag: 大数据知识
 
 **HDFS** （**Hadoop Distributed File System**）是 Hadoop 下的分布式文件系统，具有高容错、高吞吐量等特性，可以部署在低成本的硬件上。
 
-
+<!-- more -->
 
 ## 二、HDFS设计原理
 
