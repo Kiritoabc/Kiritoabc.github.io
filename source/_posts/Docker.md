@@ -10,13 +10,15 @@ tag: 后端开发知识
 
 > 记录Docker的一些应用
 
-<!-- more -->
+
 
 # 如何编写Dockerfile文件部署go项目
 
 > 对于项目而言，我们要将所有项目编排在容器中，一般容器与容器之间的交互可以通过ip，
 > 但是比较麻烦，所以，这里推荐使用docker的network，将所有容器都存放在一个网络中，
 > 这样子容器之间的通信就相对比较容易。
+
+<!-- more -->
 
 1. 如何创建网络，使用命令
 ~~~Shell
@@ -96,4 +98,115 @@ EXPOSE 8888
 ENTRYPOINT ./server -c config.docker.yaml
 
 ~~~
+
+
+
+> 使用dockerfile文件构建我们的镜像
+
+命令：
+
+~~~powershell
+docker build -t qpp-demo -f ./Dockerfile ./
+~~~
+
+-t 指定镜像的名称，如果要指定版本，采用 image:tag 的写法。
+
+-f 指定Dockerfile文件，默认当前文件夹下的Dockerfile。
+
+
+
+启动镜像
+
+~~~powershell
+docker run -d --net=app-demo-net -p 8888:8888 --name my-app-docker app-demo
+~~~
+
+donfig.docker.yaml配置文件如下
+
+~~~yam
+
+# zap logger 的配置
+zap:
+  level: info
+  format: console
+  prefix: "[Chinese_Learning_App]"
+  director: log
+  show-line: true
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  log-in-console: true
+
+
+
+# redis configuration
+#redis:
+#  db: 0
+#  addr: 127.0.0.1:6379
+#  password: ""
+
+
+# system configuration
+system:
+  env: public # Change to "develop" to skip authentication for development mode
+  addr: 8888
+  db-type: mysql
+  oss-type: local # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
+  use-redis: false # 使用redis
+  use-multipoint: false
+  # IP限制次数 一个小时15000次
+  iplimit-count: 15000
+  #  IP限制一个小时
+  iplimit-time: 3600
+  #  路由全局前缀
+  router-prefix: ""
+
+
+# mysql connect configuration
+# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
+mysql:
+  path: docker_mysql
+  port: "3306"
+  config: "charset=utf8mb4&parseTime=True&loc=Local"
+  db-name: "Chinese_Learning_DB"
+  username: "root"
+  password: "123456"
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
+
+
+# MinIo的配置
+minio:
+  endpoint: my_minio:9001           # minio 的url
+  accessKey: minio                              # userName
+  secretKey: minio@123456                       # password
+  bucketName: "test"
+  region: us-east-1
+  useSSL: false
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
