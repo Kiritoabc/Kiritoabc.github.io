@@ -1,5 +1,5 @@
 ---
-title: Redis
+title: Redis源码阅读0
 author: 菠萝
 email: 2493381254@qq.com
 readmore: true
@@ -20,7 +20,7 @@ Redis通常被称为数据结构服务器。这意味着Redis通过一组命令�
 
 ## 问题一：Redis解析执行命令行命令的流程？
 
-<!--more--->
+<!-- more -->
 
 Redis server 和一个客户端建立连接后，会在事件驱动框架中注册可读事件——客户端的命令请求。命令处理对应 4 个阶段：
 
