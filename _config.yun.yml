@@ -1,12 +1,12 @@
 avatar:
   enable: true
-  url: /images/avatar.jpg
+  url: /images/3.jpg
   rounded: true
   opacity: 1
   mickey_mouse: true
   status:
     enable: true
-    emoji: 😭
+    emoji: 😊
     message: 不想上学
 
 colors:
