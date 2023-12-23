@@ -318,3 +318,61 @@ db.Mapper = reflectx.NewMapperFunc("json", strings.ToLower)
 - 确保每个事务通过Commit()或Rollback()返回其连接
 
 如果您忽略了这些事情中的一件，它们使用的连接可能会被保留到垃圾收集，并且您的数据库最终将立即创建更多的连接以补偿它使用的连接。注意，Rows.Close()可以安全地调用多次，所以不要害怕在不必要的地方调用它。
+
+
+
+
+
+# sqlx + Squirrel
+
+**Squirrel**
+
+> **Squirrel is not an ORM.** For an application of Squirrel, check out [structable, a table-struct mapper](https://github.com/Masterminds/structable)
+
+~~~go
+package main
+
+import (
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+)
+import sq "github.com/Masterminds/squirrel"
+
+var DB *sqlx.DB
+
+func initMysql() (err error) {
+	dsn := "root:123456@tcp(127.0.0.1:3306)/demo"
+	DB, err = sqlx.Connect("mysql", dsn)
+	if err != nil {
+		_ = fmt.Sprintf("database connect error: %v\n", err)
+		return err
+	}
+	DB.SetMaxOpenConns(200)
+	DB.SetMaxIdleConns(20)
+	return
+}
+
+func main() {
+	fmt.Println("hello squirrel")
+	_ = initMysql()
+	sql, args, err := sq.Select("*").
+		From("user").
+		Where(sq.Eq{"id": 2}).ToSql()
+	fmt.Printf("sql: %s, args: %v, err: %v\n", sql, args[0], err)
+	// select * from user where id = 2
+	var id int64
+	var firstNam string
+	var lastname string
+	var age int64
+
+	err = DB.QueryRow(sql, args...).
+		Scan(&id, &age, &firstNam, &lastname)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("id:%d, firstname:%s, lastname:%s, age:%d\n", id, firstNam, lastname, age)
+}
+~~~
+
