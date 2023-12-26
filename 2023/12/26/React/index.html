@@ -15,14 +15,14 @@ document.addEventListener("pjax:success", initScrollReveal);
 <meta property="og:site_name" content="牵风散步の雲">
 <meta property="og:description" content="复习React的相关知识">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kiritoabc.github.io/React/1697176588929.png">
-<meta property="og:image" content="https://kiritoabc.github.io/React/1697176616321.png">
-<meta property="article:published_time" content="2023-12-26T06:43:31.903Z">
-<meta property="article:modified_time" content="2023-12-26T06:43:31.903Z">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/12/26/React/1697176588929.png">
+<meta property="og:image" content="https://kiritoabc.github.io/2023/12/26/React/1697176616321.png">
+<meta property="article:published_time" content="2023-12-26T06:52:16.482Z">
+<meta property="article:modified_time" content="2023-12-26T06:52:16.482Z">
 <meta property="article:author" content="菠萝">
 <meta property="article:tag" content="前端知识">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kiritoabc.github.io/React/1697176588929.png"><script>(function() {
+<meta name="twitter:image" content="https://kiritoabc.github.io/2023/12/26/React/1697176588929.png"><script>(function() {
   if (CONFIG.mode !== 'auto') return
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
   const setting = localStorage.getItem('darken-mode') || 'auto'
@@ -111,11 +111,13 @@ IconifyProviders = {
 <h3 id="8-使用Hook"><a href="#8-使用Hook" class="headerlink" title="8. 使用Hook"></a>8. 使用Hook</h3><p>以 <code>use</code> 开头的函数被称为 <strong>Hook</strong>。<code>useState</code> 是 React 提供的一个内置 Hook。你可以在 <a target="_blank" rel="noopener" href="https://react.docschina.org/reference/react">React API 参考</a> 中找到其他内置的 Hook。你也可以通过组合现有的 Hook 来编写属于你自己的 Hook。</p>
 <p>Hook 比普通函数更为严格。你只能在你的组件（或其他 Hook）的 <strong>顶层</strong> 调用 Hook。如果你想在一个条件或循环中使用 <code>useState</code>，请提取一个新的组件并在组件内部使用它。</p>
 <h3 id="9-组件间共享数据"><a href="#9-组件间共享数据" class="headerlink" title="9. 组件间共享数据"></a>9. 组件间共享数据</h3><p>在前面的示例中，每个 <code>MyButton</code> 都有自己独立的 <code>count</code>，当每个按钮被点击时，只有被点击按钮的 <code>count</code> 才会发生改变：</p>
-<p><img src="/React/1697176588929.png" alt="1697176588929" loading="lazy"></p>
+<img src="/2023/12/26/React/1697176588929.png" class="" width="1697176588929" loading="lazy">
+
 <p>然而，你经常需要组件 <strong>共享数据并一起更新</strong>。</p>
 <p>为了使得 <code>MyButton</code> 组件显示相同的 <code>count</code> 并一起更新，你需要将各个按钮的 state “向上” 移动到最接近包含所有按钮的组件之中。</p>
 <p>在这个示例中，它是 <code>MyApp</code>：</p>
-<p><img src="/React/1697176616321.png" alt="1697176616321" loading="lazy"></p>
+<img src="/2023/12/26/React/1697176616321.png" class="" width="1697176616321" loading="lazy">
+
 <p>此刻，当你点击任何一个按钮时，<code>MyApp</code> 中的 <code>count</code> 都将改变，同时会改变 <code>MyButton</code> 中的两个 count。具体代码如下：</p>
 <p>首先，将 <code>MyButton</code> 的 <strong>state 上移到</strong> <code>MyApp</code> 中：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">MyApp</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">setCount</span>(count + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Counters that update separately<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">MyButton</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">MyButton</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyButton</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ... we&#x27;re moving code from here ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
