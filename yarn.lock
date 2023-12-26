@@ -610,9 +610,9 @@ has@^1.0.3:
   version "1.0.4"
   resolved "https://registry.npmmirror.com/has/-/has-1.0.4.tgz"
 
-hexo-asset-img@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/hexo-asset-img/-/hexo-asset-img-1.0.0.tgz"
+hexo-asset-img@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/hexo-asset-img/-/hexo-asset-img-1.1.0.tgz#8d27096c8538b9f885b3c586b89e11e5bdf1e84e"
 
 hexo-cli@^4.3.0:
   version "4.3.1"
