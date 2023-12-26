@@ -34,34 +34,6 @@ tags:
 categories:
   笔记: dimgray
 
-# cdn:
-#   pre: 'https://cdn.jsdelivr.net/gh/Kiritoabc/Kiritoabc.github.io@latest'
-#   css:
-#   js:
-#     base:
-#       - xxx
-#     async:
-#       # 默认引入的图标资源，使用 iconfont
-#       iconfont: //at.alicdn.com/t/font_1140697_dxory92pb0h.js
-#     defer:
-
-#   preload:
-#     style:
-#       - /css/hexo-theme-yun.css
-#     script:
-#       - /js/hexo-theme-yun.js
-
-#   prefetch:
-#     script:
-#       - /js/sidebar.js
-
-#   dns_prefetch:
-#     - https://cos.yunyoujun.cn
-
-#   # do more(TCP handshake...) than dns-fetch
-#   preconnect:
-#     - https://cdn.jsdelivr.net
-
 
 head:
   js:
@@ -70,12 +42,6 @@ head:
       iconfont: //at.alicdn.com/t/font_1140697_dxory92pb0h.js
 
 social:
-  # - name: RSS
-  #   # set rss in your root config
-  #   # https://github.com/hexojs/hexo-generator-feed
-  #   link: /atom.xml # config.feed.path
-  #   icon: ri:rss-line
-  #   color: orange
   - name: GitHub
     link: https://github.com/Kiritoabc
     icon: ri:github-line
@@ -84,47 +50,14 @@ social:
     link: 2493381254@qq.com
     icon: ri:mail-line
     color: '#8E71C1'
-  # - name: 微博
-  #   link: https://weibo.com/jizhideyunyoujun
-  #   icon: ri:weibo-line
-  #   color: '#E6162D'
-  # - name: 豆瓣
-  #   link: https://www.douban.com/people/yunyoujun/
-  #   icon: ri:douban-line
-  #   color: '#007722'
   - name: 网易云音乐
     link: https://music.163.com/#/user/home?id=583001071
     icon: ri:netease-cloud-music-line
     color: '#C10D0C'
-  # - name: 知乎
-  #   link: https://www.zhihu.com/people/yunyoujun/
-  #   icon: ri:zhihu-line
-  #   color: '#0084FF'
   - name: 哔哩哔哩动画
     link: https://space.bilibili.com/160107797
     icon: ri:bilibili-line
     color: '#FF8EB3'
-  # - name: 微信公众号
-  #   link: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/about/white-qrcode-and-search.jpg
-  #   icon: ri:wechat-2-line
-  #   color: '#1AAD19'
-  # - name: Twitter
-  #   link: https://twitter.com/YunYouJun
-  #   icon: ri:twitter-line
-  #   color: '#1da1f2'
-  # - name: Telegram
-  #   link: https://t.me/YunYouJun
-  #   icon: ri:telegram-line
-  #   color: '#0088CC'
-  # - name: Telegram Channel
-  #   link: https://t.me/elpsycn
-  #   icon: ri:telegram-fill
-  #   color: '#0088CC'
-  # - name: Travelling
-  #   link: https://www.travellings.cn/go.html
-  #   icon: ri:send-plane-2-line
-  #   color: black
-
 
 banner:
   enable: true
@@ -165,13 +98,11 @@ fireworks:
 # _config.yun.yml
 medium_zoom: true
 
-
 cursor:
   enable: false
   default: https://cdn.yunyoujun.cn/css/md-cursors/pointer.cur
   pointer: https://cdn.yunyoujun.cn/css/md-cursors/link.cur
   text: https://cdn.yunyoujun.cn/css/md-cursors/text.cur
-
 
 sidebar:
   bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-1.jpg
@@ -179,7 +110,6 @@ sidebar:
   tagcloud:
     enable: false
     amount: 20
-
 
 menu:
   home:
@@ -195,9 +125,7 @@ menu:
     - type: tags
       path: /tags/
       icon: ri:price-tag-3-line
-    # - path: https://www.yunyoujun.cn
-    #   icon: ri:cloud-line
-    #   count: 你猜
+
   custom:
     title: 文档
     path: https://yun.yunyoujun.cn
@@ -292,10 +220,36 @@ wordcount:
   count: true
   time: true
 
-
 url: https://Kiritoabc.github.io
 
 post_asset_folder: true
 marked:
   prependRoot: true
   postAsset: true
+
+
+vendors:
+  waline:
+    js: "@waline/client@v2/dist/waline.js"
+
+#baidu_push: true
+
+#iconify:
+#  global: true
+#
+#local_search:
+#  enable: true
+#
+#engine_search:
+#  enable: false
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''

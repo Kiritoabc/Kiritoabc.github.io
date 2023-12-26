@@ -192,3 +192,48 @@ func main() {
 
 > 在 Go 语言中，可以使用 time.LoadLocation() 函数来加载时区信息，以便将本地时间转换为指定时区的时间。同时，还可以使用 time.Parse() 函数来将字符串解析成时间对象，并使用 time.Format() 函数将时间对象格式化成指定格式的字符串。
 
+~~~go
+package main
+
+import "time"
+import "fmt"
+
+func main() {
+	// 获取时区
+	location, err := time.LoadLocation("Asia/Shanghai")
+	if err != nil {
+		return
+	}
+	// 将本地时间转换成指定时区
+	t := time.Now().In(location)
+	fmt.Println("当前时间（相对于上海）:", t)
+
+	// 解析字符串为时间对象
+	layout := "2006-01-02 15:04:05"
+	str := "2023-12-26 14:00:00"
+	parse, err := time.Parse(layout, str)
+	if err != nil {
+		return
+	}
+	fmt.Println("解析字符串:", parse)
+
+	// 将时间对象解析为字符串
+	layout2 := "2006年01月02日 15时04分05秒"
+	str2 := parse.Format(layout2)
+	fmt.Println("格式化时间:", str2)
+}
+
+~~~
+
+~~~shell
+当前时间（相对于上海）: 2023-12-26 17:29:01.6119526 +0800 CST
+解析字符串: 2023-12-26 14:00:00 +0000 UTC
+格式化时间: 2023年12月26日 14时00分00秒 
+~~~
+
+在上面的示例代码中，我们加载了纽约时区的信息，并将当前时间转换为纽约时区的时间。接着，我们使用 `time.Parse()` 函数将一个时间字符串解析成时间对象，再使用 `time.Format()` 函数将时间对象格式化成指定格式的字符串。
+
+需要注意的是，时间格式字符串中的格式化符号必须是固定的，不能随意指定。常用的格式化符号如下：
+
+![1703583004741](go时间处理/1703583004741.png)
+
