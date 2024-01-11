@@ -4,6 +4,7 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
+abbrlink: 9194
 ---
 
 这里是摘要

@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端
+abbrlink: 51848
 ---
 
 > 由于最近开发碰到了需要调用外部软件程序的任务，对此有一定的兴趣，所以本人翻阅互联网，寻找如何操作，得此文章。

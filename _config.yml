@@ -45,17 +45,25 @@ relative_link: false
 future: true
 
 # _config.yml
-syntax_highlighter: highlight.js
+syntax_highlighter:
 highlight:
-  line_number: true
-  auto_detect: false
+  enable: false
+  line_number: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
   hljs: false
 prismjs:
+  enable: false
   preprocess: true
-  line_number: true
+  line_number: false
   tab_replace: ''
+
+prism_plugin:
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: false    # default false
+  custom_css:
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -98,9 +106,35 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yun
-
+#theme: yun
+theme: hexo-theme-sakuraplus
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+
+githubEmojis:
+  enable: true
+  className: github-emoji
+  inject: true
+  styles:
+  customEmojis:
+
+  #permalink: :year/:month/:day/:title/ #主题默认文章链接配置
+  permalink: post/:abbrlink.html #修改
+
+  ## 启用算法生成不重复文件编号，添加
+  abbrlink:
+    alg: crc16   #算法： crc16(default) and crc32
+    rep: hex   #进制： dec(default) and hex: dec #输出进制：十进制和十六进制，默认为10进制。丨dec为十进制，hex为十六进制
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date

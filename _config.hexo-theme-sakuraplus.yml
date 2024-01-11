@@ -1,0 +1,38 @@
+menus:
+  首页: { path: /, fa: fa-fort-awesome faa-shake }
+  归档: { path: /archives, fa: fa-archive faa-shake, submenus: {
+    统计: {path: /analytics/ , fa: fa-line-chart },
+    标签: {path: /tags, fa: fa-tags },
+#    技术: {path: /categories/技术/, fa: fa-code },
+#    生活: {path: /categories/生活/, fa: fa-file-text-o } #,
+      #资源: {path: /categories/资源/, fa: fa-cloud-download },
+      #随想: {path: /categories/随想/, fa: fa-commenting-o },
+      #转载: {path: /categories/转载/, fa: fa-book }
+  } }
+#  清单: { path: javascript:;, fa: fa-list-ul faa-vertical, submenus: {
+#    说说: {path: /artitalk/, fa: fa-commenting-o fa-commenting },
+#    相册: {path: /photos/, fa: fa-photo },
+#    悦读: {path: /books/, fa: fa-book },
+#    追剧: {path: /movies/, fa: fa-film faa-vertical }
+#  } }
+#  留言板: { path: /comment/, fa: fa-pencil-square-o faa-tada }
+  友人帐: { path: /links/, fa: fa-link faa-shake }
+#  赞赏: { path: /donate/, fa: fa-heart faa-pulse }
+  关于: { path: /, fa: fa-leaf faa-wrench , submenus: {
+    我？: {path: /about/, fa: fa-meetup},
+#    主题: {path: /theme-sakura/, fa: iconfont icon-sakura },
+    # Lab: {path: /lab/, fa: fa-cogs },
+    # valine: {path: /valine/, fa: fa-cogs }
+  } }
+#  项目: { path: /client/, fa: fa-android faa-vertical }
+  RSS: { path: /atom.xml, fa: fa-rss faa-pulse }
+
+#social  url, img PC端配置
+social:
+  gitee: {url: https://gitee.com/kirito2493381254, img: /img/social/gitee.png}
+  github: {url: http://github.com/Kiritoabc, img: /img/social/github.png}
+  csdn: {url: https://blog.csdn.net/A__pineapple?, img: /img/social/csdn.png}
+  bilibili: {url: https://space.bilibili.com/160107797, img: /img/social/bilibili.png}
+  wangyiyun: {url: https://music.163.com/#/user/home?id=583001071, img: /img/social/wangyiyun.png}
+
+

@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: redis
 tag: redis
+abbrlink: 23024
 ---
 
 > 主要记录我对于redis7.2.3源码的阅读

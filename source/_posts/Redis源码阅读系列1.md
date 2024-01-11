@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: redis
 tag: redis
+abbrlink: 39217
 ---
 
 > 这里我想了解Redis的一些基础的类型的具体实现，所有尝试阅读Redis的源码，从源码中学习这些类型的实现。

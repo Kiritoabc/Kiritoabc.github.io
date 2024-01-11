@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端开发小技巧
+abbrlink: 33561
 ---
 
 > ​    在使用定时调度任务的时候，我们最常用的，就是cron表达式了。通过cron表达式来指定任务在某个时间点或者周期性的执行。cron表达式配置起来简洁方便，无论是Spring的@Scheduled还是用Quartz框架，都支持cron表达式。但是理解cron表达式，还是需要花上几分钟的时间来学习的。

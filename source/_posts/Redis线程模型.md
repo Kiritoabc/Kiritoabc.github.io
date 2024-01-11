@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: redis
 tag: redis
+abbrlink: 17220
 ---
 
 

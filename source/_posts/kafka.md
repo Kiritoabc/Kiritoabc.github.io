@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 中间件
 tag: 中间件
+abbrlink: 22121
 ---
 
 > Kafka 结合了三个关键功能，因此您可以使用 一个经过实战检验的解决方案来实现端到端事件流的 [用例：](https://kafka.apache.org/powered-by)
@@ -170,7 +171,7 @@ networks:
 
 **docker run启动**
 
-~~~bash
+~~~powershell
 docker run -d --name kafka-server --hostname kafka-server --network kafka-learn `
      -p 9092:9092 `
      -p 9093:9093 `
@@ -187,7 +188,7 @@ docker run -d --name kafka-server --hostname kafka-server --network kafka-learn 
 
 **kafka-ui**
 
-docker-compose.yaml文件
+docker-compose.yaml文件集群模式
 
 ~~~yaml
 version: "3"
@@ -206,6 +207,84 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       # 集群地址
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:9092,kafka2:9092,kafka3:9092
+~~~
+
+单kafka模式
+
+~~~yaml
+version: '3'
+services:
+  kafka-single-broker:
+    image: confluentinc/cp-kafka:latest # 确保使用的镜像版本支持KRaft模式
+    container_name: kafka-single-broker
+    hostname: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093" # Kafka内部使用的控制器监听端口
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_INTER_BROKER_PROTOCOL_VERSION: "2.8" # 根据你的Kafka版本选择合适的协议版本
+      KAFKA_AUTO_LEADER_REBALANCE_ENABLE: "false"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,CONTROLLER://kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_KRAFT_CLUSTER_ID: my-cluster-id # 设置唯一的Kafka Raft集群ID
+      KAFKA_NUM_PARTITIONS: 1
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: Local Kafka Cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-single-broker:9092
+      # 如果需要安全认证，请在此处添加相关配置
+
+networks:
+  default:
+    name: kafka-net
+~~~
+
+
+
+**创建网络**
+
+~~~powershell
+docker network create app-tier --driver bridge
+~~~
+
+
+
+**启动服务**
+
+~~~powershell
+docker run -d --name kafka-server --hostname kafka-server `
+    --network app-tier `
+    -e KAFKA_CFG_NODE_ID=0 `
+    -e KAFKA_CFG_PROCESS_ROLES=controller,broker `
+    -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 `
+    -e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT `
+    -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-server:9093 `
+    -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER `
+    bitnami/kafka:latest
+~~~
+
+
+
+**kafka客户端**
+
+~~~powershell
+docker run -it --rm `
+--network app-tier `
+bitnami/kafka:latest kafka-topics.sh --list  --bootstrap-server kafka-server:9092
 ~~~
 
 

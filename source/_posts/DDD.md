@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端开发小技巧
+abbrlink: 9843
 ---
 
 > 该思想源于2003年 Eric Evans编写的“Domain-Driven Design领域驱动设计”简称DDD，Evans DDD是一套综合软件系统分析和设计的面向对象建模方法。

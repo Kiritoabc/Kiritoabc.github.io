@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: go
 tag: go
+abbrlink: 54102
 ---
 
 
