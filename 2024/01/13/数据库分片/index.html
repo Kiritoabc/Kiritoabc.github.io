@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- cungudafa百度收录验证编号 -->
+  <!-- <meta name="baidu-site-verification" content="LukfTcyXmC" /> -->
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">数据库分片 | 牵风散步の雲</title>
+  
+    <link rel="shortcut icon" href="/images/sakura.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/style.css" type="text/css" media="all" id="saukra_css-css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/jquery.fancybox.min.css" media="all">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/tags.css" media="all">
+  
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/logo.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/fonts/LOGO/logo.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+
+  <!-- 分析 -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <!-- Baidu Analytics -->
+
+  
+  <!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+  " type="text/css" media="all"> -->
+  <script>
+    /*Initial Variables*/
+    var mashiro_option = new Object();
+    var mashiro_global = new Object();
+    mashiro_option.NProgressON = true;
+    /* 
+    * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+    * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+    */
+    mashiro_option.email_domain = "";
+    mashiro_option.email_name = "";
+    mashiro_option.cookie_version_control = "";
+    mashiro_option.qzone_autocomplete = false;
+    mashiro_option.site_name = "菠箩箩の小破站";
+    mashiro_option.author_name = "小破站";
+    mashiro_option.site_url = "https://Kiritoabc.github.io";
+    mashiro_option.v_appId = "";//
+    mashiro_option.v_appKey = "";//
+    mashiro_option.mathjax = "1";
+    mashiro_option.copyright_enable = "false" ;
+    mashiro_option.copyright_minCharNumber = parseInt("120") ;
+    mashiro_option.copyright_description = "本文章著作权归作者所有，任何形式的转载都请注明出处。" ;
+    mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+    mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+    // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+    // mashiro_option.float_player_on = true;
+
+    /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+    var bg = "https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover7.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover2.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover3.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover4.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg".split(",");
+    var bgindex = Math.floor(Math.random()*bg.length);
+    if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+      alert('朋友，IE浏览器未适配哦~');
+    }
+  </script>
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="牵风散步の雲" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head> 
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <!-- Dynamic sliders -->
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <!-- Main content -->
+  <section id="main-container">
+    <!-- Top menu -->
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://Kiritoabc.github.io">
+          <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>莫笑江湖少年梦 谁不少年梦江湖</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://gitee.com/kirito2493381254" target="_blank" class="social-github" title="gitee">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/gitee.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://github.com/Kiritoabc" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://blog.csdn.net/A__pineapple?" target="_blank" class="social-github" title="csdn">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/csdn.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/160107797" target="_blank" class="social-github" title="bilibili">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=583001071" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  
+  <div id="video-container">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <!-- banner -->
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+        <span class="site-title">
+            <span class="logolink logo">
+                <a href="/">
+                    <ruby>
+                    <span class="sakuraso">菠箩箩</span>
+                    <span class="no">の</span>
+                    <span class="shironeko">小屋</span>
+                    <rp></rp>
+                    <rt class="logo">菠箩箩の</rt>
+                    <rp></rp>
+                    </ruby>
+                  </a>
+            </span>
+          </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/analytics/">
+                          <i class="fa fa-line-chart" aria-hidden="true"></i>
+                          统计
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      
+      <!-- body -->
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1"
+        class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content">  -->
+        <!--套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
+<p>任何看到显著增长的应用程序或网站，最终都需要进行扩展，以适应流量的增加。以确保数据安全性和完整性的方式进行扩展，对于数据驱动的应用程序和网站来说十分重要。人们可能很难预测某个网站或应用程序的流行程度，也很难预测这种流行程度会持续多久，这就是为什么有些机构选择“可动态扩展的”数据库架构的原因。</p>
+</blockquote>
+<p>“可动态扩展的”数据库架构：分片数据库。近年来，分片（Sharding）一直受到很多关注，但许多人并没有清楚地了解它是什么，或者对数据库进行分片可能有意义的场景。我们将讨论分片是什么，它的一些主要优点和缺点，以及一些常见的分片方法。</p>
+<span id="more"></span>
+
+<h2 id="What-is-Sharding-什么是分片？"><a href="#What-is-Sharding-什么是分片？" class="headerlink" title="What is Sharding? 什么是分片？"></a><strong>What is Sharding? 什么是分片？</strong></h2><p>分片（Sharding）是一种与水平切分（horizontal partitioning）相关的数据库架构模式——将一个表里面的行，分成多个不同的表的做法（称为分区）。每个区都具有相同的模式和列，但每个表有完全不同的行。同样，每个分区中保存的数据都是唯一的，并且与其他分区中保存的数据无关。</p>
+<p>从水平切分（horizontal partitioning）与垂直切分（vertical partitioning）的关系，可能会有所帮助。在垂直切分表中，所有的列被分离出来，并放入新的不同的表中。每个垂直切分内的数据，独立于所有其他分区中的数据，并且每个分区都包含不同的行和列。下图说明了如何在水平和垂直方向上对表进行分区：</p>
+<img src="/2024/01/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/v2-49c52a210fde396055b71509ef0558ac_r.jpg" class="" title="img">	
+
+<p>分片（Sharding）将一个数据分成两个或多个较小的块，称为逻辑分片（logical shards）。然后，逻辑分片（logical shards）分布在单独的数据库节点上，称为物理分片（physical shards）。物理分片（physical shards）可以容纳多个逻辑分片（logical shards）。尽管如此，所有分片中保存的数据，共同代表整个逻辑数据集。</p>
+<p>数据库分片（Database shards）是无共享架构的一个例子。这意味着分片是自治的：分片间不共享任何相同的数据或服务器资源。但是在某些情况下，将某些表复制到每个分片中作为参考表是有意义的。例如，假设某个应用程序的数据库依赖于重量测量的固定转换率。通过将包含必要转换率数据的表复制到每个分片中，有助于确保查询所需的所有数据都保存在每个分片中。</p>
+<p>通常，分片（Sharding）在应用程序级别进行实现。这意味着应用程序包含“要向哪个分片发送读和写”的代码。但是，某些数据库管理系统内置了分片功能，允许您直接在数据库级别实现分片。</p>
+<p>以上是分片（Sharding）的概述，接下来让我们来看一下，这种数据库架构的优点和缺点。</p>
+<h2 id="Benefits-of-Sharding-分片的好处"><a href="#Benefits-of-Sharding-分片的好处" class="headerlink" title="Benefits of Sharding 分片的好处"></a><strong>Benefits of Sharding 分片的好处</strong></h2><p>数据库分片的主要吸引力在于，它可以帮助促进水平扩展（horizontal scaling），也称为向外扩展（scaling out）。水平扩展是将更多的机器添加到现有堆栈中，以分散负载，允许更多的流量和更快的处理。这通常与垂直扩展（vertical scaling）形成对比，垂直扩展也称为向上扩展（scaling up），是指升级现有服务器的硬件，通常是添加更多内存或CPU。</p>
+<p>让一个关系数据库在单个机器上运行，并按需升级其服务器资源进行向上扩展是相对简单的。但最终，任何非分布式数据库在存储和计算能力方面都会受到限制，因此可以自由地水平扩展数据库，会使您的架构更加灵活且适应性强。</p>
+<p>选择分片数据库架构的另一个原因，是为了加速查询响应的时间。当您对尚未分片的数据库提交查询时，必须先搜索您查询的表中的每一行，然后才能找到您要查找的结果集。对于具有大型单片数据库的应用程序，查询可能变得极其缓慢。但是，通过将一个表分成多个，查询过程会遍历更少的行，并且返回结果集的速度要快得多。</p>
+<p>分片还可以通过减少宕机（outage）的影响，使应用程序更稳定可靠。如果您的应用程序或网站依赖于未分片的数据库，则宕机可能会导致整个应用程序不可用。但是，对于分片数据库，宕机可能只会影响单个分片。即使这可能使某些用户无法使用应用程序或网站部分功能，但仍会低于整个数据库崩溃带来的影响。</p>
+<h2 id="Drawbacks-of-Sharding-分片的缺点"><a href="#Drawbacks-of-Sharding-分片的缺点" class="headerlink" title="Drawbacks of Sharding 分片的缺点"></a><strong>Drawbacks of Sharding</strong> <strong>分片的缺点</strong></h2><p>虽然对数据库进行分片可以使扩展更容易并提高性能，但它也可能会带来某些限制。在这里，我们将讨论其中的一些限制，以及为什么这些限制会让我们避免对数据库全部分片。</p>
+<p>正确实现分片数据库架构，是十分复杂的，所以这是分片遇到的第一个困难。如果操作不正确，则分片过程可能会导致数据丢失或表损坏，这是一个很大的风险。但是，即使正确地进行了分片，也可能对团队的工作流程产生重大影响。与从单个入口点访问和管理数据不同，用户必须跨多个分片位置管理数据，这可能会让某些团队存在工作混乱。</p>
+<p>在对数据库进行分片后，用户有时会遇到的一个问题是分片最终会变得不平衡。举例来说，假设您有一个数据库，其中有两个单独的分片，一个用于姓氏以字母A到M开头的客户，另一个用于名字以字母N到Z开头的客户。但是，您的应用程序为姓氏以字母G开头的人提供了过多的服务。因此，A-M分片逐渐累积的数据比N-Z分片要多，这会导致应用程序速度变慢，并对很大一部分用户造成影响。A-M分片已成为所谓的数据热点。在这种情况下，数据库分片的任何好处都被慢速和崩溃抵消了。数据库可能需要修复和重新分片，才能实现更均匀的数据分布。</p>
+<p>另一个主要缺点是，一旦对数据库进行了分片，就很难将其恢复到未分片的架构。分片前数据库的备份数据，都无法与分片后写入的数据合并。因此，重建原始的非分片架构，需要将新的分区数据与旧备份合并，或者将分区的数据库转换回单个数据库，这两种方法都是昂贵且耗时的。</p>
+<p>要考虑的最后一个缺点是，并不是每个数据库引擎本身都支持分片。例如，尽管可以手动分片PostgreSQL数据库，但PostgreSQL本身并不包括自动分片功能。有许多Postgres分支包括自动分片功能，但这些分支通常落后于最新的PostgreSQL版本，并且缺乏某些其他的功能特性。一些专业的数据库技术——如MySQL Cluster或某些数据库即服务产品（如MongoDB Atlas）确实包含自动分片功能，但这些数据库管理系统的普通版本却并不包含。因此，分片通常需要“自己动手”的方法。这意味着通常很难找到有关分片或故障排除技巧的文档。</p>
+<p>现在我们已经介绍了一些分片的缺点和好处，我们将讨论一些分片数据库的不同架构。</p>
+<p>一旦你决定对数据库进行分片，接下来你需要弄清楚的是如何进行分片。在运行查询或将传入的数据分发到分片表或数据库时，关键是要将其分配到正确的分片。否则，它可能导致数据丢失或查询速度缓慢。在本节中，我们将介绍一些常见的分片架构，每个架构使用稍微不同的流程来跨分片分发数据。</p>
+<h2 id="Key-Based-Sharding-基于键的分片"><a href="#Key-Based-Sharding-基于键的分片" class="headerlink" title="Key Based Sharding 基于键的分片"></a><strong>Key Based Sharding 基于键的分片</strong></h2><img src="/2024/01/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/v2-01baaf79951687aa338b347b6c46081e_r.jpg" class="" title="img">	
+
+<p>为了确保数据记录以正确的方式被放置在正确的分片中，哈希函数中输入的值都应该来自同一列。此列称为分片键。简单来说，分片键与主键类似，因为它们都是列，用于为各个行建立唯一标识符。一般来说，分片键应该是静态的，这意味着它不应包含可能随时间变化的值。否则，它会增加更新操作的工作量，并可能降低性能。</p>
+<p>虽然基于键的分片是一种相当常见的分片架构，但在尝试动态添加或删除数据库中的其他服务器时，它会使事情变得棘手。在添加服务器时，每个服务器都需要一个相应的哈希值，并且许多现有条目（如果不是全部）都需要重新映射到新的正确哈希值，然后迁移到相应的服务器。当您开始重新平衡数据时，新旧哈希函数都不会有效。因此，在迁移期间，您的服务器将无法编写任何新数据，您的应用程序可能会停机。</p>
+<p>这种策略的主要吸引力在于，它可以用于均匀分布数据，从而防止热点。此外，由于它以算法方式分配数据，因此无需维护所有数据所在位置的映射，而其他策略（如范围或基于目录的分片）必须维护数据位置的映射。</p>
+<h2 id="Range-Based-Sharding-基于范围的分片"><a href="#Range-Based-Sharding-基于范围的分片" class="headerlink" title="Range Based Sharding 基于范围的分片"></a><strong>Range Based Sharding 基于范围的分片</strong></h2><p>基于范围的分片（Range based sharding），基于给定值的范围进行数据分片。为了说明，假设您有一个数据库，用于存储零售商目录中所有产品的信息。您可以创建一些不同的分片，并根据每个产品的价格范围分配每个产品的信息，如下所示：</p>
+<img src="/2024/01/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/v2-c5108a21084026fd72c06a91448fe6d7_r.jpg" class="" title="img">	
+
+<p>基于范围的分片的主要好处是，它实现起来相对简单。每个分片都包含一组不同的数据，但它们都具有相同的模式，以及原始数据库。应用程序代码只读取数据所属的范围，并将其写入相应的分片。</p>
+<p>另一方面，基于范围的分片并不能预防数据不均匀分布的现象，而有可能会出现前面提到的数据热点现象。查看示例图，即使每个分片拥有相同数量的数据，特定产品比其他产品获得更多关注的可能性也会很大。相应的，各个的分片将接收不成比例的读取操作。</p>
+<h2 id="Directory-Based-Sharding-基于目录的分片"><a href="#Directory-Based-Sharding-基于目录的分片" class="headerlink" title="Directory Based Sharding 基于目录的分片"></a><strong>Directory Based Sharding 基于目录的分片</strong></h2><p>要实现基于目录的分片，必须创建并维护一个查找表，该查找表使用分片键来跟踪哪个分片包含哪些数据。简而言之，查找表是一个表，其中包含有关可以找到特定数据的静态信息集。下图显示了基于目录的分片的简单示例：</p>
+<img src="/2024/01/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/v2-9a1b547e1f02ddd2db0c32e0289572b1_r.jpg" class="" title="img">	
+
+<p>此处，Delivery Zone列被定义为分片键。将来自分片键的数据，连同每一行应该写入的分片写入查找表。这与基于范围的分片类似，但不是确定分片键的数据落入哪个范围，而是将每个键绑定到其自己的特定分片。如果分片键的基数很低，并且分片键存储键的范围没有意义，那么基于目录的分片比基于范围的分片要更好。请注意，它也不同于基于密钥的分片，因为它不通过散列函数处理分片键; 它只是根据查找表检查键值，以查看数据需要写入的位置。</p>
+<p>基于目录的分片的主要吸引力在于其灵活性。基于范围的分片架构只能指定键值范围，而基于键的分片架构只能使用固定的哈希函数，如前所述，在以后更改该函数非常困难。另一方面，基于目录的分片允许您使用任何系统或算法将数据项分配给分片，使用这种方法动态添加分片也相对容易。</p>
+<p>虽然基于目录的分片是这里讨论的最灵活的分片方法，但是在每次查询或写入之前连接到查找表，可能会对应用程序的性能产生不利影响。此外，查找表可能出现单点故障：如果查询表损坏或出现其他故障，它可能会影响数据库写入新数据或访问现有数据的能力。</p>
+<h2 id="Should-I-Shard-我应该分片吗？"><a href="#Should-I-Shard-我应该分片吗？" class="headerlink" title="Should I Shard? 我应该分片吗？"></a><strong>Should I Shard? 我应该分片吗？</strong></h2><p>是否应该实现分片数据库架构，几乎总是一个争论的问题。有些人认为分片对于达到一定规模的数据库来说，是不可避免的结果。而另一些人则认为这是一个令人头疼的问题，除非绝对必要，否则应该避免，因为分片增加了操作的复杂性。</p>
+<p>由于这种增加的复杂性，通常仅在处理非常大量的数据时才执行分片。以下是一些常见方案，可能对数据库分片的操作有所帮助：</p>
+<p>· 应用程序数据量增长到超过单个数据库节点的存储容量。</p>
+<p>· 对数据库的读写量，超过单个节点或其只读副本可以处理的量，从而导致响应时间增加或超时。</p>
+<p>· 应用程序所需的网络带宽，超过单个数据库节点和任何只读副本可用的带宽，从而导致响应时间增加或超时。</p>
+<p>在分片之前，您应该用尽所有其他选项来优化数据库。您可能需要考虑的一些优化包括：</p>
+<p><strong>设置远程数据库。</strong>如果您使用的是一个整体应用程序，其中所有组件都位于同一个服务器上，那么可以通过将数据库移到它自己的机器上来提高数据库的性能。由于数据库的表保持不变，因此这不会增加分片的复杂性。但是，它仍然允许您垂直伸缩数据库，使其与基础结构的其他部分分离。</p>
+<p><strong>实现缓存。</strong>如果您的应用程序的读取性能导致您遇到麻烦，那么缓存是一种可以帮助改进它的策略。缓存涉及临时存储已在内存中请求的数据，以便您以后更快地访问它。</p>
+<p><strong>创建一个或多个只读副本。</strong>另一种有助于提高读取性能的策略，包括将数据从一个数据库服务器（主服务器）复制到一个或多个从服务器。在此之后，每次新的写操作在复制到从服务器之前都要先到主服务器，而读操作只对从服务器进行。像这样分发读写可以防止任何一台机器承担过多的负载，从而有助于防止速度下降和崩溃。请注意，创建读副本需要更多的服务器资源，因此花费更多的钱，这对一些人来说可能是一个很大的限制。</p>
+<p><strong>升级到更大的服务器。</strong>在大多数情况下，将一个数据库服务器扩展到具有更多资源的计算机比分片需要更少的工作量。与创建只读副本一样，具有更多资源的服务器升级可能会花费更多的钱。因此，只有当它确实是您的最佳选择时，您才应该进行服务器扩容。</p>
+<p>请记住，如果您的应用程序或网站增长超过某个点，这些策略本身都不足以提高性能。在这种情况下，分片可能确实是您的最佳选择。</p>
+<h2 id="Conclusion-结语"><a href="#Conclusion-结语" class="headerlink" title="Conclusion 结语"></a><strong>Conclusion 结语</strong></h2><p>对于那些希望横向扩展数据库的人来说，分片是一个很好的解决方案。但是，它还会增加很多复杂性，并为您的应用程序创建更多潜在的故障点。分片对于某些人来说可能是必要的，但是创建和维护分片架构所需的时间和资源可能会超过对其他人的好处。</p>
+<p>通过阅读这篇概念性文章，您应该更清楚地了解分片的优缺点。接下来，您可以使用这些见解来对分片数据库架构是否适合您，做出更明智的决定。</p>
+<p>转载:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/57185574">数据库分片（Database Sharding)详解 - 知乎 (zhihu.com)</a></p>
+
+        </div>
+
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/custom/donate/AliPay.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/custom/donate/WeChatPay.png"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent">
+        </div>
+        <!-- 评分 -->
+        <div class="single-reward">
+          
+          <!-- 五星评分 -->
+<div id="wpac-rating"></div>
+<script type="text/javascript">
+wpac_init = window.wpac_init || [];
+wpac_init.push({widget: 'Rating', id: 23889});
+(function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = 'https://embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+})();
+</script>
+<!-- <a target="_blank" rel="noopener" href="https://widgetpack.com" class="wpac-cr">Star Rating WIDGET PACK</a> -->
+          
+        </div>
+        <!-- 自定义署名方式 -->
+        <footer class="post-footer">
+          <div class="post-lincenses" style="color: #ff9966;">
+            欢迎转载，转载时请注明来源哦！
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" style="color: #ff9966;" target="_blank"
+              rel="nofollow">
+              <i class="fa fa-creative-commons" aria-hidden="true"></i>ncsa4.0</a>
+          </div>
+          
+          <div class="post-tags" style="color: #a39391">
+            <span><i class="fa fa-tags"></i>
+              
+              <a href="/tags/sql/" style="color: #716e77;">sql<em>·</em></a>
+              
+            </span>
+            <span>
+              <i class="iconfont icon-file"></i>
+              
+              <a href="/categories/sql/" style="color: #716e77;">sql</a>
+              
+            </span>
+          </div>
+          
+          <div class="post-share" >
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+        <!-- <div class="tag-cloud">
+          <div class="tag-cloud-title">
+          </div>
+          <div class="tag-cloud-tags">
+            <a href="/tags/UML/" style="font-size: 10px; color: #f06966">UML</a> <a href="/tags/go/" style="font-size: 12.5px; color: #c27d87">go</a> <a href="/tags/redis/" style="font-size: 15px; color: #9592a7">redis</a> <a href="/tags/sql/" style="font-size: 10px; color: #f06966">sql</a> <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="font-size: 10px; color: #f06966">中间件</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 15px; color: #9592a7">前端开发小技巧</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">前端知识</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 12.5px; color: #c27d87">后端</a> <a href="/tags/%E5%90%8E%E7%AB%AFGo/" style="font-size: 10px; color: #f06966">后端Go</a> <a href="/tags/%E5%90%8E%E7%AB%AFgo/" style="font-size: 10px; color: #f06966">后端go</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 20px; color: #39bae8">后端开发小技巧</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">后端开发知识</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 17.5px; color: #67a6c8">后端知识</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">大数据知识</a> <a href="/tags/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/" style="font-size: 10px; color: #f06966">安卓开发</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 12.5px; color: #c27d87">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 10px; color: #f06966">测试小技巧</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px; color: #f06966">设计模式</a>
+          </div>
+        </div> -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+        <div class="post-nepre half previous">
+          
+            <a href="/2024/01/13/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/loading.jpg" data-src=""
+                  style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)"
+                  src="">
+              </div>
+              <span class="label">Previous Post</span>
+              <div class="info">
+                <h3>认证授权</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+          
+          
+          
+          <div class="post-nepre half next">
+            
+              <a href="/2024/01/13/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/loading.jpg" data-src=""
+                    style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;"
+                    onerror="imgError(this,3)" src="">
+                </div>
+                <span class="label">Next Post</span>
+                <div class="info">
+                  <h3>记录一次性能测试</h3>
+                  <hr>
+                </div>
+              </a>
+            </div>
+            
+      </section>
+      <!-- 加密文章隐藏评论 -->
+      <section class="comment" >
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container" class="comment"></div> 
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script type="text/javascript">
+	var gitalk = new Gitalk({
+  	clientID: '',
+  	clientSecret: '',
+  	repo: 'Kiritoabc.github.io',
+  	owner: 'Kiritoabc',
+	admin: ['Kiritoabc'],
+	distractionFreeMode: 'true',
+    id: md5(location.pathname)
+})
+gitalk.render('gitalk-container') 
+</script>
+
+      </section>
+      <!-- 加密文章隐藏作者信息 -->
+      
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+<!--评论配置-->
+
+
+
+      <!-- body.end -->
+    </div>
+    <!-- search -->    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            // PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- footer-->    
+    
+    <footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="site-info">
+        <div class="footertext">
+          <div class="img-preload">
+              <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+              <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+          </div>
+        </div>
+        <!-- 网站数据统计 -->
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+            <span style="color: #ff9999;padding-left: 20px;">
+                <!-- 网站运行时间统计 -->
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="time" align="center">载入时间中...</span>
+                <script>
+                var now = new Date(); 
+                function createtime() { 
+                      var grt= new Date("Tue Jul 11 2023 17:20:00 GMT+0000 (Coordinated Universal Time)");//在此处修改你的建站时间
+                      now.setTime(now.getTime()+250); 
+                      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                      document.getElementById("time").innerHTML = "小破站在各种灾难中苟活了 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+                  } 
+                  setInterval("createtime()",250);
+                </script>
+            </span> 
+          </p>
+        </div>
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+            <span style="color: #b9b9b9;padding-left: 20px;">
+              <!-- 全网站字数统计wordcount -->
+              
+              <!-- 不蒜子网页计数器 -->
+              
+              <span style="padding-left: 20px;"><i class="fa fa-fire" aria-hidden="true" style="color: #ff9999;display:inline-block"></i><span id="busuanzi_container_site_pv">总访问量： <span id="busuanzi_value_site_pv" style="color:#ff9999;"></span>次</span>
+              </span>
+              
+              
+              <span style="padding-left: 20px;"><i class="fa fa-user" aria-hidden="true" style="color: #ff9999;display:inline-block"></i><span id="busuanzi_container_site_uv">总访问人数： <span id="busuanzi_value_site_uv" style="color:#ff9999;"></span>人</span>
+              </span>
+              
+            </span>
+          </p>
+        </div>
+        <!-- 作者注明 -->
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+              <span style="color: #b9b9b9;">
+                Copyright &copy; 2024
+                &nbsp;<a style="color: #ff9999;display:inline-block"> 菠萝 </a>
+                &nbsp;<i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> 
+                &nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank" style="color: #ff9999;display:inline-block">Hexo</a>
+                |&nbsp;Theme&nbsp;<a href="https://gitee.com/cungudafa/hexo-theme-sakuraplus" target="_blank" style="color: #ff9999;display:inline-block">SakuraPlus</a>
+              </span>
+          </p>
+        </div>
+         <!-- 网站作者版权注明 -->
+         
+          <div id="footer-info" class="inner">
+            <p style="font-family: 'Ubuntu', sans-serif;">
+              <span style="color: #ff9999;">
+                
+              </span>
+            </p>
+          </div>
+        
+    </div><!-- .site-info -->
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/InsightSearch.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/sakura-app.js"></script>
+
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- fancybox大图查看 需jq -->
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/jquery.fancybox.min.js"></script>
+  <script>
+    $('[data-fancybox="images"]').fancybox({
+      thumbs : {
+        autoStart : true //缩略图
+      }
+    });
+    $('[data-fancybox]').fancybox({
+      protect: true,//图片右键不能下载
+      youtube : {
+          controls : 0,
+          showinfo : 0
+      },
+      vimeo : {
+          color : 'f00'
+      }
+    });
+  </script>
+
+
+<!-- 自适应浏览器 -->
+<script type="text/javascript">
+  /* <![CDATA[ */
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    var Poi = {"pjax":"0","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+  } else {
+    var Poi = {"pjax":"0","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+  }
+  /* ]]> */
+  
+  </script>
+  <script>
+  $(document).ready(function() {
+    if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+      if ($(".pattern-center").length > 0) { //有图的情况
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc', // 放置目录的容器
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.entry-content', // 正文内容所在
+            // Which headings to grab inside of the contentSelector element.
+            scrollSmooth: true,
+            headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+            headingsOffset: -400,
+            scrollSmoothOffset: -85
+        });
+      } else {
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc', // 放置目录的容器
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.entry-content', // 正文内容所在
+            // Which headings to grab inside of the contentSelector element.
+            scrollSmooth: true,
+            headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+            headingsOffset: -85,
+            scrollSmoothOffset: -85
+        });
+      }
+      var offsetTop = $('.toc').offset().top - 95;
+      window.onscroll = function() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop >= offsetTop) {
+          $('.toc').addClass('toc-fixed');
+        } else {
+          $('.toc').removeClass('toc-fixed');
+        }
+      }
+    }
+  });
+  </script>
+    <!-- Side menu -->
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <!-- Floating window -->
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">菠箩箩の小破站</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/analytics/">
+                  <i class="fa fa-line-chart" aria-hidden="true"></i>
+                  统计
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2020 hexo-sakuraplus</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  
+   <!-- pages壁纸切换 -->
+ 
+    <div class="skin-menu no-select" id="mainskin"  style="position: fixed">
+        <div class="theme-controls row-container">
+            <ul class="menu-list">
+                <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+                <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+                <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+                <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+                <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+                <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+                <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+                <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+        <div class="font-family-controls row-container">
+            <button type="button" class="control-btn-serif selected" data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+            <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+        </div>
+    </div>   
+    <canvas id="night-mode-cover"></canvas> 
+        <div class="changeSkin-gear no-select">
+        <div class="keys" id="setbtn"> <span id="open-skinMenu"> 切换壁纸 | SCHEME TOOL 
+            &nbsp;<i class="iconfont icon-gear inline-block rotating"></i> </span></div>
+    </div><!-- skin.end -->
+
+  <!-- left side bar -->
+
+ </body>
+</html>
