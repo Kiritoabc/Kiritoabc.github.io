@@ -50,14 +50,27 @@ docker run --rm --name jaeger \
   -p 14268:14268 \
   -p 14269:14269 \
   -p 9411:9411 \
-  jaegertracing/all-in-one:1.50
+  jaegertracing/all-in-one:1.53
 
 ~~~
 
 windows上启动时:
 
 ~~~pow
-docker run --rm --name jaeger -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 4317:4317 -p 4318:4318 -p 14250:14250 -p 14268:14268 -p 14269:14269 -p 9411:9411 jaegertracing/all-in-one:1.50
+docker run -d --name 12306-jaeger `
+  --network go-zero-12306 `
+  -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 `
+  -p 6831:6831/udp `
+  -p 6832:6832/udp `
+  -p 5778:5778 `
+  -p 16686:16686 `
+  -p 4317:4317 `
+  -p 4318:4318 `
+  -p 14250:14250 `
+  -p 14268:14268 `
+  -p 14269:14269 `
+  -p 9411:9411 `
+  jaegertracing/all-in-one:1.53
 ~~~
 
 
@@ -66,7 +79,22 @@ docker run --rm --name jaeger -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 -p 6831:6831/u
 
 ![1697973439846](Jaeger/1697973439846.png)
 
+在go-zero中，添加链路追踪即可
 
+~~~yaml
+#链路追踪
+Telemetry:
+  Name: template-api
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+~~~
+
+
+
+
+
+![1705205490517](Jaeger/1705205490517.png)
 
 
 
