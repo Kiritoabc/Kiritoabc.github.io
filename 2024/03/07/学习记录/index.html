@@ -363,7 +363,7 @@
 <p>● String 类型的应用场景：缓存对象、常规计数、分布式锁、共享 session 信息等。<br>● List 类型的应用场景：消息队列（但是有两个问题：1. 生产者需要自行实现全局唯一 ID；2. 不能以消费组形式消费数据）等。<br>● Hash 类型：缓存对象、购物车等。<br>● Set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。<br>● Zset 类型：排序场景，比如排行榜、电话和姓名排序等。<br>● BitMap（2.2 版新增）：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等；<br>● HyperLogLog（2.8 版新增）：海量数据基数统计的场景，比如百万级网页 UV 计数等；<br>● GEO（3.2 版新增）：存储地理位置信息的场景，比如滴滴叫车；<br>● Stream（5.0 版新增）：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据</p>
 <p>学习Redis如何实现延迟队列.</p>
 <p>采用zset来实现</p>
-
+<img src="/2024/03/07/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1709822686830.png" class="" width="1709822686830">
 
 
 
@@ -529,7 +529,7 @@ gitalk.render('gitalk-container')
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -541,10 +541,10 @@ gitalk.render('gitalk-container')
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            // PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
