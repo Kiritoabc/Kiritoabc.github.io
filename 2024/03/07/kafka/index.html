@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- cungudafa百度收录验证编号 -->
+  <!-- <meta name="baidu-site-verification" content="LukfTcyXmC" /> -->
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">kafka的基本使用 | 牵风散步の雲</title>
+  
+    <link rel="shortcut icon" href="/images/sakura.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/style.css" type="text/css" media="all" id="saukra_css-css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/jquery.fancybox.min.css" media="all">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/tags.css" media="all">
+  
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/logo.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/fonts/LOGO/logo.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+
+  <!-- 分析 -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <!-- Baidu Analytics -->
+
+  
+  <!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+  " type="text/css" media="all"> -->
+  <script>
+    /*Initial Variables*/
+    var mashiro_option = new Object();
+    var mashiro_global = new Object();
+    mashiro_option.NProgressON = true;
+    /* 
+    * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+    * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+    */
+    mashiro_option.email_domain = "";
+    mashiro_option.email_name = "";
+    mashiro_option.cookie_version_control = "";
+    mashiro_option.qzone_autocomplete = false;
+    mashiro_option.site_name = "菠箩箩の小破站";
+    mashiro_option.author_name = "小破站";
+    mashiro_option.site_url = "https://Kiritoabc.github.io";
+    mashiro_option.v_appId = "";//
+    mashiro_option.v_appKey = "";//
+    mashiro_option.mathjax = "1";
+    mashiro_option.copyright_enable = "false" ;
+    mashiro_option.copyright_minCharNumber = parseInt("120") ;
+    mashiro_option.copyright_description = "本文章著作权归作者所有，任何形式的转载都请注明出处。" ;
+    mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+    mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+    // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+    // mashiro_option.float_player_on = true;
+
+    /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+    var bg = "https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover7.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover2.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover3.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover4.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg".split(",");
+    var bgindex = Math.floor(Math.random()*bg.length);
+    if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+      alert('朋友，IE浏览器未适配哦~');
+    }
+  </script>
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="牵风散步の雲" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head> 
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <!-- Dynamic sliders -->
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <!-- Main content -->
+  <section id="main-container">
+    <!-- Top menu -->
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://Kiritoabc.github.io">
+          <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>莫笑江湖少年梦 谁不少年梦江湖</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://gitee.com/kirito2493381254" target="_blank" class="social-github" title="gitee">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/gitee.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://github.com/Kiritoabc" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://blog.csdn.net/A__pineapple?" target="_blank" class="social-github" title="csdn">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/csdn.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/160107797" target="_blank" class="social-github" title="bilibili">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=583001071" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  
+  <div id="video-container">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <!-- banner -->
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+        <span class="site-title">
+            <span class="logolink logo">
+                <a href="/">
+                    <ruby>
+                    <span class="sakuraso">菠箩箩</span>
+                    <span class="no">の</span>
+                    <span class="shironeko">小屋</span>
+                    <rp></rp>
+                    <rt class="logo">菠箩箩の</rt>
+                    <rp></rp>
+                    </ruby>
+                  </a>
+            </span>
+          </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/analytics/">
+                          <i class="fa fa-line-chart" aria-hidden="true"></i>
+                          统计
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      
+      <!-- body -->
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1"
+        class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content">  -->
+        <!--套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <blockquote>
+<p>Kafka 结合了三个关键功能，因此您可以使用 一个经过实战检验的解决方案来实现端到端事件流的 <a target="_blank" rel="noopener" href="https://kafka.apache.org/powered-by">用例：</a></p>
+<ol>
+<li>发布（写入）和<strong>订阅（读取）</strong>事件流，包括从其他系统持续导入/导出数据。</li>
+<li>根据需要持久可靠地存储事件 流<strong>。</strong></li>
+<li>在事件发生时或回顾性地 <strong>处理</strong> 事件流。</li>
+</ol>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Kafka启动"><a href="#Kafka启动" class="headerlink" title="Kafka启动"></a>Kafka启动</h2><p><strong>拉取镜像</strong></p>
+<pre class=" language-shell"><code class="language-shell">docker pull bitnami/kafka
+</code></pre>
+<p><strong>启动kafka</strong></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/bitnami/kafka">https://hub.docker.com/r/bitnami/kafka</a></p>
+<p>第一步：创建网络</p>
+<pre class=" language-shell"><code class="language-shell">docker network create kafka-learn --driver bridge 
+</code></pre>
+<p>第二步：启动 kafka 服务器实例(windows powershell)注意此处是使用kraft模式</p>
+<p><strong>集群的部署</strong></p>
+<p>docker-compose up -d</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kafka1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> docker.io/bitnami/kafka<span class="token punctuation">:</span>latest
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka1
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 19092<span class="token punctuation">:</span><span class="token number">9092</span>
+      <span class="token punctuation">-</span> 19093<span class="token punctuation">:</span><span class="token number">9093</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+      <span class="token punctuation">-</span> D<span class="token punctuation">:</span>\docker\data\kafka\kafka1\data<span class="token punctuation">:</span>/bitnami/data
+    <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token comment" spellcheck="true">#是否使用KRaft模式</span>
+      <span class="token key atrule">KAFKA_ENABLE_KRAFT</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">KAFKA_CFG_PROCESS_ROLES</span><span class="token punctuation">:</span> broker<span class="token punctuation">,</span>controller
+      <span class="token key atrule">KAFKA_CFG_CONTROLLER_LISTENER_NAMES</span><span class="token punctuation">:</span> CONTROLLER
+      <span class="token key atrule">KAFKA_CFG_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>//<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="token punctuation">:</span> CONTROLLER<span class="token punctuation">:</span>PLAINTEXT<span class="token punctuation">,</span>PLAINTEXT<span class="token punctuation">:</span>PLAINTEXT
+      <span class="token key atrule">KAFKA_KRAFT_CLUSTER_ID</span><span class="token punctuation">:</span> VaW86rUCTMmoxIcDiER_lA
+      <span class="token key atrule">KAFKA_CFG_CONTROLLER_QUORUM_VOTERS</span><span class="token punctuation">:</span> 1@kafka1<span class="token punctuation">:</span><span class="token number">9093</span><span class="token punctuation">,</span>2@kafka2<span class="token punctuation">:</span><span class="token number">9093</span><span class="token punctuation">,</span>3@kafka3<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">ALLOW_PLAINTEXT_LISTENER</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">KAFKA_HEAP_OPTS</span><span class="token punctuation">:</span> <span class="token punctuation">-</span>Xmx512M <span class="token punctuation">-</span>Xms256M
+      <span class="token key atrule">KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token comment" spellcheck="true">#broker单独配置</span>
+      <span class="token key atrule">KAFKA_CFG_NODE_ID</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">KAFKA_CFG_ADVERTISED_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">19092</span>
+  
+  <span class="token key atrule">kafka2</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> docker.io/bitnami/kafka<span class="token punctuation">:</span>latest
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka2
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 29092<span class="token punctuation">:</span><span class="token number">9092</span>
+      <span class="token punctuation">-</span> 29093<span class="token punctuation">:</span><span class="token number">9093</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+      <span class="token punctuation">-</span> D<span class="token punctuation">:</span>\docker\data\kafka\kafka2\data<span class="token punctuation">:</span>/bitnami/data
+    <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">KAFKA_ENABLE_KRAFT</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">KAFKA_CFG_PROCESS_ROLES</span><span class="token punctuation">:</span> broker<span class="token punctuation">,</span>controller
+      <span class="token key atrule">KAFKA_CFG_CONTROLLER_LISTENER_NAMES</span><span class="token punctuation">:</span> CONTROLLER
+      <span class="token key atrule">KAFKA_CFG_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>//<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="token punctuation">:</span> CONTROLLER<span class="token punctuation">:</span>PLAINTEXT<span class="token punctuation">,</span>PLAINTEXT<span class="token punctuation">:</span>PLAINTEXT
+      <span class="token key atrule">KAFKA_KRAFT_CLUSTER_ID</span><span class="token punctuation">:</span> VaW86rUCTMmoxIcDiER_lA
+      <span class="token key atrule">KAFKA_CFG_CONTROLLER_QUORUM_VOTERS</span><span class="token punctuation">:</span> 1@kafka1<span class="token punctuation">:</span><span class="token number">9093</span><span class="token punctuation">,</span>2@kafka2<span class="token punctuation">:</span><span class="token number">9093</span><span class="token punctuation">,</span>3@kafka3<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">ALLOW_PLAINTEXT_LISTENER</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">KAFKA_HEAP_OPTS</span><span class="token punctuation">:</span> <span class="token punctuation">-</span>Xmx512M <span class="token punctuation">-</span>Xms256M
+      <span class="token key atrule">KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token comment" spellcheck="true">#broker单独配置</span>
+      <span class="token key atrule">KAFKA_CFG_NODE_ID</span><span class="token punctuation">:</span> <span class="token number">2</span>
+      <span class="token key atrule">KAFKA_CFG_ADVERTISED_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">29092</span>
+
+  <span class="token key atrule">kafka3</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> docker.io/bitnami/kafka<span class="token punctuation">:</span>latest
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka3
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 39092<span class="token punctuation">:</span><span class="token number">9092</span>
+      <span class="token punctuation">-</span> 39093<span class="token punctuation">:</span><span class="token number">9093</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+      <span class="token punctuation">-</span> D<span class="token punctuation">:</span>\docker\data\kafka\kafka3\data<span class="token punctuation">:</span>/bitnami/data
+    <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">KAFKA_ENABLE_KRAFT</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">KAFKA_CFG_PROCESS_ROLES</span><span class="token punctuation">:</span> broker<span class="token punctuation">,</span>controller
+      <span class="token key atrule">KAFKA_CFG_CONTROLLER_LISTENER_NAMES</span><span class="token punctuation">:</span> CONTROLLER
+      <span class="token key atrule">KAFKA_CFG_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>//<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="token punctuation">:</span> CONTROLLER<span class="token punctuation">:</span>PLAINTEXT<span class="token punctuation">,</span>PLAINTEXT<span class="token punctuation">:</span>PLAINTEXT
+      <span class="token key atrule">KAFKA_KRAFT_CLUSTER_ID</span><span class="token punctuation">:</span> VaW86rUCTMmoxIcDiER_lA
+      <span class="token key atrule">KAFKA_CFG_CONTROLLER_QUORUM_VOTERS</span><span class="token punctuation">:</span> 1@kafka1<span class="token punctuation">:</span><span class="token number">9093</span><span class="token punctuation">,</span>2@kafka2<span class="token punctuation">:</span><span class="token number">9093</span><span class="token punctuation">,</span>3@kafka3<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">ALLOW_PLAINTEXT_LISTENER</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">KAFKA_HEAP_OPTS</span><span class="token punctuation">:</span> <span class="token punctuation">-</span>Xmx512M <span class="token punctuation">-</span>Xms256M
+      <span class="token key atrule">KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token comment" spellcheck="true">#broker单独配置</span>
+      <span class="token key atrule">KAFKA_CFG_NODE_ID</span><span class="token punctuation">:</span> <span class="token number">3</span>
+      <span class="token key atrule">KAFKA_CFG_ADVERTISED_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">39092</span>
+      
+  <span class="token key atrule">kafka-ui</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> provectuslabs/kafka<span class="token punctuation">-</span>ui<span class="token punctuation">:</span>latest
+    <span class="token key atrule">network_mode</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>learn
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>ui
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 19091<span class="token punctuation">:</span><span class="token number">8080</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> D<span class="token punctuation">:</span>\docker\data\kafka<span class="token punctuation">-</span>ui<span class="token punctuation">:</span>/etc/localtime
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token comment" spellcheck="true"># 集群名称</span>
+      <span class="token punctuation">-</span> KAFKA_CLUSTERS_0_NAME=local
+      <span class="token comment" spellcheck="true"># 集群地址</span>
+      <span class="token punctuation">-</span> KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>kafka2<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>kafka3<span class="token punctuation">:</span><span class="token number">9092</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">default</span><span class="token punctuation">:</span>
+    <span class="token key atrule">external</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>learn
+</code></pre>
+<p><strong>单机的部署</strong></p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kafka-server</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> bitnami/kafka<span class="token punctuation">:</span>latest
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>server
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>server
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> kafka<span class="token punctuation">-</span>learn
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"9092:9092"</span>
+      <span class="token punctuation">-</span> <span class="token string">"9093:9093"</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> KAFKA_CFG_NODE_ID=0
+      <span class="token punctuation">-</span> KAFKA_CFG_PROCESS_ROLES=controller<span class="token punctuation">,</span>broker
+      <span class="token punctuation">-</span> KAFKA_CFG_LISTENERS=PLAINTEXT<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token punctuation">-</span> KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT<span class="token punctuation">:</span>PLAINTEXT<span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>PLAINTEXT
+      <span class="token punctuation">-</span> KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka<span class="token punctuation">-</span>server<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token punctuation">-</span> KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">default</span><span class="token punctuation">:</span>
+    <span class="token key atrule">external</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>learn
+</code></pre>
+<p><strong>docker run启动</strong></p>
+<pre class=" language-powershell"><code class="language-powershell">docker run <span class="token operator">-</span>d <span class="token operator">--</span>name kafka<span class="token operator">-</span>server <span class="token operator">--</span>hostname kafka<span class="token operator">-</span>server <span class="token operator">--</span>network kafka<span class="token operator">-</span>learn `
+     <span class="token operator">-</span>p 9092:9092 `
+     <span class="token operator">-</span>p 9093:9093 `
+     <span class="token operator">-</span>e KAFKA_CFG_NODE_ID=0 `
+     <span class="token operator">-</span>e KAFKA_CFG_PROCESS_ROLES=controller<span class="token punctuation">,</span>broker `
+     <span class="token operator">-</span>e KAFKA_CFG_LISTENERS=PLAINTEXT:<span class="token operator">/</span><span class="token operator">/</span>localhost:9092<span class="token punctuation">,</span>CONTROLLER:<span class="token operator">/</span><span class="token operator">/</span>localhost:9093 `
+     <span class="token operator">-</span>e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT<span class="token punctuation">,</span>CONTROLLER:PLAINTEXT `
+     <span class="token operator">-</span>e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka<span class="token operator">-</span>server:9093 `
+     <span class="token operator">-</span>e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER `
+     bitnami<span class="token operator">/</span>kafka:latest
+</code></pre>
+<p><strong>kafka-ui</strong></p>
+<p>docker-compose.yaml文件集群模式</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kafka-ui</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> provectuslabs/kafka<span class="token punctuation">-</span>ui<span class="token punctuation">:</span>latest
+    <span class="token key atrule">network_mode</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>learn
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>ui
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 19091<span class="token punctuation">:</span><span class="token number">8080</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> D<span class="token punctuation">:</span>\docker\data\kafka<span class="token punctuation">-</span>ui<span class="token punctuation">:</span>/etc/localtime
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token comment" spellcheck="true"># 集群名称</span>
+      <span class="token punctuation">-</span> KAFKA_CLUSTERS_0_NAME=local
+      <span class="token comment" spellcheck="true"># 集群地址</span>
+      <span class="token punctuation">-</span> KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>kafka2<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>kafka3<span class="token punctuation">:</span><span class="token number">9092</span>
+</code></pre>
+<p>单kafka模式</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kafka-single-broker</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> confluentinc/cp<span class="token punctuation">-</span>kafka<span class="token punctuation">:</span>latest <span class="token comment" spellcheck="true"># 确保使用的镜像版本支持KRaft模式</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>single<span class="token punctuation">-</span>broker
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> kafka
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"9092:9092"</span>
+      <span class="token punctuation">-</span> <span class="token string">"9093:9093"</span> <span class="token comment" spellcheck="true"># Kafka内部使用的控制器监听端口</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">KAFKA_BROKER_ID</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">KAFKA_TRANSACTION_STATE_LOG_MIN_ISR</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">KAFKA_DELETE_TOPIC_ENABLE</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+      <span class="token key atrule">KAFKA_INTER_BROKER_PROTOCOL_VERSION</span><span class="token punctuation">:</span> <span class="token string">"2.8"</span> <span class="token comment" spellcheck="true"># 根据你的Kafka版本选择合适的协议版本</span>
+      <span class="token key atrule">KAFKA_AUTO_LEADER_REBALANCE_ENABLE</span><span class="token punctuation">:</span> <span class="token string">"false"</span>
+      <span class="token key atrule">KAFKA_DEFAULT_REPLICATION_FACTOR</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>PLAINTEXT<span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>PLAINTEXT
+      <span class="token key atrule">KAFKA_ADVERTISED_LISTENERS</span><span class="token punctuation">:</span> PLAINTEXT<span class="token punctuation">:</span>//kafka<span class="token punctuation">:</span><span class="token number">9092</span><span class="token punctuation">,</span>CONTROLLER<span class="token punctuation">:</span>//kafka<span class="token punctuation">:</span><span class="token number">9093</span>
+      <span class="token key atrule">KAFKA_CONTROLLER_LISTENER_NAMES</span><span class="token punctuation">:</span> CONTROLLER
+      <span class="token key atrule">KAFKA_BOOTSTRAP_SERVERS</span><span class="token punctuation">:</span> kafka<span class="token punctuation">:</span><span class="token number">9092</span>
+      <span class="token key atrule">KAFKA_KRAFT_CLUSTER_ID</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>cluster<span class="token punctuation">-</span>id <span class="token comment" spellcheck="true"># 设置唯一的Kafka Raft集群ID</span>
+      <span class="token key atrule">KAFKA_NUM_PARTITIONS</span><span class="token punctuation">:</span> <span class="token number">1</span>
+
+  <span class="token key atrule">kafka-ui</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> provectuslabs/kafka<span class="token punctuation">-</span>ui
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>ui
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"8080:8080"</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">KAFKA_CLUSTERS_0_NAME</span><span class="token punctuation">:</span> Local Kafka Cluster
+      <span class="token key atrule">KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>single<span class="token punctuation">-</span>broker<span class="token punctuation">:</span><span class="token number">9092</span>
+      <span class="token comment" spellcheck="true"># 如果需要安全认证，请在此处添加相关配置</span>
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">default</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> kafka<span class="token punctuation">-</span>net
+</code></pre>
+<p><strong>创建网络</strong></p>
+<pre class=" language-powershell"><code class="language-powershell">docker network create app<span class="token operator">-</span>tier <span class="token operator">--</span>driver bridge
+</code></pre>
+<p><strong>启动服务</strong></p>
+<pre class=" language-powershell"><code class="language-powershell">docker run <span class="token operator">-</span>d <span class="token operator">--</span>name kafka<span class="token operator">-</span>server <span class="token operator">--</span>hostname kafka<span class="token operator">-</span>server `
+    <span class="token operator">--</span>network app<span class="token operator">-</span>tier `
+    <span class="token operator">-</span>e KAFKA_CFG_NODE_ID=0 `
+    <span class="token operator">-</span>e KAFKA_CFG_PROCESS_ROLES=controller<span class="token punctuation">,</span>broker `
+    <span class="token operator">-</span>e KAFKA_CFG_LISTENERS=PLAINTEXT:<span class="token operator">/</span><span class="token operator">/</span>:9092<span class="token punctuation">,</span>CONTROLLER:<span class="token operator">/</span><span class="token operator">/</span>:9093 `
+    <span class="token operator">-</span>e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT<span class="token punctuation">,</span>PLAINTEXT:PLAINTEXT `
+    <span class="token operator">-</span>e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka<span class="token operator">-</span>server:9093 `
+    <span class="token operator">-</span>e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER `
+    bitnami<span class="token operator">/</span>kafka:latest
+</code></pre>
+<p><strong>kafka客户端</strong></p>
+<pre class=" language-powershell"><code class="language-powershell">docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> `
+<span class="token operator">--</span>network app<span class="token operator">-</span>tier `
+bitnami<span class="token operator">/</span>kafka:latest kafka<span class="token operator">-</span>topics<span class="token punctuation">.</span>sh <span class="token operator">--</span>list  <span class="token operator">--</span>bootstrap<span class="token operator">-</span>server kafka<span class="token operator">-</span>server:9092
+</code></pre>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p>Apache Kafka 是一款开源分布式流处理平台。可以用来发布和订阅数据以及对数据进行实时或者离线处理。</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<p><strong>高吞吐量、低延迟</strong>：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒，每个topic可以分多个partition, consumer group 对partition进行consume操作；</p>
+<p><strong>扩展性强</strong>：支持分布式集群部署，且kafka集群支持热扩展；</p>
+<p><strong>持久性、可靠性</strong>：消息被持久化到本地磁盘，并且支持数据备份防止数据丢失；</p>
+<p><strong>容错性强</strong>：允许集群中节点失败。（最多允许n-1个节点失败）；</p>
+<p><strong>高并发</strong>：支持多个客户端同时读写；</p>
+<p><strong>支持实时在线处理和离线处理</strong>：可以使用storm实时流处理系统对消息进行实时处理，同时还支持hadoop这种批处理系统进行离线处理；</p>
+<p><strong>多客户端支持</strong>：比如java、golang等；</p>
+<p><strong>主要应用场景</strong></p>
+<p>消息系统：常规的消息队列中间件，实现异步解耦、削峰等功能</p>
+<p>日志收集：Kafka可以收集各种服务的log，通过kafka以统一接口服务的方式开放给各种consumer，例如Hadoop、Hbase、Solr等；</p>
+<p>数据监控：Kafka也经常用来记录运营监控数据。包括收集各种分布式应用的数据，生产各种操作的集中反馈，比如报警和报告；</p>
+<p>流式处理：比如spark streaming和storm；</p>
+<p>Kafka经常被用来记录web用户或者app用户的各种活动，如浏览网页、搜索、点击等活动，这些活动信息被各个服务器发布到kafka的topic中，然后订阅者通过订阅这些topic来做实时的监控分析，或者装载到Hadoop、数据仓库中做离线分析和挖掘；</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h3><p>每个Broker即一个kafka服务实例，多个broker构成一个kafka集群。生产者发布的消息保存在broker中，消费者从broker获取消息进行消费。</p>
+<p>在集群中，根据每个kafka实例担任的角色可分为leader(controller)和broker。</p>
+<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h3><p>kafka中将消息分类，每一类消息称为一个Topic，生产者通过指定Topic将消息发送到broker中，消费者通过指定Topic可以针对不同的Topic采取不同的消费逻辑。Topic有点类似于数据库的表。</p>
+<h3 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h3><p>一个Topic可以分为多个Partition，每个Partition是一个有序队列，在Partition中每条消息都存在一个有序的偏移量offset代表这条消息在paitition中的位置。在一个Topic的多个partition中，分为leader和follower，只有leader进行读写操作，follower仅进行复制，客户端无法感知。</p>
+<p>在一个集群中，同一个topic的不同partition可分布在不同的broker中，以保证数据安全可用。</p>
+<img src="/2024/03/07/kafka/1704789749698.png" class="" width="1704789749698">
+
+
+
+<h3 id="Replica"><a href="#Replica" class="headerlink" title="Replica"></a>Replica</h3><p>为了保证数据安全，partition有多个副本，至少会有一个leader副本和多个follower副本。leader负责处理客户端的读写请求，follower副本只复制leader副本的数据。当leader宕机时，follower会自动接替leader副本的工作，从而保证数据的可用性。</p>
+<h3 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h3><p>生产者，负责生产消息，并发送到broker。 </p>
+<h3 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h3><p>消费者，负责消费broker中topic消息，每个consumer归属于一个consumer group。</p>
+<p>​                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </p>
+<h3 id="各组件关系"><a href="#各组件关系" class="headerlink" title="各组件关系"></a>各组件关系</h3><img src="/2024/03/07/kafka/1704788969382.png" class="" width="1704788969382">
+
+
+
+
+
+<h2 id="Kafka版本变更（重点）"><a href="#Kafka版本变更（重点）" class="headerlink" title="Kafka版本变更（重点）"></a>Kafka版本变更（重点）</h2><blockquote>
+<p>在kafka版本2.8以前，kafka集群通过zookeeper进行集群管理，从2.8.0版本开始，kafka提供了另一种管理模式：KRaft。</p>
+</blockquote>
+<h3 id="KRaft模式"><a href="#KRaft模式" class="headerlink" title="KRaft模式"></a>KRaft模式</h3><p>KRaft 是 “Kafka” 和 “Raft” 的组合词，其中 Raft 是一个用于管理复制日志的分布式一致性算法。在 KRaft 模式中，Kafka 使用 Raft 协议来实现集群的元数据管理，包括主题配置、分区副本分配、访问控制列表等。</p>
+<p>在 KRaft 模式下，Kafka 集群中的一个或多个 broker 将被指定为 controller，它们负责管理集群的元数据。当一个 controller 出现故障时，其他的 broker 可以通过 Raft 协议的领导者选举机制来选举出一个新的 controller。</p>
+<p>它使得 Kafka 能够在没有 Apache ZooKeeper 的情况下运行。KRaft 模式的主要目标是简化 Kafka 的架构，提高其性能和稳定性。</p>
+<h3 id="两种模式对比"><a href="#两种模式对比" class="headerlink" title="两种模式对比"></a>两种模式对比</h3><h4 id="架构复杂性及性能"><a href="#架构复杂性及性能" class="headerlink" title="架构复杂性及性能"></a>架构复杂性及性能</h4><p><strong>zookeeper模式</strong>：部署kafka集群时，必然要部署对应的zookeeper集群，既增加了系统的复杂性，同时也需要对zookeeper进行维护。kafka的性能不仅受到本身资源的限制，也受到zookeeper本身的限制以及kafka与zookeeper通信之间的限制。</p>
+<p><strong>KRaft模式</strong>：KRaft模式消除了kafka集群对zookeeper的依赖，降低了kafka部署及维护的难度；同时也消除了因zookeeper本身限制、通信方面的瓶颈以及由于引入zookeeper带来的系统风险，提高了kafka集群的性能和稳定性。</p>
+<h4 id="leader选举"><a href="#leader选举" class="headerlink" title="leader选举"></a>leader选举</h4><p>在 Kafka 集群中，Controller 是一个非常重要的角色。Kafka 集群会选举出一个 Broker 作为 Controller，这个 Controller 主要负责管理和协调整个 Kafka 集群中的分区和副本。</p>
+<ol>
+<li><strong>分区 Leader 的选举</strong>：当某个分区的 Leader 副本发生故障时，Controller 负责从该分区的 Follower 副本中选举出一个新的 Leader。</li>
+<li><strong>副本状态的管理</strong>：Controller 负责跟踪所有副本的状态，并在副本状态发生变化时进行相应的处理。例如，当一个新的副本加入到集群时，Controller 会将其状态设置为 “ReplicaOnline”。</li>
+<li><strong>Topic 和分区的管理</strong>：当创建或删除 Topic 时，Controller 负责在各个 Broker 上创建或删除相应的分区。</li>
+<li><strong>Broker 状态的监控</strong>：Controller 会持续监控集群中所有 Broker 的状态。当某个 Broker 发生故障时，Controller 会将其上的所有 Leader 分区迁移到其他健康的 Broker 上。</li>
+<li><strong>集群元数据的维护</strong>：Controller 负责维护 Kafka 集群的元数据，包括 Topic 配置、分区副本分配、访问控制列表等。</li>
+</ol>
+<p><strong>zookeeper模式</strong>：在zookeeper模式中，kafka的leader由zookeeper自行选举，用户无法指定。</p>
+<p><strong>KRaft模式</strong>： 在KRaft模式中，可以通过配置文件直接指定broker节点的角色（controller、broker），也可以由集群自己完成。</p>
+<h2 id="gin中接入kafka"><a href="#gin中接入kafka" class="headerlink" title="gin中接入kafka"></a>gin中接入kafka</h2><blockquote>
+<p>在 Gin 框架中接入 Kafka 主要涉及两个部分：编写生产者（Producer）用于向 Kafka 发送消息，以及编写消费者（Consumer）用于从 Kafka 接收消息。以下是一个简单的示例流程：</p>
+</blockquote>
+<ul>
+<li>参考库: <a target="_blank" rel="noopener" href="https://github.com/confluentinc/confluent-kafka-go?spm=5176.28103460.0.0.231c3f99xjyESY">confluentinc/confluent-kafka-go: Confluent’s Apache Kafka Golang client (github.com)</a></li>
+<li>参考库: <a target="_blank" rel="noopener" href="https://github.com/IBM/sarama?spm=5176.28103460.0.0.231c3f99xjyESY">IBM/sarama: Sarama is a Go library for Apache Kafka. (github.com)</a></li>
+</ul>
+<p><strong>定义消费者</strong></p>
+<p>consumer.go</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> consumer
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"github.com/IBM/sarama"</span>
+    <span class="token string">"log"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> KafKaConsumer <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    consumer sarama<span class="token punctuation">.</span>Consumer
+    topics   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">NewKafkaConsumer</span><span class="token punctuation">(</span>brokers <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span> topics <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>KafKaConsumer<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    config <span class="token operator">:=</span> sarama<span class="token punctuation">.</span><span class="token function">NewConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    config<span class="token punctuation">.</span>Consumer<span class="token punctuation">.</span>Group<span class="token punctuation">.</span>Rebalance<span class="token punctuation">.</span>Strategy <span class="token operator">=</span> sarama<span class="token punctuation">.</span>BalanceStrategyRoundRobin
+    config<span class="token punctuation">.</span>Consumer<span class="token punctuation">.</span>Offsets<span class="token punctuation">.</span>Initial <span class="token operator">=</span> sarama<span class="token punctuation">.</span>OffsetOldest
+    config<span class="token punctuation">.</span>Version <span class="token operator">=</span> sarama<span class="token punctuation">.</span>V3_6_0_0
+
+    consumer<span class="token punctuation">,</span> err <span class="token operator">:=</span> sarama<span class="token punctuation">.</span><span class="token function">NewConsumer</span><span class="token punctuation">(</span>brokers<span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>KafKaConsumer<span class="token punctuation">{</span>consumer<span class="token punctuation">:</span> consumer<span class="token punctuation">,</span> topics<span class="token punctuation">:</span> topics<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>kc <span class="token operator">*</span>KafKaConsumer<span class="token punctuation">)</span> <span class="token function">ConsumeMessages</span><span class="token punctuation">(</span>handler <span class="token keyword">func</span><span class="token punctuation">(</span>message <span class="token operator">*</span>sarama<span class="token punctuation">.</span>ConsumerMessage<span class="token punctuation">)</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> topic <span class="token operator">:=</span> <span class="token keyword">range</span> kc<span class="token punctuation">.</span>topics <span class="token punctuation">{</span>
+        partitionList<span class="token punctuation">,</span> err <span class="token operator">:=</span> kc<span class="token punctuation">.</span>consumer<span class="token punctuation">.</span><span class="token function">Partitions</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> err
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> partition <span class="token operator">:=</span> <span class="token keyword">range</span> partitionList <span class="token punctuation">{</span>
+            pc<span class="token punctuation">,</span> err <span class="token operator">:=</span> kc<span class="token punctuation">.</span>consumer<span class="token punctuation">.</span><span class="token function">ConsumePartition</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> partition<span class="token punctuation">,</span> sarama<span class="token punctuation">.</span>OffsetNewest<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> err
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>pc sarama<span class="token punctuation">.</span>PartitionConsumer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">defer</span> pc<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">for</span> msg <span class="token operator">:=</span> <span class="token keyword">range</span> pc<span class="token punctuation">.</span><span class="token function">Messages</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span> err <span class="token operator">:=</span> <span class="token function">handler</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Error handling message:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">(</span>pc<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>定义producer</strong></p>
+<p>producer.go</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> producer
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"github.com/IBM/sarama"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> KafkaProducer <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    producer sarama<span class="token punctuation">.</span>SyncProducer
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">NewKafkaProducer</span><span class="token punctuation">(</span>brokers <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>KafkaProducer<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    config <span class="token operator">:=</span> sarama<span class="token punctuation">.</span><span class="token function">NewConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    config<span class="token punctuation">.</span>Producer<span class="token punctuation">.</span>Return<span class="token punctuation">.</span>Successes <span class="token operator">=</span> <span class="token boolean">true</span>
+    config<span class="token punctuation">.</span>Version <span class="token operator">=</span> sarama<span class="token punctuation">.</span>V3_6_0_0 <span class="token comment" spellcheck="true">// 设置 Kafka 版本兼容性</span>
+
+    p<span class="token punctuation">,</span> err <span class="token operator">:=</span> sarama<span class="token punctuation">.</span><span class="token function">NewSyncProducer</span><span class="token punctuation">(</span>brokers<span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>KafkaProducer<span class="token punctuation">{</span>producer<span class="token punctuation">:</span> p<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// 发送消息到 Kafka</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>kp <span class="token operator">*</span>KafkaProducer<span class="token punctuation">)</span> <span class="token function">SendMessage</span><span class="token punctuation">(</span>topic <span class="token builtin">string</span><span class="token punctuation">,</span> message <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    msg <span class="token operator">:=</span> <span class="token operator">&amp;</span>sarama<span class="token punctuation">.</span>ProducerMessage<span class="token punctuation">{</span>
+        Topic<span class="token punctuation">:</span> topic<span class="token punctuation">,</span>
+        Value<span class="token punctuation">:</span> sarama<span class="token punctuation">.</span><span class="token function">StringEncoder</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    partition<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> err <span class="token operator">:=</span> kp<span class="token punctuation">.</span>producer<span class="token punctuation">.</span><span class="token function">SendMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"Message was produced to topic %s partition %d at offset %d\n"</span><span class="token punctuation">,</span> topic<span class="token punctuation">,</span> partition<span class="token punctuation">,</span> offset<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>main.go</strong></p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"github.com/IBM/sarama"</span>
+    <span class="token string">"github.com/gin-gonic/gin"</span>
+    <span class="token string">"kafka-learn/consumer"</span>
+    <span class="token string">"kafka-learn/producer"</span>
+    <span class="token string">"log"</span>
+    <span class="token string">"net/http"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    kafkaProducer<span class="token punctuation">,</span> err <span class="token operator">:=</span> producer<span class="token punctuation">.</span><span class="token function">NewKafkaProducer</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">"localhost:19092"</span><span class="token punctuation">,</span>
+        <span class="token string">"localhost:29092"</span><span class="token punctuation">,</span> <span class="token string">"localhost:39092"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// producer</span>
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/send-to-kafka"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        message <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">PostForm</span><span class="token punctuation">(</span><span class="token string">"message"</span><span class="token punctuation">)</span>
+        topic <span class="token operator">:=</span> <span class="token string">"my-topic"</span>
+
+        <span class="token keyword">if</span> err <span class="token operator">:=</span> kafkaProducer<span class="token punctuation">.</span><span class="token function">SendMessage</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusInternalServerError<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Message sent to Kafka"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    kafkaConsumer<span class="token punctuation">,</span> err <span class="token operator">:=</span> consumer<span class="token punctuation">.</span><span class="token function">NewKafkaConsumer</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">"localhost:19092"</span><span class="token punctuation">,</span> <span class="token string">"localhost:29092"</span><span class="token punctuation">,</span> <span class="token string">"localhost:39092"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">"my-topic"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// consumer</span>
+    handler <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>msg <span class="token operator">*</span>sarama<span class="token punctuation">.</span>ConsumerMessage<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"Received message from topic %s partition %d offset %d: %s\n"</span><span class="token punctuation">,</span>
+            msg<span class="token punctuation">.</span>Topic<span class="token punctuation">,</span> msg<span class="token punctuation">.</span>Partition<span class="token punctuation">,</span> msg<span class="token punctuation">.</span>Offset<span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>Value<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true">// 在这里处理消息逻辑...</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> err <span class="token operator">:=</span> kafkaConsumer<span class="token punctuation">.</span><span class="token function">ConsumeMessages</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span><span class="token string">"Error consuming messages:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/hello"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Hello, World!"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">":8080"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+        </div>
+
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/custom/donate/AliPay.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/custom/donate/WeChatPay.png"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent">
+        </div>
+        <!-- 评分 -->
+        <div class="single-reward">
+          
+          <!-- 五星评分 -->
+<div id="wpac-rating"></div>
+<script type="text/javascript">
+wpac_init = window.wpac_init || [];
+wpac_init.push({widget: 'Rating', id: 23889});
+(function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = 'https://embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+})();
+</script>
+<!-- <a target="_blank" rel="noopener" href="https://widgetpack.com" class="wpac-cr">Star Rating WIDGET PACK</a> -->
+          
+        </div>
+        <!-- 自定义署名方式 -->
+        <footer class="post-footer">
+          <div class="post-lincenses" style="color: #ff9966;">
+            欢迎转载，转载时请注明来源哦！
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" style="color: #ff9966;" target="_blank"
+              rel="nofollow">
+              <i class="fa fa-creative-commons" aria-hidden="true"></i>ncsa4.0</a>
+          </div>
+          
+          <div class="post-tags" style="color: #a39391">
+            <span><i class="fa fa-tags"></i>
+              
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="color: #716e77;">中间件<em>·</em></a>
+              
+            </span>
+            <span>
+              <i class="iconfont icon-file"></i>
+              
+              <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="color: #716e77;">中间件</a>
+              
+            </span>
+          </div>
+          
+          <div class="post-share" >
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+        <!-- <div class="tag-cloud">
+          <div class="tag-cloud-title">
+          </div>
+          <div class="tag-cloud-tags">
+            <a href="/tags/1/" style="font-size: 10px; color: #f06966">1</a> <a href="/tags/UML/" style="font-size: 10px; color: #f06966">UML</a> <a href="/tags/go/" style="font-size: 12.5px; color: #c27d87">go</a> <a href="/tags/redis/" style="font-size: 15px; color: #9592a7">redis</a> <a href="/tags/sql/" style="font-size: 10px; color: #f06966">sql</a> <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="font-size: 12.5px; color: #c27d87">中间件</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 15px; color: #9592a7">前端开发小技巧</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">前端知识</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px; color: #f06966">后端</a> <a href="/tags/%E5%90%8E%E7%AB%AFGo/" style="font-size: 10px; color: #f06966">后端Go</a> <a href="/tags/%E5%90%8E%E7%AB%AFgo/" style="font-size: 10px; color: #f06966">后端go</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 20px; color: #39bae8">后端开发小技巧</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">后端开发知识</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 17.5px; color: #67a6c8">后端知识</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">大数据知识</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 10px; color: #f06966">学习记录</a> <a href="/tags/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/" style="font-size: 10px; color: #f06966">安卓开发</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px; color: #f06966">日常</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 12.5px; color: #c27d87">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 10px; color: #f06966">测试小技巧</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px; color: #f06966">生活</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px; color: #f06966">设计模式</a>
+          </div>
+        </div> -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+        <div class="post-nepre half previous">
+          
+            <a href="/2024/03/07/k8s/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/loading.jpg" data-src=""
+                  style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)"
+                  src="">
+              </div>
+              <span class="label">Previous Post</span>
+              <div class="info">
+                <h3>Kubernetes</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+          
+          
+          
+          <div class="post-nepre half next">
+            
+              <a href="/2024/03/07/WWH-01/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/loading.jpg" data-src=""
+                    style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;"
+                    onerror="imgError(this,3)" src="">
+                </div>
+                <span class="label">Next Post</span>
+                <div class="info">
+                  <h3>为什么学GO？GO是什么？怎么学GO？</h3>
+                  <hr>
+                </div>
+              </a>
+            </div>
+            
+      </section>
+      <!-- 加密文章隐藏评论 -->
+      <section class="comment" >
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container" class="comment"></div> 
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script type="text/javascript">
+	var gitalk = new Gitalk({
+  	clientID: '',
+  	clientSecret: '',
+  	repo: 'Kiritoabc.github.io',
+  	owner: 'Kiritoabc',
+	admin: ['Kiritoabc'],
+	distractionFreeMode: 'true',
+    id: md5(location.pathname)
+})
+gitalk.render('gitalk-container') 
+</script>
+
+      </section>
+      <!-- 加密文章隐藏作者信息 -->
+      
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+<!--评论配置-->
+
+
+
+      <!-- body.end -->
+    </div>
+    <!-- search -->    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            // PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- footer-->    
+    
+    <footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="site-info">
+        <div class="footertext">
+          <div class="img-preload">
+              <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+              <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+          </div>
+        </div>
+        <!-- 网站数据统计 -->
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+            <span style="color: #ff9999;padding-left: 20px;">
+                <!-- 网站运行时间统计 -->
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="time" align="center">载入时间中...</span>
+                <script>
+                var now = new Date(); 
+                function createtime() { 
+                      var grt= new Date("Tue Jul 11 2023 17:20:00 GMT+0000 (Coordinated Universal Time)");//在此处修改你的建站时间
+                      now.setTime(now.getTime()+250); 
+                      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                      document.getElementById("time").innerHTML = "小破站在各种灾难中苟活了 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+                  } 
+                  setInterval("createtime()",250);
+                </script>
+            </span> 
+          </p>
+        </div>
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+            <span style="color: #b9b9b9;padding-left: 20px;">
+              <!-- 全网站字数统计wordcount -->
+              
+              <!-- 不蒜子网页计数器 -->
+              
+              <span style="padding-left: 20px;"><i class="fa fa-fire" aria-hidden="true" style="color: #ff9999;display:inline-block"></i><span id="busuanzi_container_site_pv">总访问量： <span id="busuanzi_value_site_pv" style="color:#ff9999;"></span>次</span>
+              </span>
+              
+              
+              <span style="padding-left: 20px;"><i class="fa fa-user" aria-hidden="true" style="color: #ff9999;display:inline-block"></i><span id="busuanzi_container_site_uv">总访问人数： <span id="busuanzi_value_site_uv" style="color:#ff9999;"></span>人</span>
+              </span>
+              
+            </span>
+          </p>
+        </div>
+        <!-- 作者注明 -->
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+              <span style="color: #b9b9b9;">
+                Copyright &copy; 2024
+                &nbsp;<a style="color: #ff9999;display:inline-block"> 菠萝 </a>
+                &nbsp;<i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> 
+                &nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank" style="color: #ff9999;display:inline-block">Hexo</a>
+                |&nbsp;Theme&nbsp;<a href="https://gitee.com/cungudafa/hexo-theme-sakuraplus" target="_blank" style="color: #ff9999;display:inline-block">SakuraPlus</a>
+              </span>
+          </p>
+        </div>
+         <!-- 网站作者版权注明 -->
+         
+          <div id="footer-info" class="inner">
+            <p style="font-family: 'Ubuntu', sans-serif;">
+              <span style="color: #ff9999;">
+                
+              </span>
+            </p>
+          </div>
+        
+    </div><!-- .site-info -->
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/InsightSearch.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/sakura-app.js"></script>
+
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- fancybox大图查看 需jq -->
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/jquery.fancybox.min.js"></script>
+  <script>
+    $('[data-fancybox="images"]').fancybox({
+      thumbs : {
+        autoStart : true //缩略图
+      }
+    });
+    $('[data-fancybox]').fancybox({
+      protect: true,//图片右键不能下载
+      youtube : {
+          controls : 0,
+          showinfo : 0
+      },
+      vimeo : {
+          color : 'f00'
+      }
+    });
+  </script>
+
+
+<!-- 自适应浏览器 -->
+<script type="text/javascript">
+  /* <![CDATA[ */
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    var Poi = {"pjax":"0","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+  } else {
+    var Poi = {"pjax":"0","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+  }
+  /* ]]> */
+  
+  </script>
+  <script>
+  $(document).ready(function() {
+    if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+      if ($(".pattern-center").length > 0) { //有图的情况
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc', // 放置目录的容器
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.entry-content', // 正文内容所在
+            // Which headings to grab inside of the contentSelector element.
+            scrollSmooth: true,
+            headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+            headingsOffset: -400,
+            scrollSmoothOffset: -85
+        });
+      } else {
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc', // 放置目录的容器
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.entry-content', // 正文内容所在
+            // Which headings to grab inside of the contentSelector element.
+            scrollSmooth: true,
+            headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+            headingsOffset: -85,
+            scrollSmoothOffset: -85
+        });
+      }
+      var offsetTop = $('.toc').offset().top - 95;
+      window.onscroll = function() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop >= offsetTop) {
+          $('.toc').addClass('toc-fixed');
+        } else {
+          $('.toc').removeClass('toc-fixed');
+        }
+      }
+    }
+  });
+  </script>
+    <!-- Side menu -->
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <!-- Floating window -->
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">菠箩箩の小破站</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/analytics/">
+                  <i class="fa fa-line-chart" aria-hidden="true"></i>
+                  统计
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2020 hexo-sakuraplus</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  
+   <!-- pages壁纸切换 -->
+ 
+    <div class="skin-menu no-select" id="mainskin"  style="position: fixed">
+        <div class="theme-controls row-container">
+            <ul class="menu-list">
+                <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+                <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+                <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+                <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+                <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+                <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+                <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+                <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+        <div class="font-family-controls row-container">
+            <button type="button" class="control-btn-serif selected" data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+            <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+        </div>
+    </div>   
+    <canvas id="night-mode-cover"></canvas> 
+        <div class="changeSkin-gear no-select">
+        <div class="keys" id="setbtn"> <span id="open-skinMenu"> 切换壁纸 | SCHEME TOOL 
+            &nbsp;<i class="iconfont icon-gear inline-block rotating"></i> </span></div>
+    </div><!-- skin.end -->
+
+  <!-- left side bar -->
+
+ </body>
+</html>
