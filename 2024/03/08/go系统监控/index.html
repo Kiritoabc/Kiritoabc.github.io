@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- cungudafa百度收录验证编号 -->
+  <!-- <meta name="baidu-site-verification" content="LukfTcyXmC" /> -->
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">Go系统监控 | 牵风散步の雲</title>
+  
+    <link rel="shortcut icon" href="/images/sakura.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/style.css" type="text/css" media="all" id="saukra_css-css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/jquery.fancybox.min.css" media="all">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/tags.css" media="all">
+  
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/logo.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/fonts/LOGO/logo.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+
+  <!-- 分析 -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <!-- Baidu Analytics -->
+
+  
+  <!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+  " type="text/css" media="all"> -->
+  <script>
+    /*Initial Variables*/
+    var mashiro_option = new Object();
+    var mashiro_global = new Object();
+    mashiro_option.NProgressON = true;
+    /* 
+    * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+    * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+    */
+    mashiro_option.email_domain = "";
+    mashiro_option.email_name = "";
+    mashiro_option.cookie_version_control = "";
+    mashiro_option.qzone_autocomplete = false;
+    mashiro_option.site_name = "菠箩箩の小破站";
+    mashiro_option.author_name = "小破站";
+    mashiro_option.site_url = "https://Kiritoabc.github.io";
+    mashiro_option.v_appId = "";//
+    mashiro_option.v_appKey = "";//
+    mashiro_option.mathjax = "1";
+    mashiro_option.copyright_enable = "false" ;
+    mashiro_option.copyright_minCharNumber = parseInt("120") ;
+    mashiro_option.copyright_description = "本文章著作权归作者所有，任何形式的转载都请注明出处。" ;
+    mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+    mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+    // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+    // mashiro_option.float_player_on = true;
+
+    /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+    var bg = "https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover7.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover2.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover3.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover4.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg,https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg".split(",");
+    var bgindex = Math.floor(Math.random()*bg.length);
+    if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+      alert('朋友，IE浏览器未适配哦~');
+    }
+  </script>
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="牵风散步の雲" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head> 
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <!-- Dynamic sliders -->
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <!-- Main content -->
+  <section id="main-container">
+    <!-- Top menu -->
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://Kiritoabc.github.io">
+          <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>莫笑江湖少年梦 谁不少年梦江湖</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://gitee.com/kirito2493381254" target="_blank" class="social-github" title="gitee">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/gitee.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://github.com/Kiritoabc" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://blog.csdn.net/A__pineapple?" target="_blank" class="social-github" title="csdn">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/csdn.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/160107797" target="_blank" class="social-github" title="bilibili">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=583001071" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  
+  <div id="video-container">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <!-- banner -->
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+        <span class="site-title">
+            <span class="logolink logo">
+                <a href="/">
+                    <ruby>
+                    <span class="sakuraso">菠箩箩</span>
+                    <span class="no">の</span>
+                    <span class="shironeko">小屋</span>
+                    <rp></rp>
+                    <rt class="logo">菠箩箩の</rt>
+                    <rp></rp>
+                    </ruby>
+                  </a>
+            </span>
+          </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/analytics/">
+                          <i class="fa fa-line-chart" aria-hidden="true"></i>
+                          统计
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      
+      <!-- body -->
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cungudafa/cdn/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1"
+        class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content">  -->
+        <!--套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="系统监控"><a href="#系统监控" class="headerlink" title="系统监控"></a>系统监控</h1><blockquote>
+<p>很多系统中都有守护进程，它们能够在后台监控系统的运行状态，在出现意外情况时及时响应。系统监控是 Go 语言运行时的重要组成部分，它会每隔一段时间检查 Go 语言运行时，确保程序没有进入异常状态。本节会介绍 Go 语言系统监控的设计与实现原理，包括它的启动、执行过程以及主要职责。</p>
+</blockquote>
+<span id="more"></span>
+
+
+
+<h1 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h1><blockquote>
+<p>在支持多任务的操作系统中，守护进程是在后台运行的计算机程序，它不会由用户直接操作，它一般会在操作系统启动时自动运行。Kubernetes 的 DaemonSet 和 Go 语言的系统监控都使用类似设计提供一些通用的功能：</p>
+</blockquote>
+<img src="/2024/03/08/go%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/1699621512779.png" class="" width="1699621512779">
+
+<p>守护进程是很有效的设计，它在整个系统的生命周期中都会存在，会随着系统的启动而启动，系统的结束而结束。在操作系统和 Kubernetes 中，我们经常会将数据库服务、日志服务以及监控服务等进程作为守护进程运行。</p>
+<p>Go 语言的系统监控也起到了很重要的作用，它在内部启动了一个不会中止的循环，在循环的内部会轮询网络、抢占长期运行或者处于系统调用的 Goroutine 以及触发垃圾回收，通过这些行为，它能够让系统的运行状态变得更健康。</p>
+<h1 id="监控循环"><a href="#监控循环" class="headerlink" title="监控循环"></a>监控循环</h1><p>当 Go 语言程序启动时，运行时会在第一个 Goroutine 中调用 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.main"><code>runtime.main</code></a> 启动主程序，该函数会在系统栈中创建新的线程：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    <span class="token keyword">if</span> GOARCH <span class="token operator">!=</span> <span class="token string">"wasm"</span> <span class="token punctuation">{</span>
+        <span class="token function">systemstack</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">newm</span><span class="token punctuation">(</span>sysmon<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.newm"><code>runtime.newm</code></a> 会创建一个存储待执行函数和处理器的新结构体 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.m"><code>runtime.m</code></a>。运行时执行系统监控不需要处理器，系统监控的 Goroutine 会直接在创建的线程上运行：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">newm</span><span class="token punctuation">(</span>fn <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> _p_ <span class="token operator">*</span>p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    mp <span class="token operator">:=</span> <span class="token function">allocm</span><span class="token punctuation">(</span>_p_<span class="token punctuation">,</span> fn<span class="token punctuation">)</span>
+    mp<span class="token punctuation">.</span>nextp<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>_p_<span class="token punctuation">)</span>
+    mp<span class="token punctuation">.</span>sigmask <span class="token operator">=</span> initSigmask
+    <span class="token operator">...</span>
+    <span class="token function">newm1</span><span class="token punctuation">(</span>mp<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.newm1"><code>runtime.newm1</code></a> 会调用特定平台的 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.newosproc"><code>runtime.newosproc</code></a> 通过系统调用 <code>clone</code> 创建一个新的线程并在新的线程中执行 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.mstart"><code>runtime.mstart</code></a>：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">newosproc</span><span class="token punctuation">(</span>mp <span class="token operator">*</span>m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    stk <span class="token operator">:=</span> unsafe<span class="token punctuation">.</span><span class="token function">Pointer</span><span class="token punctuation">(</span>mp<span class="token punctuation">.</span>g0<span class="token punctuation">.</span>stack<span class="token punctuation">.</span>hi<span class="token punctuation">)</span>
+    <span class="token keyword">var</span> oset sigset
+    <span class="token function">sigprocmask</span><span class="token punctuation">(</span>_SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>sigset_all<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oset<span class="token punctuation">)</span>
+    ret <span class="token operator">:=</span> <span class="token function">clone</span><span class="token punctuation">(</span>cloneFlags<span class="token punctuation">,</span> stk<span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Pointer</span><span class="token punctuation">(</span>mp<span class="token punctuation">)</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Pointer</span><span class="token punctuation">(</span>mp<span class="token punctuation">.</span>g0<span class="token punctuation">)</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Pointer</span><span class="token punctuation">(</span><span class="token function">funcPC</span><span class="token punctuation">(</span>mstart<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token function">sigprocmask</span><span class="token punctuation">(</span>_SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oset<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>在新创建的线程中，我们会执行存储在 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.m"><code>runtime.m</code></a> 中的 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.sysmon"><code>runtime.sysmon</code></a> 启动系统监控：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">sysmon</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    sched<span class="token punctuation">.</span>nmsys<span class="token operator">++</span>
+    <span class="token function">checkdead</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    lasttrace <span class="token operator">:=</span> <span class="token function">int64</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    idle <span class="token operator">:=</span> <span class="token number">0</span>
+    delay <span class="token operator">:=</span> <span class="token function">uint32</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> idle <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            delay <span class="token operator">=</span> <span class="token number">20</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> idle <span class="token operator">></span> <span class="token number">50</span> <span class="token punctuation">{</span>
+            delay <span class="token operator">*=</span> <span class="token number">2</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> delay <span class="token operator">></span> <span class="token number">10</span><span class="token operator">*</span><span class="token number">1000</span> <span class="token punctuation">{</span>
+            delay <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">*</span> <span class="token number">1000</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">usleep</span><span class="token punctuation">(</span>delay<span class="token punctuation">)</span>
+        <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>当运行时刚刚调用上述函数时，会先通过 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.checkdead"><code>runtime.checkdead</code></a> 检查是否存在死锁，然后进入核心的监控循环；系统监控在每次循环开始时都会通过 <code>usleep</code> 挂起当前线程，该函数的参数是微秒，运行时会遵循以下的规则决定休眠时间：</p>
+<ul>
+<li>初始的休眠时间是 20μs；</li>
+<li>最长的休眠时间是 10ms；</li>
+<li>当系统监控在 50 个循环中都没有唤醒 Goroutine 时，休眠时间在每个循环都会倍增；</li>
+</ul>
+<p>当程序趋于稳定之后，系统监控的触发时间就会稳定在 10ms。它除了会检查死锁之外，还会在循环中完成以下的工作：</p>
+<ul>
+<li>运行计时器 — 获取下一个需要被触发的计时器；</li>
+<li>轮询网络 — 获取需要处理的到期文件描述符；</li>
+<li>抢占处理器 — 抢占运行时间较长的或者处于系统调用的 Goroutine；</li>
+<li>垃圾回收 — 在满足条件时触发垃圾收集回收内存；</li>
+</ul>
+<p>我们在这一节中会依次介绍系统监控是如何完成上述几种不同工作的。</p>
+<h2 id="检查死锁"><a href="#检查死锁" class="headerlink" title="检查死锁"></a>检查死锁</h2><p>系统监控通过 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.checkdead"><code>runtime.checkdead</code></a> 检查运行时是否发生了死锁，我们可以将检查死锁的过程分成以下三个步骤：</p>
+<ol>
+<li>检查是否存在正在运行的线程；</li>
+<li>检查是否存在正在运行的 Goroutine；</li>
+<li>检查处理器上是否存在计时器；</li>
+</ol>
+<p>该函数首先会检查 Go 语言运行时中正在运行的线程数量，我们通过调度器中的多个字段计算该值的结果：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">checkdead</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> run0 <span class="token builtin">int32</span>
+    run <span class="token operator">:=</span> <span class="token function">mcount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> sched<span class="token punctuation">.</span>nmidle <span class="token operator">-</span> sched<span class="token punctuation">.</span>nmidlelocked <span class="token operator">-</span> sched<span class="token punctuation">.</span>nmsys
+    <span class="token keyword">if</span> run <span class="token operator">></span> run0 <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> run <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"runtime: checkdead: nmidle="</span><span class="token punctuation">,</span> sched<span class="token punctuation">.</span>nmidle<span class="token punctuation">,</span> <span class="token string">" nmidlelocked="</span><span class="token punctuation">,</span> sched<span class="token punctuation">.</span>nmidlelocked<span class="token punctuation">,</span> <span class="token string">" mcount="</span><span class="token punctuation">,</span> <span class="token function">mcount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">" nmsys="</span><span class="token punctuation">,</span> sched<span class="token punctuation">.</span>nmsys<span class="token punctuation">,</span> <span class="token string">"\n"</span><span class="token punctuation">)</span>
+        <span class="token function">throw</span><span class="token punctuation">(</span><span class="token string">"checkdead: inconsistent counts"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.mcount"><code>runtime.mcount</code></a> 根据下一个待创建的线程 id 和释放的线程数得到系统中存在的线程数；</li>
+<li><code>nmidle</code> 是处于空闲状态的线程数量；</li>
+<li><code>nmidlelocked</code> 是处于锁定状态的线程数量；</li>
+<li><code>nmsys</code> 是处于系统调用的线程数量；</li>
+</ol>
+<p>利用上述几个线程相关数据，我们可以得到正在运行的线程数，如果线程数量大于 0，说明当前程序不存在死锁；如果线程数小于 0，说明当前程序的状态不一致；如果线程数等于 0，我们需要进一步检查程序的运行状态：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">checkdead</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    grunning <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>allgs<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        gp <span class="token operator">:=</span> allgs<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> <span class="token function">isSystemGoroutine</span><span class="token punctuation">(</span>gp<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">continue</span>
+        <span class="token punctuation">}</span>
+        s <span class="token operator">:=</span> <span class="token function">readgstatus</span><span class="token punctuation">(</span>gp<span class="token punctuation">)</span>
+        <span class="token keyword">switch</span> s <span class="token operator">&amp;^</span> _Gscan <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> _Gwaiting<span class="token punctuation">,</span> _Gpreempted<span class="token punctuation">:</span>
+            grunning<span class="token operator">++</span>
+        <span class="token keyword">case</span> _Grunnable<span class="token punctuation">,</span> _Grunning<span class="token punctuation">,</span> _Gsyscall<span class="token punctuation">:</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"runtime: checkdead: find g "</span><span class="token punctuation">,</span> gp<span class="token punctuation">.</span>goid<span class="token punctuation">,</span> <span class="token string">" in status "</span><span class="token punctuation">,</span> s<span class="token punctuation">,</span> <span class="token string">"\n"</span><span class="token punctuation">)</span>
+            <span class="token function">throw</span><span class="token punctuation">(</span><span class="token string">"checkdead: runnable g"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>allglock<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> grunning <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token function">throw</span><span class="token punctuation">(</span><span class="token string">"no goroutines (main called runtime.Goexit) - deadlock!"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol>
+<li>当存在 Goroutine 处于 <code>_Grunnable</code>、<code>_Grunning</code> 和 <code>_Gsyscall</code> 状态时，意味着程序发生了死锁；</li>
+<li>当所有的 Goroutine 都处于 <code>_Gidle</code>、<code>_Gdead</code> 和 <code>_Gcopystack</code> 状态时，意味着主程序调用了 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.goexit"><code>runtime.goexit</code></a>；</li>
+</ol>
+<p>当运行时存在等待的 Goroutine 并且不存在正在运行的 Goroutine 时，我们会检查处理器中存在的计时器<a target="_blank" rel="noopener" href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sysmon/#fn:1">1</a>：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">checkdead</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> _p_ <span class="token operator">:=</span> <span class="token keyword">range</span> allp <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>_p_<span class="token punctuation">.</span>timers<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">throw</span><span class="token punctuation">(</span><span class="token string">"all goroutines are asleep - deadlock!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如果处理器中存在等待的计时器，那么所有的 Goroutine 陷入休眠状态是合理的，不过如果不存在等待的计时器，运行时会直接报错并退出程序。</p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><p>在最后，系统监控还会决定是否需要触发强制垃圾回收，<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.sysmon"><code>runtime.sysmon</code></a> 会构建 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.gcTrigger"><code>runtime.gcTrigger</code></a> 并调用 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.gcTrigger.test"><code>runtime.gcTrigger.test</code></a> 方法判断是否需要触发垃圾回收：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">sysmon</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    <span class="token keyword">for</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>
+        <span class="token keyword">if</span> t <span class="token operator">:=</span> <span class="token punctuation">(</span>gcTrigger<span class="token punctuation">{</span>kind<span class="token punctuation">:</span> gcTriggerTime<span class="token punctuation">,</span> now<span class="token punctuation">:</span> now<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> t<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> atomic<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>forcegc<span class="token punctuation">.</span>idle<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token function">lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>forcegc<span class="token punctuation">.</span>lock<span class="token punctuation">)</span>
+            forcegc<span class="token punctuation">.</span>idle <span class="token operator">=</span> <span class="token number">0</span>
+            <span class="token keyword">var</span> list gList
+            list<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>forcegc<span class="token punctuation">.</span>g<span class="token punctuation">)</span>
+            <span class="token function">injectglist</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>list<span class="token punctuation">)</span>
+            <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>forcegc<span class="token punctuation">.</span>lock<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如果需要触发垃圾回收，我们会将用于垃圾回收的 Goroutine 加入全局队列，让调度器选择合适的处理器去执行。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<p>运行时通过系统监控来触发线程的抢占、网络的轮询和垃圾回收，保证 Go 语言运行时的可用性。系统监控能够很好地解决尾延迟的问题，减少调度器调度 Goroutine 的饥饿问题并保证计时器在尽可能准确的时间触发。</p>
+</blockquote>
+
+        </div>
+
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/custom/donate/AliPay.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/custom/donate/WeChatPay.png"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent">
+        </div>
+        <!-- 评分 -->
+        <div class="single-reward">
+          
+          <!-- 五星评分 -->
+<div id="wpac-rating"></div>
+<script type="text/javascript">
+wpac_init = window.wpac_init || [];
+wpac_init.push({widget: 'Rating', id: 23889});
+(function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = 'https://embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+})();
+</script>
+<!-- <a target="_blank" rel="noopener" href="https://widgetpack.com" class="wpac-cr">Star Rating WIDGET PACK</a> -->
+          
+        </div>
+        <!-- 自定义署名方式 -->
+        <footer class="post-footer">
+          <div class="post-lincenses" style="color: #ff9966;">
+            欢迎转载，转载时请注明来源哦！
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" style="color: #ff9966;" target="_blank"
+              rel="nofollow">
+              <i class="fa fa-creative-commons" aria-hidden="true"></i>ncsa4.0</a>
+          </div>
+          
+          <div class="post-tags" style="color: #a39391">
+            <span><i class="fa fa-tags"></i>
+              
+              <a href="/tags/%E5%90%8E%E7%AB%AFgo/" style="color: #716e77;">后端go<em>·</em></a>
+              
+            </span>
+            <span>
+              <i class="iconfont icon-file"></i>
+              
+              <a href="/categories/%E5%90%8E%E7%AB%AF/" style="color: #716e77;">后端</a>
+              
+            </span>
+          </div>
+          
+          <div class="post-share" >
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+        <!-- <div class="tag-cloud">
+          <div class="tag-cloud-title">
+          </div>
+          <div class="tag-cloud-tags">
+            <a href="/tags/1/" style="font-size: 10px; color: #f06966">1</a> <a href="/tags/UML/" style="font-size: 10px; color: #f06966">UML</a> <a href="/tags/go/" style="font-size: 12.5px; color: #c27d87">go</a> <a href="/tags/redis/" style="font-size: 15px; color: #9592a7">redis</a> <a href="/tags/sql/" style="font-size: 10px; color: #f06966">sql</a> <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="font-size: 12.5px; color: #c27d87">中间件</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 15px; color: #9592a7">前端开发小技巧</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">前端知识</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px; color: #f06966">后端</a> <a href="/tags/%E5%90%8E%E7%AB%AFGo/" style="font-size: 10px; color: #f06966">后端Go</a> <a href="/tags/%E5%90%8E%E7%AB%AFgo/" style="font-size: 10px; color: #f06966">后端go</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 20px; color: #39bae8">后端开发小技巧</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">后端开发知识</a> <a href="/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 17.5px; color: #67a6c8">后端知识</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9F%A5%E8%AF%86/" style="font-size: 10px; color: #f06966">大数据知识</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 10px; color: #f06966">学习记录</a> <a href="/tags/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/" style="font-size: 10px; color: #f06966">安卓开发</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px; color: #f06966">日常</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 12.5px; color: #c27d87">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 10px; color: #f06966">测试小技巧</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px; color: #f06966">生活</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px; color: #f06966">设计模式</a>
+          </div>
+        </div> -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+        <div class="post-nepre half previous">
+          
+            <a href="/2024/03/08/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/loading.jpg" data-src=""
+                  style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)"
+                  src="">
+              </div>
+              <span class="label">Previous Post</span>
+              <div class="info">
+                <h3>go时间处理</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+          
+          
+          
+          <div class="post-nepre half next">
+            
+              <a href="/2024/03/08/go%E8%AF%AD%E8%A8%80%E6%B3%9B%E5%9E%8B/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/loading.jpg" data-src=""
+                    style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;"
+                    onerror="imgError(this,3)" src="">
+                </div>
+                <span class="label">Next Post</span>
+                <div class="info">
+                  <h3>Go泛型</h3>
+                  <hr>
+                </div>
+              </a>
+            </div>
+            
+      </section>
+      <!-- 加密文章隐藏评论 -->
+      <section class="comment" >
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container" class="comment"></div> 
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script type="text/javascript">
+	var gitalk = new Gitalk({
+  	clientID: '',
+  	clientSecret: '',
+  	repo: 'Kiritoabc.github.io',
+  	owner: 'Kiritoabc',
+	admin: ['Kiritoabc'],
+	distractionFreeMode: 'true',
+    id: md5(location.pathname)
+})
+gitalk.render('gitalk-container') 
+</script>
+
+      </section>
+      <!-- 加密文章隐藏作者信息 -->
+      
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+<!--评论配置-->
+
+
+
+      <!-- body.end -->
+    </div>
+    <!-- search -->    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            // PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- footer-->    
+    
+    <footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="site-info">
+        <div class="footertext">
+          <div class="img-preload">
+              <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+              <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+          </div>
+        </div>
+        <!-- 网站数据统计 -->
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+            <span style="color: #ff9999;padding-left: 20px;">
+                <!-- 网站运行时间统计 -->
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="time" align="center">载入时间中...</span>
+                <script>
+                var now = new Date(); 
+                function createtime() { 
+                      var grt= new Date("Tue Jul 11 2023 17:20:00 GMT+0000 (Coordinated Universal Time)");//在此处修改你的建站时间
+                      now.setTime(now.getTime()+250); 
+                      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                      document.getElementById("time").innerHTML = "小破站在各种灾难中苟活了 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+                  } 
+                  setInterval("createtime()",250);
+                </script>
+            </span> 
+          </p>
+        </div>
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+            <span style="color: #b9b9b9;padding-left: 20px;">
+              <!-- 全网站字数统计wordcount -->
+              
+              <!-- 不蒜子网页计数器 -->
+              
+              <span style="padding-left: 20px;"><i class="fa fa-fire" aria-hidden="true" style="color: #ff9999;display:inline-block"></i><span id="busuanzi_container_site_pv">总访问量： <span id="busuanzi_value_site_pv" style="color:#ff9999;"></span>次</span>
+              </span>
+              
+              
+              <span style="padding-left: 20px;"><i class="fa fa-user" aria-hidden="true" style="color: #ff9999;display:inline-block"></i><span id="busuanzi_container_site_uv">总访问人数： <span id="busuanzi_value_site_uv" style="color:#ff9999;"></span>人</span>
+              </span>
+              
+            </span>
+          </p>
+        </div>
+        <!-- 作者注明 -->
+        <div class="footer-device">
+          <p style="font-family: 'Ubuntu', sans-serif;">
+              <span style="color: #b9b9b9;">
+                Copyright &copy; 2024
+                &nbsp;<a style="color: #ff9999;display:inline-block"> 菠萝 </a>
+                &nbsp;<i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> 
+                &nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank" style="color: #ff9999;display:inline-block">Hexo</a>
+                |&nbsp;Theme&nbsp;<a href="https://gitee.com/cungudafa/hexo-theme-sakuraplus" target="_blank" style="color: #ff9999;display:inline-block">SakuraPlus</a>
+              </span>
+          </p>
+        </div>
+         <!-- 网站作者版权注明 -->
+         
+          <div id="footer-info" class="inner">
+            <p style="font-family: 'Ubuntu', sans-serif;">
+              <span style="color: #ff9999;">
+                
+              </span>
+            </p>
+          </div>
+        
+    </div><!-- .site-info -->
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/InsightSearch.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/sakura-app.js"></script>
+
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- fancybox大图查看 需jq -->
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cungudafa/cdn/js/jquery.fancybox.min.js"></script>
+  <script>
+    $('[data-fancybox="images"]').fancybox({
+      thumbs : {
+        autoStart : true //缩略图
+      }
+    });
+    $('[data-fancybox]').fancybox({
+      protect: true,//图片右键不能下载
+      youtube : {
+          controls : 0,
+          showinfo : 0
+      },
+      vimeo : {
+          color : 'f00'
+      }
+    });
+  </script>
+
+
+<!-- 自适应浏览器 -->
+<script type="text/javascript">
+  /* <![CDATA[ */
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    var Poi = {"pjax":"0","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+  } else {
+    var Poi = {"pjax":"0","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+  }
+  /* ]]> */
+  
+  </script>
+  <script>
+  $(document).ready(function() {
+    if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+      if ($(".pattern-center").length > 0) { //有图的情况
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc', // 放置目录的容器
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.entry-content', // 正文内容所在
+            // Which headings to grab inside of the contentSelector element.
+            scrollSmooth: true,
+            headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+            headingsOffset: -400,
+            scrollSmoothOffset: -85
+        });
+      } else {
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc', // 放置目录的容器
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.entry-content', // 正文内容所在
+            // Which headings to grab inside of the contentSelector element.
+            scrollSmooth: true,
+            headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+            headingsOffset: -85,
+            scrollSmoothOffset: -85
+        });
+      }
+      var offsetTop = $('.toc').offset().top - 95;
+      window.onscroll = function() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop >= offsetTop) {
+          $('.toc').addClass('toc-fixed');
+        } else {
+          $('.toc').removeClass('toc-fixed');
+        }
+      }
+    }
+  });
+  </script>
+    <!-- Side menu -->
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <!-- Floating window -->
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">菠箩箩の小破站</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/analytics/">
+                  <i class="fa fa-line-chart" aria-hidden="true"></i>
+                  统计
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2020 hexo-sakuraplus</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  
+   <!-- pages壁纸切换 -->
+ 
+    <div class="skin-menu no-select" id="mainskin"  style="position: fixed">
+        <div class="theme-controls row-container">
+            <ul class="menu-list">
+                <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+                <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+                <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+                <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+                <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+                <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+                <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+                <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+        <div class="font-family-controls row-container">
+            <button type="button" class="control-btn-serif selected" data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+            <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+        </div>
+    </div>   
+    <canvas id="night-mode-cover"></canvas> 
+        <div class="changeSkin-gear no-select">
+        <div class="keys" id="setbtn"> <span id="open-skinMenu"> 切换壁纸 | SCHEME TOOL 
+            &nbsp;<i class="iconfont icon-gear inline-block rotating"></i> </span></div>
+    </div><!-- skin.end -->
+
+  <!-- left side bar -->
+
+ </body>
+</html>

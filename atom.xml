@@ -6,7 +6,7 @@
   <link href="https://kiritoabc.github.io/atom.xml" rel="self"/>
   
   <link href="https://kiritoabc.github.io/"/>
-  <updated>2024-03-07T16:29:15.591Z</updated>
+  <updated>2024-03-08T05:16:11.439Z</updated>
   <id>https://kiritoabc.github.io/</id>
   
   <author>
@@ -17,11 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>设计模式</title>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2024-03-08T05:16:11.439Z</published>
+    <updated>2024-03-08T05:16:11.439Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;今日设计模式——责任链模式&quot;&gt;&lt;a href=&quot;#今日设计模式——责任链模式&quot; class=&quot;headerlink&quot; title=&quot;今日设计模式——责任链模式&quot;&gt;&lt;/a&gt;今日设计模式——责任链模式&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://kiritoabc.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="https://kiritoabc.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>软件测试--测试用例设计方法</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/</id>
-    <published>2024-03-07T16:29:15.591Z</published>
-    <updated>2024-03-07T16:29:15.591Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/</id>
+    <published>2024-03-08T05:16:11.439Z</published>
+    <updated>2024-03-08T05:16:11.439Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;一-等价类划分&quot;&gt;&lt;a href=&quot;#一-等价类划分&quot; class=&quot;headerlink&quot; title=&quot;一 等价类划分&quot;&gt;&lt;/a&gt;一 等价类划分&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;定义：&lt;/strong&gt;依据需求将输入划分成若干个等价类，从等价类中选定一个测试用例，如果该用例通过，则表明整个等价类通过。&lt;/p&gt;
@@ -40,33 +62,11 @@
   </entry>
   
   <entry>
-    <title>设计模式</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
-    <published>2024-03-07T16:29:15.587Z</published>
-    <updated>2024-03-07T16:29:15.587Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;今日设计模式——责任链模式&quot;&gt;&lt;a href=&quot;#今日设计模式——责任链模式&quot; class=&quot;headerlink&quot; title=&quot;今日设计模式——责任链模式&quot;&gt;&lt;/a&gt;今日设计模式——责任链模式&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://kiritoabc.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="https://kiritoabc.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>认证授权</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/</id>
-    <published>2024-03-07T16:29:15.583Z</published>
-    <updated>2024-03-07T16:29:15.583Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/</id>
+    <published>2024-03-08T05:16:11.431Z</published>
+    <updated>2024-03-08T05:16:11.431Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -89,11 +89,34 @@
   </entry>
   
   <entry>
+    <title>有栈协程和无栈协程</title>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E6%9C%89%E6%A0%88%E5%8D%8F%E7%A8%8B%E5%92%8C%E6%97%A0%E6%A0%88%E5%8D%8F%E7%A8%8B/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E6%9C%89%E6%A0%88%E5%8D%8F%E7%A8%8B%E5%92%8C%E6%97%A0%E6%A0%88%E5%8D%8F%E7%A8%8B/</id>
+    <published>2024-03-08T05:16:11.423Z</published>
+    <updated>2024-03-08T05:16:11.423Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;有栈协程与无栈协程&quot;&gt;&lt;a href=&quot;#有栈协程与无栈协程&quot; class=&quot;headerlink&quot; title=&quot;有栈协程与无栈协程&quot;&gt;&lt;/a&gt;有栈协程与无栈协程&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;进程的本质就是 &lt;strong&gt;一个程序的执行实例&lt;/strong&gt;。&lt;strong&gt;在进程模型中，进程拥有对内存、I/O 通道、I/O 设备和文件等资源的控制权&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;线程则是为了解决进程的执行效率而提出的。对于多核 CPU，多线程进程可以充分利用多核的特性，成倍地提升执行效率。&lt;/p&gt;
+&lt;p&gt;在现代操作系统中，我们可以认为线程是进程的更小粒度的划分，即进程包含了一个或多个线程。下图所示为，分别是单线程的进程模型和多线程的进程模型。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="https://kiritoabc.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+    <category term="后端知识" scheme="https://kiritoabc.github.io/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>简历制作工具推荐</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E7%AE%80%E5%8E%86%E5%88%B6%E4%BD%9C/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E7%AE%80%E5%8E%86%E5%88%B6%E4%BD%9C/</id>
-    <published>2024-03-07T16:29:15.575Z</published>
-    <updated>2024-03-07T16:29:15.575Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E7%AE%80%E5%8E%86%E5%88%B6%E4%BD%9C/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E7%AE%80%E5%8E%86%E5%88%B6%E4%BD%9C/</id>
+    <published>2024-03-08T05:16:11.423Z</published>
+    <updated>2024-03-08T05:16:11.423Z</updated>
     
     
       
@@ -117,10 +140,10 @@
   
   <entry>
     <title>记录一次性能测试</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/</id>
-    <published>2024-03-07T16:29:15.575Z</published>
-    <updated>2024-03-07T16:29:15.575Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/</id>
+    <published>2024-03-08T05:16:11.423Z</published>
+    <updated>2024-03-08T05:16:11.423Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -142,10 +165,10 @@
   
   <entry>
     <title>数据库分片</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</id>
-    <published>2024-03-07T16:29:15.571Z</published>
-    <updated>2024-03-07T16:29:15.571Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</id>
+    <published>2024-03-08T05:16:11.419Z</published>
+    <updated>2024-03-08T05:16:11.419Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h1&gt;&lt;blockquote&gt;
@@ -163,34 +186,11 @@
   </entry>
   
   <entry>
-    <title>有栈协程和无栈协程</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E6%9C%89%E6%A0%88%E5%8D%8F%E7%A8%8B%E5%92%8C%E6%97%A0%E6%A0%88%E5%8D%8F%E7%A8%8B/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E6%9C%89%E6%A0%88%E5%8D%8F%E7%A8%8B%E5%92%8C%E6%97%A0%E6%A0%88%E5%8D%8F%E7%A8%8B/</id>
-    <published>2024-03-07T16:29:15.571Z</published>
-    <updated>2024-03-07T16:29:15.571Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;有栈协程与无栈协程&quot;&gt;&lt;a href=&quot;#有栈协程与无栈协程&quot; class=&quot;headerlink&quot; title=&quot;有栈协程与无栈协程&quot;&gt;&lt;/a&gt;有栈协程与无栈协程&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;进程的本质就是 &lt;strong&gt;一个程序的执行实例&lt;/strong&gt;。&lt;strong&gt;在进程模型中，进程拥有对内存、I/O 通道、I/O 设备和文件等资源的控制权&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;线程则是为了解决进程的执行效率而提出的。对于多核 CPU，多线程进程可以充分利用多核的特性，成倍地提升执行效率。&lt;/p&gt;
-&lt;p&gt;在现代操作系统中，我们可以认为线程是进程的更小粒度的划分，即进程包含了一个或多个线程。下图所示为，分别是单线程的进程模型和多线程的进程模型。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="https://kiritoabc.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-    <category term="后端知识" scheme="https://kiritoabc.github.io/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
     <title>sqlc和sqlx的使用</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/sqlx%E5%92%8Csqlc/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/sqlx%E5%92%8Csqlc/</id>
-    <published>2024-03-07T16:29:15.563Z</published>
-    <updated>2024-03-07T16:29:15.563Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/sqlx%E5%92%8Csqlc/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/sqlx%E5%92%8Csqlc/</id>
+    <published>2024-03-08T05:16:11.411Z</published>
+    <updated>2024-03-08T05:16:11.411Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;什么是sqlc和sqlx&quot;&gt;&lt;a href=&quot;#什么是sqlc和sqlx&quot; class=&quot;headerlink&quot; title=&quot;什么是sqlc和sqlx?&quot;&gt;&lt;/a&gt;什么是sqlc和sqlx?&lt;/h1&gt;&lt;blockquote&gt;
@@ -200,9 +200,9 @@
 &lt;li&gt;&lt;a href=&quot;https://github.com/jmoiron/sqlx&quot;&gt;https://github.com/jmoiron/sqlx&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
-&lt;img src=&quot;/2024/03/07/sqlx%E5%92%8Csqlc/1702875673126.png&quot; class=&quot;&quot; width=&quot;1702875673126&quot;&gt;
+&lt;img src=&quot;/2024/03/08/sqlx%E5%92%8Csqlc/1702875673126.png&quot; class=&quot;&quot; width=&quot;1702875673126&quot;&gt;
 
-&lt;img src=&quot;/2024/03/07/sqlx%E5%92%8Csqlc/1702875683569.png&quot; class=&quot;&quot; width=&quot;1702875683569&quot;&gt;</summary>
+&lt;img src=&quot;/2024/03/08/sqlx%E5%92%8Csqlc/1702875683569.png&quot; class=&quot;&quot; width=&quot;1702875683569&quot;&gt;</summary>
     
     
     
@@ -215,10 +215,10 @@
   
   <entry>
     <title>前端文件上传</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E5%89%8D%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E5%89%8D%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</id>
-    <published>2024-03-07T16:29:15.563Z</published>
-    <updated>2024-03-07T16:29:15.563Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E5%89%8D%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E5%89%8D%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</id>
+    <published>2024-03-08T05:16:11.411Z</published>
+    <updated>2024-03-08T05:16:11.411Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -236,10 +236,10 @@
   
   <entry>
     <title>学习记录</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
-    <published>2024-03-07T16:29:15.563Z</published>
-    <updated>2024-03-07T16:29:15.563Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
+    <published>2024-03-08T05:16:11.411Z</published>
+    <updated>2024-03-08T05:16:11.411Z</updated>
     
     
       
@@ -261,16 +261,16 @@
   
   <entry>
     <title>接口测试</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/</id>
-    <published>2024-03-07T16:29:15.563Z</published>
-    <updated>2024-03-07T16:29:15.563Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/</id>
+    <published>2024-03-08T05:16:11.411Z</published>
+    <updated>2024-03-08T05:16:11.411Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
 &lt;p&gt;接口性能测试与调优相关一直是属于无经验状态。思考提升自己的能力，是否要学会压力测试？&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;img src=&quot;/2024/03/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/1703297958629.png&quot; class=&quot;&quot; width=&quot;1703297958629&quot;&gt;</summary>
+&lt;img src=&quot;/2024/03/08/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/1703297958629.png&quot; class=&quot;&quot; width=&quot;1703297958629&quot;&gt;</summary>
     
     
     
@@ -283,10 +283,10 @@
   
   <entry>
     <title>prometheus</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/prometheus/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/prometheus/</id>
-    <published>2024-03-07T16:29:15.559Z</published>
-    <updated>2024-03-07T16:29:15.559Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/prometheus/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/prometheus/</id>
+    <published>2024-03-08T05:16:11.407Z</published>
+    <updated>2024-03-08T05:16:11.407Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -314,11 +314,87 @@
   </entry>
   
   <entry>
+    <title>kafka的基本使用</title>
+    <link href="https://kiritoabc.github.io/2024/03/08/kafka/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/kafka/</id>
+    <published>2024-03-08T05:16:11.403Z</published>
+    <updated>2024-03-08T05:16:11.403Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Kafka 结合了三个关键功能，因此您可以使用 一个经过实战检验的解决方案来实现端到端事件流的 &lt;a href=&quot;https://kafka.apache.org/powered-by&quot;&gt;用例：&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;发布（写入）和&lt;strong&gt;订阅（读取）&lt;/strong&gt;事件流，包括从其他系统持续导入/导出数据。&lt;/li&gt;
+&lt;li&gt;根据需要持久可靠地存储事件 流&lt;strong&gt;。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;在事件发生时或回顾性地 &lt;strong&gt;处理&lt;/strong&gt; 事件流。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="中间件" scheme="https://kiritoabc.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+    <category term="中间件" scheme="https://kiritoabc.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为什么学GO？GO是什么？怎么学GO？</title>
+    <link href="https://kiritoabc.github.io/2024/03/08/WWH-01/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/WWH-01/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;我为什么学GO&quot;&gt;&lt;a href=&quot;#我为什么学GO&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="why? what? how?" scheme="https://kiritoabc.github.io/categories/why-what-how/"/>
+    
+    
+    <category term="1" scheme="https://kiritoabc.github.io/tags/1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>canal</title>
+    <link href="https://kiritoabc.github.io/2024/03/08/canal/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/canal/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;canal&quot;&gt;&lt;a href=&quot;#canal&quot; class=&quot;headerlink&quot; title=&quot;canal&quot;&gt;&lt;/a&gt;canal&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="后端" scheme="https://kiritoabc.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+    <category term="中间件" scheme="https://kiritoabc.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Cron</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/cron/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/cron/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/cron/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/cron/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -337,10 +413,10 @@
   
   <entry>
     <title>flutter Android 打包</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/flutter%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/flutter%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/flutter%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/flutter%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -358,16 +434,16 @@
   
   <entry>
     <title>go时间处理</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
 &lt;p&gt;由于在项目中对于时间的处理总是能看到不同的处理方式，Java中和go中都有不同的处理方式。每个人对于时间的处理方式也尽相同，主要记录go中对于时间的处理方式。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;go在web项目中的时间处理&quot;&gt;&lt;a href=&quot;#go在web项目中的时间处理&quot; class=&quot;headerlink&quot; title=&quot;go在web项目中的时间处理&quot;&gt;&lt;/a&gt;go在web项目中的时间处理&lt;/h1&gt;&lt;img src=&quot;/2024/03/07/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/18318_79872813992.jpg&quot; class=&quot;&quot; title=&quot;心海酱-珊瑚宫心海竖图-触站&quot;&gt;</summary>
+&lt;h1 id=&quot;go在web项目中的时间处理&quot;&gt;&lt;a href=&quot;#go在web项目中的时间处理&quot; class=&quot;headerlink&quot; title=&quot;go在web项目中的时间处理&quot;&gt;&lt;/a&gt;go在web项目中的时间处理&lt;/h1&gt;&lt;img src=&quot;/2024/03/08/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/18318_79872813992.jpg&quot; class=&quot;&quot; title=&quot;心海酱-珊瑚宫心海竖图-触站&quot;&gt;</summary>
     
     
     
@@ -380,10 +456,10 @@
   
   <entry>
     <title>Go系统监控</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/go%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/go%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/go%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/go%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;系统监控&quot;&gt;&lt;a href=&quot;#系统监控&quot; class=&quot;headerlink&quot; title=&quot;系统监控&quot;&gt;&lt;/a&gt;系统监控&lt;/h1&gt;&lt;blockquote&gt;
@@ -401,10 +477,10 @@
   
   <entry>
     <title>Go泛型</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/go%E8%AF%AD%E8%A8%80%E6%B3%9B%E5%9E%8B/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/go%E8%AF%AD%E8%A8%80%E6%B3%9B%E5%9E%8B/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
+    <link href="https://kiritoabc.github.io/2024/03/08/go%E8%AF%AD%E8%A8%80%E6%B3%9B%E5%9E%8B/"/>
+    <id>https://kiritoabc.github.io/2024/03/08/go%E8%AF%AD%E8%A8%80%E6%B3%9B%E5%9E%8B/</id>
+    <published>2024-03-08T05:16:11.399Z</published>
+    <updated>2024-03-08T05:16:11.399Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;Go-1-18-泛型&quot;&gt;&lt;a href=&quot;#Go-1-18-泛型&quot; class=&quot;headerlink&quot; title=&quot;Go 1.18 泛型&quot;&gt;&lt;/a&gt;Go 1.18 泛型&lt;/h1&gt;&lt;blockquote&gt;
@@ -418,76 +494,6 @@
     
     
     <category term="后端Go" scheme="https://kiritoabc.github.io/tags/%E5%90%8E%E7%AB%AFGo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go语言调用外部程序</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/go%E8%B0%83%E7%94%A8%E5%A4%96%E9%83%A8%E7%A8%8B%E5%BA%8F/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/go%E8%B0%83%E7%94%A8%E5%A4%96%E9%83%A8%E7%A8%8B%E5%BA%8F/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;由于最近开发碰到了需要调用外部软件程序的任务，对此有一定的兴趣，所以本人翻阅互联网，寻找如何操作，得此文章。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;Go语言调用外部程序&quot;&gt;&lt;a href=&quot;#Go语言调用外部程序&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="后端" scheme="https://kiritoabc.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-    <category term="后端" scheme="https://kiritoabc.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello-World</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/hello-world/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/hello-world/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;这里是摘要&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;自我介绍环节&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;你不需要一开始很厉害，你需要开始才能很厉害！&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes</title>
-    <link href="https://kiritoabc.github.io/2024/03/07/k8s/"/>
-    <id>https://kiritoabc.github.io/2024/03/07/k8s/</id>
-    <published>2024-03-07T16:29:15.551Z</published>
-    <updated>2024-03-07T16:29:15.551Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Kubernetes, also known as K8s, is an open source system for managing &lt;a href=&quot;https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/&quot;&gt;containerized applications&lt;/a&gt; across multiple hosts. It provides basic mechanisms for the deployment, maintenance, and scaling of applications.&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="go" scheme="https://kiritoabc.github.io/categories/go/"/>
-    
-    
-    <category term="go" scheme="https://kiritoabc.github.io/tags/go/"/>
     
   </entry>
   
