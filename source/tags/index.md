@@ -1,8 +1,6 @@
 ---
-title: tags
+title: 标签
 date: 2023-12-26 14:58:15
-type: tags
-photos: https://cdn.jsdelivr.net/gh/cungudafa/cdn/img/banner/donate.jpg
+type: "tags"
 comments: false
-layout: "tags"
 ---

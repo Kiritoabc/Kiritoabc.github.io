@@ -7,6 +7,7 @@ hideTime: true
 categories: 后端
 tag: 后端开发小技巧
 abbrlink: 35617
+cover:
 ---
 
 > 在[理论计算机科学](https://zh.m.wikipedia.org/wiki/%E7%90%86%E8%AB%96%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8)中，**CAP定理**（CAP theorem），又被称作**布鲁尔定理**（Brewer's theorem），它指出对于一个[分布式计算系统](https://zh.m.wikipedia.org/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97)来说，[不可能同时满足以下三点](https://zh.m.wikipedia.org/wiki/%E4%B8%89%E9%9A%BE%E5%9B%B0%E5%A2%83)：[[1\]](https://zh.m.wikipedia.org/wiki/CAP%E5%AE%9A%E7%90%86#cite_note-Lynch-1)[[2\]](https://zh.m.wikipedia.org/wiki/CAP%E5%AE%9A%E7%90%86#cite_note-2)

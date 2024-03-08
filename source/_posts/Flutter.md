@@ -4,6 +4,7 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
+cover:
 categories: 安卓开发
 tag: 安卓开发
 abbrlink: 15986
