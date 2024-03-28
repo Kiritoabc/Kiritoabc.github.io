@@ -1,0 +1,507 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>sqlc和sqlx的使用 | 菠萝萝のBLOG</title><meta name="keywords" content="后端开发小技巧"><meta name="author" content="菠萝"><meta name="copyright" content="菠萝"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#18171d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="sqlc和sqlx的使用"><meta name="application-name" content="sqlc和sqlx的使用"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#18171d"><meta property="og:type" content="article"><meta property="og:title" content="sqlc和sqlx的使用"><meta property="og:url" content="https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/index.html"><meta property="og:site_name" content="菠萝萝のBLOG"><meta property="og:description" content="什么是sqlc和sqlx? github上有解释，可以自行查找  https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;sqlc-dev&amp;#x2F;sqlc https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;jmoiron&amp;#x2F;sqlx         sqlx的使用sqlx连接数据库–Connect 连接mysql数据库  import"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg?_r_=7b87bb0d-dba2-21dc-8c52-19e36137d202"><meta property="article:author" content="菠萝"><meta property="article:tag" content="博客, 菠萝, 菠萝的博客, 菠萝的BLOG"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg?_r_=7b87bb0d-dba2-21dc-8c52-19e36137d202"><meta name="description" content="什么是sqlc和sqlx? github上有解释，可以自行查找  https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;sqlc-dev&amp;#x2F;sqlc https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;jmoiron&amp;#x2F;sqlx         sqlx的使用sqlx连接数据库–Connect 连接mysql数据库  import"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/菠萝.png"><link rel="canonical" href="https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 菠萝","link":"链接: ","source":"来源: 菠萝萝のBLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '菠萝萝のBLOG',
+  title: 'sqlc和sqlx的使用',
+  postAI: '',
+  pageFillDescription: '什么是sqlc和sqlx?, sqlx的使用, sqlx连接数据库–Connect, sqlx查询数据–GetSelect, sqlx的Exec执行sql, sqlx绑定数据, sqlx查询–Query, sqlx的Transactions, sqlx的Prepared Statements, sqlx–Query Helpers, sqlx–Controlling Name Mapping, sqlx– Connection Pool, sqlx + Squirrel什么是和上有解释可以自行查找的使用连接数据库连接数据库查询数据查询单行记录可以使用查询多行记录的执行绑定数据查询的使用查询数据库迭代器取数据使用的请记住和所有其他查询谓词都会向请求连接然后每次将其返回到池中不能保证您将接收到执行语句的相同连接因此要使用事务必须使用或者的用作目标的结构字段必须大写以便可以访问因此使用来应用字符串降低字段名称以将它们映射到行结果中的列这并不总是理想的这取决于您的模式因此允许以多种方式定制映射其中最简单的方法是使用为数据库句柄设置它它接收一个类型的参数如果你的库需要一个特定的映射器并且你不想毒害你收到的你可以创建一个副本在库中使用以确保一个特定的默认映射每个使用包的映射器来实现底层映射并将活动映射器公开为您可以通过直接设置来进一步定制上的映射默认情况下池无限制地增长只要池中没有可用的空闲连接就会创建连接您可以使用设置池的最大大小未使用的连接被标记为空闲如果不需要则关闭为了避免建立和关闭大量连接请使用设置最大空闲大小设置为适合您的查询负载的大小一不小心抓住关系不放很容易惹上麻烦为了防止这种情况确保每个对象确保使用或通过对每个对象进行完全迭代确保每个事务通过或返回其连接如果您忽略了这些事情中的一件它们使用的连接可能会被保留到垃圾收集并且您的数据库最终将立即创建更多的连接以补偿它使用的连接注意可以安全地调用多次所以不要害怕在不必要的地方调用它',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-28 15:39:50',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://Kiritoabc.github.io" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">菠萝萝のBLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/UML/" style="font-size: 1.05rem;">UML<sup>1</sup></a><a href="/tags/go/" style="font-size: 1.05rem;">go<sup>3</sup></a><a href="/tags/redis/" style="font-size: 1.05rem;">redis<sup>3</sup></a><a href="/tags/sql/" style="font-size: 1.05rem;">sql<sup>1</sup></a><a href="/tags/why-what-how/" style="font-size: 1.05rem;">why? what? how?<sup>1</sup></a><a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="font-size: 1.05rem;">中间件<sup>2</sup></a><a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" style="font-size: 1.05rem;">云原生<sup>2</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 1.05rem;">前端开发小技巧<sup>3</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">前端知识<sup>1</sup></a><a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.05rem;">博客<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 1.05rem;">后端<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AFGo/" style="font-size: 1.05rem;">后端Go<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AFgo/" style="font-size: 1.05rem;">后端go<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 1.05rem;">后端开发小技巧<sup>5</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">后端开发知识<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">后端知识<sup>4</sup></a><a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">大数据知识<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.05rem;">学习记录<sup>1</sup></a><a href="/tags/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/" style="font-size: 1.05rem;">安卓开发<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>2</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 1.05rem;">测试小技巧<sup>1</sup></a><a href="/tags/%E7%AE%80%E5%8E%86%E5%88%B6%E4%BD%9C/" style="font-size: 1.05rem;">简历制作<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">9</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">9</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url">后端</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>后端开发小技巧</span></a></span></div></div><h1 class="post-title" itemprop="name headline">sqlc和sqlx的使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2023-10-07T13:04:41.000Z" title="发表于 2023-10-07 13:04:41">2023-10-07</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-03-28T15:39:50.413Z" title="更新于 2024-03-28 15:39:50">2024-03-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">1.8k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="sqlc和sqlx的使用"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为杭州"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>杭州</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg?_r_=7b87bb0d-dba2-21dc-8c52-19e36137d202"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/"><header><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url">后端</a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" tabindex="-1" itemprop="url">后端开发小技巧</a><h1 id="CrawlerTitle" itemprop="name headline">sqlc和sqlx的使用</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">菠萝</span><time itemprop="dateCreated datePublished" datetime="2023-10-07T13:04:41.000Z" title="发表于 2023-10-07 13:04:41">2023-10-07</time><time itemprop="dateCreated datePublished" datetime="2024-03-28T15:39:50.413Z" title="更新于 2024-03-28 15:39:50">2024-03-28</time></header><h1 id="什么是sqlc和sqlx"><a href="#什么是sqlc和sqlx" class="headerlink" title="什么是sqlc和sqlx?"></a>什么是sqlc和sqlx?</h1><blockquote>
+<p>github上有解释，可以自行查找</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/sqlc-dev/sqlc">https://github.com/sqlc-dev/sqlc</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jmoiron/sqlx">https://github.com/jmoiron/sqlx</a></li>
+</ul>
+</blockquote>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/2023/10/07/sqlx%E5%92%8Csqlc/1702875673126.png" class="" width="1702875673126">
+
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/2023/10/07/sqlx%E5%92%8Csqlc/1702875683569.png" class="" width="1702875683569">
+
+<span id="more"></span>
+
+<h1 id="sqlx的使用"><a href="#sqlx的使用" class="headerlink" title="sqlx的使用"></a>sqlx的使用</h1><h2 id="sqlx连接数据库–Connect"><a href="#sqlx连接数据库–Connect" class="headerlink" title="sqlx连接数据库–Connect"></a>sqlx连接数据库–Connect</h2><blockquote>
+<p>连接mysql数据库</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/jmoiron/sqlx&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> DB *sqlx.DB</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initMysql</span><span class="params">()</span></span> (err <span class="type">error</span>) &#123;</span><br><span class="line">	dsn := <span class="string">&quot;root:123456@tcp(127.0.0.1:3306)/demo&quot;</span></span><br><span class="line">	DB, err = sqlx.Connect(<span class="string">&quot;mysql&quot;</span>, dsn)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		_ = fmt.Sprintf(<span class="string">&quot;database connect error: %v\n&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	DB.SetMaxOpenConns(<span class="number">200</span>)</span><br><span class="line">	DB.SetMaxIdleConns(<span class="number">20</span>)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx查询数据–Get-Select"><a href="#sqlx查询数据–Get-Select" class="headerlink" title="sqlx查询数据–Get,Select"></a>sqlx查询数据–Get,Select</h2><blockquote>
+<p>查询单行记录可以使用</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id        <span class="type">int64</span>  <span class="string">`db:&quot;id&quot;`</span></span><br><span class="line">	Age       <span class="type">int64</span>  <span class="string">`db:&quot;age&quot;`</span></span><br><span class="line">	FirstName <span class="type">string</span> <span class="string">`db:&quot;firstName&quot;`</span></span><br><span class="line">	LastName  <span class="type">string</span> <span class="string">`db:&quot;lastName&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">QueryRowById</span><span class="params">(id <span class="type">int64</span>)</span></span> (user User, err <span class="type">error</span>) &#123;</span><br><span class="line">	err = DB.Get(&amp;user, <span class="string">&quot;select * from user where id = ?&quot;</span>, id)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查询多行记录</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SelectMData</span><span class="params">()</span></span> ([]*User, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> list []*User</span><br><span class="line">	err := DB.Select(&amp;list, <span class="string">&quot;select * from user order by id desc&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> list, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> list, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx的Exec执行sql"><a href="#sqlx的Exec执行sql" class="headerlink" title="sqlx的Exec执行sql"></a>sqlx的Exec执行sql</h2><blockquote>
+<p>Exec and MustExec get a connection from the connection pool and executes the provided query on the server. For drivers that do not support ad-hoc query execution, a prepared statement <em>may</em> be created behind the scenes to be executed. The connection is returned to the pool before the result is returned.</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ExecSQL</span><span class="params">()</span></span> &#123;</span><br><span class="line">	schema := <span class="string">`CREATE TABLE place (</span></span><br><span class="line"><span class="string">    country text,</span></span><br><span class="line"><span class="string">    city text NULL,</span></span><br><span class="line"><span class="string">    telcode integer);`</span></span><br><span class="line">	result, err := DB.Exec(schema)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(result)</span><br><span class="line">	<span class="comment">// or, you can use MustExec, which panics on error</span></span><br><span class="line">	cityState := <span class="string">`INSERT INTO place (country, telcode) VALUES (?, ?)`</span></span><br><span class="line">	countryCity := <span class="string">`INSERT INTO place (country, city, telcode) VALUES (?, ?, ?)`</span></span><br><span class="line">	DB.MustExec(cityState, <span class="string">&quot;Hong Kong&quot;</span>, <span class="number">852</span>)</span><br><span class="line">	DB.MustExec(cityState, <span class="string">&quot;Singapore&quot;</span>, <span class="number">65</span>)</span><br><span class="line">	DB.MustExec(countryCity, <span class="string">&quot;South Africa&quot;</span>, <span class="string">&quot;Johannesburg&quot;</span>, <span class="number">27</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx绑定数据"><a href="#sqlx绑定数据" class="headerlink" title="sqlx绑定数据"></a>sqlx绑定数据</h2><blockquote>
+<ul>
+<li>MySQL uses the <code>?</code> variant shown above</li>
+<li>PostgreSQL uses an enumerated <code>$1</code>, <code>$2</code>, etc bindvar syntax</li>
+<li>SQLite accepts both <code>?</code> and <code>$1</code> syntax</li>
+<li>Oracle uses a <code>:name</code> syntax</li>
+</ul>
+</blockquote>
+<h2 id="sqlx查询–Query"><a href="#sqlx查询–Query" class="headerlink" title="sqlx查询–Query"></a>sqlx查询–Query</h2><blockquote>
+<p>Query is the primary way to run queries with database&#x2F;sql that return row results. Query returns an <code>sql.Rows</code> object and an error:</p>
+</blockquote>
+<p>Query的使用</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">QueryDemo</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 查询数据库</span></span><br><span class="line">	rows, err := DB.Query(<span class="string">&quot;select * from user&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 迭代器取数据</span></span><br><span class="line">	<span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">		<span class="keyword">var</span> id <span class="type">int64</span></span><br><span class="line">		<span class="keyword">var</span> firstNam <span class="type">string</span></span><br><span class="line">		<span class="keyword">var</span> lastname <span class="type">string</span></span><br><span class="line">		<span class="keyword">var</span> age <span class="type">int64</span></span><br><span class="line">		rows.Scan(&amp;id, &amp;firstNam, &amp;lastname, &amp;age)</span><br><span class="line">		fmt.Printf(<span class="string">&quot;id:%d, firstname:%s, lastname:%s, age:%d\n&quot;</span>, id, firstNam, lastname, age)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Queryx使用</p>
+<blockquote>
+<p>The sqlx extension <code>Queryx</code> behaves exactly as Query does, but returns an <code>sqlx.Rows</code>, which has extended scanning behaviors:</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">QueryxDemo</span><span class="params">()</span></span> &#123;</span><br><span class="line">	rows, err := DB.Queryx(<span class="string">&quot;select * from user&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">		<span class="keyword">var</span> u User</span><br><span class="line">		err := rows.StructScan(&amp;u)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;id:%d, firstname:%s, lastname:%s, age:%d\n&quot;</span>, u.Id, u.FirstName, u.LastName, u.Age)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx的Transactions"><a href="#sqlx的Transactions" class="headerlink" title="sqlx的Transactions"></a>sqlx的Transactions</h2><blockquote>
+<p>To use transactions, you must create a transaction handle with <code>DB.Begin()</code>. Code like this <strong>will not work</strong>:</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// this will not work if connection pool &gt; 1</span></span><br><span class="line">db.MustExec(<span class="string">&quot;BEGIN;&quot;</span>)</span><br><span class="line">db.MustExec(...)</span><br><span class="line">db.MustExec(<span class="string">&quot;COMMIT;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>请记住，Exec和所有其他查询谓词都会向DB请求连接，然后每次将其返回到池中。不能保证您将接收到执行BEGIN语句的相同连接。因此，要使用事务，必须使用DB.Begin()</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">tx, err := db.Begin()</span><br><span class="line">err = tx.Exec(...)</span><br><span class="line">err = tx.Commit()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">tx := db.MustBegin()</span><br><span class="line">tx.MustExec(...)</span><br><span class="line">err = tx.Commit()</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx的Prepared-Statements"><a href="#sqlx的Prepared-Statements" class="headerlink" title="sqlx的Prepared Statements"></a>sqlx的Prepared Statements</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">stmt, err := db.Prepare(<span class="string">`SELECT * FROM place WHERE telcode=?`</span>)</span><br><span class="line">row = stmt.QueryRow(<span class="number">65</span>)</span><br><span class="line"> </span><br><span class="line">tx, err := db.Begin()</span><br><span class="line">txStmt, err := tx.Prepare(<span class="string">`SELECT * FROM place WHERE telcode=?`</span>)</span><br><span class="line">row = txStmt.QueryRow(<span class="number">852</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Preparex</span></span><br><span class="line">stmt, err := db.Preparex(<span class="string">`SELECT * FROM place WHERE telcode=?`</span>)</span><br><span class="line"><span class="keyword">var</span> p Place</span><br><span class="line">err = stmt.Get(&amp;p, <span class="number">852</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx–Query-Helpers"><a href="#sqlx–Query-Helpers" class="headerlink" title="sqlx–Query Helpers"></a>sqlx–Query Helpers</h2><p>In Queries</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE level IN (?);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> levels = []<span class="type">int</span>&#123;<span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">rows, err := db.Query(<span class="string">&quot;SELECT * FROM users WHERE level IN (?);&quot;</span>, levels)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> levels = []<span class="type">int</span>&#123;<span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">query, args, err := sqlx.In(<span class="string">&quot;SELECT * FROM users WHERE level IN (?);&quot;</span>, levels)</span><br><span class="line"><span class="comment">// sqlx.In returns queries with the `?` bindvar, we can rebind it for our backend</span></span><br><span class="line">query = db.Rebind(query)</span><br><span class="line">rows, err := db.Query(query, args...)</span><br></pre></td></tr></table></figure>
+
+<p>Named Queries</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// named query with a struct</span></span><br><span class="line">p := Place&#123;Country: <span class="string">&quot;South Africa&quot;</span>&#125;</span><br><span class="line">rows, err := db.NamedQuery(<span class="string">`SELECT * FROM place WHERE country=:country`</span>, p)</span><br><span class="line"> </span><br><span class="line"><span class="comment">// named query with a map</span></span><br><span class="line">m := <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;city&quot;</span>: <span class="string">&quot;Johannesburg&quot;</span>&#125;</span><br><span class="line">result, err := db.NamedExec(<span class="string">`SELECT * FROM place WHERE city=:city`</span>, m)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p := Place&#123;TelephoneCode: <span class="number">50</span>&#125;</span><br><span class="line">pp := []Place&#123;&#125;</span><br><span class="line"><span class="comment">// select all telcodes &gt; 50</span></span><br><span class="line">nstmt, err := db.PrepareNamed(<span class="string">`SELECT * FROM place WHERE telcode &gt; :telcode`</span>)</span><br><span class="line">err = nstmt.Select(&amp;pp, p)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">arg := <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">    <span class="string">&quot;published&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;authors&quot;</span>: []&#123;<span class="number">8</span>, <span class="number">19</span>, <span class="number">32</span>, <span class="number">44</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line">query, args, err := sqlx.Named(<span class="string">&quot;SELECT * FROM articles WHERE published=:published AND author_id IN (:authors)&quot;</span>, arg)</span><br><span class="line">query, args, err := sqlx.In(query, args...)</span><br><span class="line">query = db.Rebind(query)</span><br><span class="line">db.Query(query, args...)</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx–Controlling-Name-Mapping"><a href="#sqlx–Controlling-Name-Mapping" class="headerlink" title="sqlx–Controlling Name Mapping"></a>sqlx–Controlling Name Mapping</h2><p>用作StructScans目标的结构字段必须大写，以便sqlx可以访问。因此，sqlx使用NameMapper来应用字符串。降低字段名称以将它们映射到行结果中的列。这并不总是理想的，这取决于您的模式，因此sqlx允许以多种方式定制映射。</p>
+<p>其中最简单的方法是使用sqlx.DB为数据库句柄设置它。MapperFunc，它接收一个func(string) string类型的参数。如果你的库需要一个特定的映射器，并且你不想毒害你收到的sqlx.DB，你可以创建一个副本在库中使用，以确保一个特定的默认映射:</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// if our db schema uses ALLCAPS columns, we can use normal fields</span></span><br><span class="line">db.MapperFunc(strings.ToUpper)</span><br><span class="line"> </span><br><span class="line"><span class="comment">// suppose a library uses lowercase columns, we can create a copy</span></span><br><span class="line"><span class="built_in">copy</span> := sqlx.NewDb(db.DB, db.DriverName())</span><br><span class="line"><span class="built_in">copy</span>.MapperFunc(strings.ToLower)</span><br></pre></td></tr></table></figure>
+
+<p>每个sqlx. db使用sqlx&#x2F;reflectx包的映射器来实现底层映射，并将活动映射器公开为sqlx. db .Mapper。您可以通过直接设置来进一步定制DB上的映射:</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/jmoiron/sqlx/reflectx&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create a new mapper which will use the struct field tag &quot;json&quot; instead of &quot;db&quot;</span></span><br><span class="line">db.Mapper = reflectx.NewMapperFunc(<span class="string">&quot;json&quot;</span>, strings.ToLower)</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlx–-Connection-Pool"><a href="#sqlx–-Connection-Pool" class="headerlink" title="sqlx– Connection Pool"></a>sqlx– Connection Pool</h2><blockquote>
+<p>Statement preparation and query execution require a connection, and the DB object will manage a pool of them so that it can be safely used for concurrent querying. There are two ways to control the size of the connection pool as of Go 1.2:</p>
+</blockquote>
+<ul>
+<li><code>DB.SetMaxIdleConns(n int)</code></li>
+<li><code>DB.SetMaxOpenConns(n int)</code></li>
+</ul>
+<p>默认情况下，池无限制地增长，只要池中没有可用的空闲连接，就会创建连接。您可以使用DB。SetMaxOpenConns设置池的最大大小。未使用的连接被标记为空闲，如果不需要则关闭。为了避免建立和关闭大量连接，请使用DB设置最大空闲大小。SetMaxIdleConns设置为适合您的查询负载的大小。</p>
+<p>一不小心抓住关系不放很容易惹上麻烦。为了防止这种情况:</p>
+<ul>
+<li>确保Scan()每个Row对象</li>
+<li>确保使用Close()或通过Next()对每个Rows对象进行完全迭代</li>
+<li>确保每个事务通过Commit()或Rollback()返回其连接</li>
+</ul>
+<p>如果您忽略了这些事情中的一件，它们使用的连接可能会被保留到垃圾收集，并且您的数据库最终将立即创建更多的连接以补偿它使用的连接。注意，Rows.Close()可以安全地调用多次，所以不要害怕在不必要的地方调用它。</p>
+<h1 id="sqlx-Squirrel"><a href="#sqlx-Squirrel" class="headerlink" title="sqlx + Squirrel"></a>sqlx + Squirrel</h1><p><strong>Squirrel</strong></p>
+<blockquote>
+<p><strong>Squirrel is not an ORM.</strong> For an application of Squirrel, check out <a target="_blank" rel="noopener" href="https://github.com/Masterminds/structable">structable, a table-struct mapper</a></p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/jmoiron/sqlx&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">import</span> sq <span class="string">&quot;github.com/Masterminds/squirrel&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> DB *sqlx.DB</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initMysql</span><span class="params">()</span></span> (err <span class="type">error</span>) &#123;</span><br><span class="line">	dsn := <span class="string">&quot;root:123456@tcp(127.0.0.1:3306)/demo&quot;</span></span><br><span class="line">	DB, err = sqlx.Connect(<span class="string">&quot;mysql&quot;</span>, dsn)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		_ = fmt.Sprintf(<span class="string">&quot;database connect error: %v\n&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	DB.SetMaxOpenConns(<span class="number">200</span>)</span><br><span class="line">	DB.SetMaxIdleConns(<span class="number">20</span>)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello squirrel&quot;</span>)</span><br><span class="line">	_ = initMysql()</span><br><span class="line">	sql, args, err := sq.Select(<span class="string">&quot;*&quot;</span>).</span><br><span class="line">		From(<span class="string">&quot;user&quot;</span>).</span><br><span class="line">		Where(sq.Eq&#123;<span class="string">&quot;id&quot;</span>: <span class="number">2</span>&#125;).ToSql()</span><br><span class="line">	fmt.Printf(<span class="string">&quot;sql: %s, args: %v, err: %v\n&quot;</span>, sql, args[<span class="number">0</span>], err)</span><br><span class="line">	<span class="comment">// select * from user where id = 2</span></span><br><span class="line">	<span class="keyword">var</span> id <span class="type">int64</span></span><br><span class="line">	<span class="keyword">var</span> firstNam <span class="type">string</span></span><br><span class="line">	<span class="keyword">var</span> lastname <span class="type">string</span></span><br><span class="line">	<span class="keyword">var</span> age <span class="type">int64</span></span><br><span class="line"></span><br><span class="line">	err = DB.QueryRow(sql, args...).</span><br><span class="line">		Scan(&amp;id, &amp;age, &amp;firstNam, &amp;lastname)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;id:%d, firstname:%s, lastname:%s, age:%d\n&quot;</span>, id, firstNam, lastname, age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">菠萝</div><div class="post-copyright__author_desc">可可爱爱，没有脑袋</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/')">sqlc和sqlx的使用</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=sqlc和sqlx的使用&amp;url=https://kiritoabc.github.io/2023/10/07/sqlx%E5%92%8Csqlc/&amp;pic=https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg?_r_=7b87bb0d-dba2-21dc-8c52-19e36137d202" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://Kiritoabc.github.io" target="_blank">菠萝萝のBLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>后端开发小技巧<span class="tagsPageCount">5</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg?_r_=3f32f9b9-83be-c115-1a72-7f6811e28b47" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/10/03/go%E8%AF%AD%E8%A8%80%E6%B3%9B%E5%9E%8B/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover.jpg?_r_=a78999cd-7a0f-5a8c-d825-8e66ae6118ab" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Go泛型</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/07/go%E8%B0%83%E7%94%A8%E5%A4%96%E9%83%A8%E7%A8%8B%E5%BA%8F/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg?_r_=dafafcaf-a3d7-6213-bfe1-c02e2d95c268" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Go语言调用外部程序</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2023/07/06/CAP/" title="分布式必备理论基础CAP和BASE"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg?_r_=9c5cc4fd-f8f9-ff4b-fe03-ac8753f3a3df" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-07-06</div><div class="title">分布式必备理论基础CAP和BASE</div></div></a></div><div><a href="/2023/05/12/DDD/" title="DDD"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover7.jpg?_r_=1f33eedc-3a88-c262-39ce-a9cc83b0fb3a" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-05-12</div><div class="title">DDD</div></div></a></div><div><a href="/2023/09/12/cron/" title="Cron"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover2.jpg?_r_=d2d1c914-986e-10e4-1c94-6a03a5114555" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-09-12</div><div class="title">Cron</div></div></a></div><div><a href="/2023/11/08/go%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/" title="go时间处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover.jpg?_r_=84a48f2c-45a8-aba0-d0bf-49ca7be01612" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-11-08</div><div class="title">go时间处理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">菠萝，博客</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">菠萝</h1><div class="author-info__desc">可可爱爱，没有脑袋</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/Kiritoabc" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/372204786" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客鸭~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFsqlc%E5%92%8Csqlx"><span class="toc-number">1.</span> <span class="toc-text">什么是sqlc和sqlx?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sqlx%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">sqlx的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%93Connect"><span class="toc-number">2.1.</span> <span class="toc-text">sqlx连接数据库–Connect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E2%80%93Get-Select"><span class="toc-number">2.2.</span> <span class="toc-text">sqlx查询数据–Get,Select</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E7%9A%84Exec%E6%89%A7%E8%A1%8Csql"><span class="toc-number">2.3.</span> <span class="toc-text">sqlx的Exec执行sql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E7%BB%91%E5%AE%9A%E6%95%B0%E6%8D%AE"><span class="toc-number">2.4.</span> <span class="toc-text">sqlx绑定数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E6%9F%A5%E8%AF%A2%E2%80%93Query"><span class="toc-number">2.5.</span> <span class="toc-text">sqlx查询–Query</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E7%9A%84Transactions"><span class="toc-number">2.6.</span> <span class="toc-text">sqlx的Transactions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E7%9A%84Prepared-Statements"><span class="toc-number">2.7.</span> <span class="toc-text">sqlx的Prepared Statements</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E2%80%93Query-Helpers"><span class="toc-number">2.8.</span> <span class="toc-text">sqlx–Query Helpers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E2%80%93Controlling-Name-Mapping"><span class="toc-number">2.9.</span> <span class="toc-text">sqlx–Controlling Name Mapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlx%E2%80%93-Connection-Pool"><span class="toc-number">2.10.</span> <span class="toc-text">sqlx– Connection Pool</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sqlx-Squirrel"><span class="toc-number">3.</span> <span class="toc-text">sqlx + Squirrel</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/04/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/" title="记录一次性能测试"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg?_r_=3f32f9b9-83be-c115-1a72-7f6811e28b47" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="记录一次性能测试"/></a><div class="content"><a class="title" href="/2024/11/04/%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95/" title="记录一次性能测试">记录一次性能测试</a><time datetime="2024-11-04T16:04:41.000Z" title="发表于 2024-11-04 16:04:41">2024-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/03/%E6%9C%89%E6%A0%88%E5%8D%8F%E7%A8%8B%E5%92%8C%E6%97%A0%E6%A0%88%E5%8D%8F%E7%A8%8B/" title="有栈协程和无栈协程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg?_r_=a4b1760a-1d06-749b-0759-a04530ee9b85" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="有栈协程和无栈协程"/></a><div class="content"><a class="title" href="/2024/09/03/%E6%9C%89%E6%A0%88%E5%8D%8F%E7%A8%8B%E5%92%8C%E6%97%A0%E6%A0%88%E5%8D%8F%E7%A8%8B/" title="有栈协程和无栈协程">有栈协程和无栈协程</a><time datetime="2024-09-03T08:00:41.000Z" title="发表于 2024-09-03 08:00:41">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/28/Redis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%B3%BB%E5%88%970/" title="Redis源码阅读0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover5.jpg?_r_=083ecde2-be67-1f76-2508-eb9569033107" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Redis源码阅读0"/></a><div class="content"><a class="title" href="/2024/03/28/Redis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%B3%BB%E5%88%970/" title="Redis源码阅读0">Redis源码阅读0</a><time datetime="2024-03-28T15:39:50.393Z" title="发表于 2024-03-28 15:39:50">2024-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="重构博客"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover6.jpg?_r_=9312dcde-1d34-6730-9fb3-42c8b205f396" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重构博客"/></a><div class="content"><a class="title" href="/2024/03/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="重构博客">重构博客</a><time datetime="2024-03-28T00:04:41.000Z" title="发表于 2024-03-28 00:04:41">2024-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/23/%E4%BA%91%E5%8E%9F%E7%94%9F1/" title="云原生02--K8s"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover3.jpg?_r_=6ab532fe-1e81-eba9-c73d-48f572c42164" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="云原生02--K8s"/></a><div class="content"><a class="title" href="/2024/03/23/%E4%BA%91%E5%8E%9F%E7%94%9F1/" title="云原生02--K8s">云原生02--K8s</a><time datetime="2024-03-23T13:04:41.000Z" title="发表于 2024-03-23 13:04:41">2024-03-23</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="workboard"><div id="runtimeTextTip"></div></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="菠萝" target="_blank">菠萝</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">42</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">9</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://Kiritoabc.github.io" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/UML/" style="font-size: 0.88rem;">UML<sup>1</sup></a><a href="/tags/go/" style="font-size: 0.88rem;">go<sup>3</sup></a><a href="/tags/redis/" style="font-size: 0.88rem;">redis<sup>3</sup></a><a href="/tags/sql/" style="font-size: 0.88rem;">sql<sup>1</sup></a><a href="/tags/why-what-how/" style="font-size: 0.88rem;">why? what? how?<sup>1</sup></a><a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" style="font-size: 0.88rem;">中间件<sup>2</sup></a><a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" style="font-size: 0.88rem;">云原生<sup>2</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 0.88rem;">前端开发小技巧<sup>3</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">前端知识<sup>1</sup></a><a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 0.88rem;">博客<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 0.88rem;">后端<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AFGo/" style="font-size: 0.88rem;">后端Go<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AFgo/" style="font-size: 0.88rem;">后端go<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 0.88rem;">后端开发小技巧<sup>5</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">后端开发知识<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">后端知识<sup>4</sup></a><a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">大数据知识<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 0.88rem;">学习记录<sup>1</sup></a><a href="/tags/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/" style="font-size: 0.88rem;">安卓开发<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>2</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 0.88rem;">测试小技巧<sup>1</sup></a><a href="/tags/%E7%AE%80%E5%8E%86%E5%88%B6%E4%BD%9C/" style="font-size: 0.88rem;">简历制作<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("10/01/2023 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 菠萝 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script async="async">(function () {
+  var grt = new Date("10/01/2023 00:00:00"); //设置网站上线时间
+  var now = new Date();
+  var dnum;
+  var hnum;
+  var mnum;
+  var snum;
+  var nowHour;
+
+  // 计算并更新天数、小时数、分钟数和秒数
+  function updateTime() {
+    now = new Date(); // 更新 now 的值
+    nowHour = now.getHours(); // 更新 nowHour 的值
+    var days = (now - grt) / 1000 / 60 / 60 / 24;
+    dnum = Math.floor(days);
+    var hours = (now - grt) / 1000 / 60 / 60 - 24 * dnum;
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+      hnum = "0" + hnum;
+    }
+    var minutes = (now - grt) / 1000 / 60 - 24 * 60 * dnum - 60 * hnum;
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+      mnum = "0" + mnum;
+    }
+    var seconds = (now - grt) / 1000 - 24 * 60 * 60 * dnum - 60 * 60 * hnum - 60 * mnum;
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+      snum = "0" + snum;
+    }
+  }
+
+  // 更新网页中显示的网站运行时间
+  function updateHtml() {
+    const footer = document.getElementById("footer");
+    if (!footer) return
+    let currentTimeHtml = "";
+    if (nowHour < 18 && nowHour >= 9) {
+      // 如果是上班时间，默认就是"安知鱼-上班摸鱼中.svg"图片，不需要更改
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    } else {
+      // 如果是下班时间，插入"安知鱼-下班啦.svg"图片
+      let img = document.querySelector("#workboard .workSituationImg");
+      if (img != null) {
+        img.src = "";
+        img.title = "";
+        img.alt = "";
+      }
+
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    }
+
+    if (document.getElementById("runtimeTextTip")) {
+      document.getElementById("runtimeTextTip").innerHTML = currentTimeHtml;
+    }
+  }
+
+  setInterval(() => {
+    updateTime();
+    updateHtml();
+  }, 1000);
+})();</script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
