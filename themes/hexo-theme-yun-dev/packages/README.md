@@ -1,3 +1,0 @@
-# packages
-
-Change to monorepo.
