@@ -16,7 +16,7 @@ photos: https://cdn.jsdelivr.net/gh/cungudafa/cdn/img/banner/about.jpg
 
 <!-- more -->
 
-- 是名大学生
+- 是名在校大学生
 - loving life & loving coding
 - 在为找工作努力学习ing
 - 主要技术栈：golang
