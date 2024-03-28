@@ -50,12 +50,11 @@ jobs:
           hexo clean
           hexo bangumi -u #bilibili番剧更新
           hexo generate
-          gulp
 
       - name: 部署到GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages  # 部署到gh-pages分支
-          folder: public  # Hexo生成的静态文件目录
+          folder: ./public  # Hexo生成的静态文件目录
           commit-message: "${{ github.event.head_commit.message }} Updated By Github Actions"
