@@ -4,55 +4,45 @@ on:
   push:
     branches:
       - master # default branch
-  release:
-    types:
-      - published
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: 检查分支
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          ref: master
-
-      - name: 安装 Node
-        uses: actions/setup-node@v1
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # If your repository depends on submodule, please see: https://github.com/actions/checkout
+          submodules: recursive
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
-
-      - name: 安装 Hexo
-        run: |
-          export TZ='Asia/Shanghai'
-          npm install hexo-cli -g
-
-      - name: 缓存 Hexo
-        id: cache-npm
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
+          node-version: '16'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.OS }}-npm-cache
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: 安装依赖
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm install --save
-
-      - name: 生成静态文件
-        run: |
-          hexo clean
-          hexo generate
-
-      - name: 部署到GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          token: ${{ secrets.TOKEN }}
-          branch: gh-pages  # 部署到gh-pages分支
-          folder: public  # Hexo生成的静态文件目录
-          commit-message: "${{ github.event.head_commit.message }} Updated By Github Actions"
+          path: ./public
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
