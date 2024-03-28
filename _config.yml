@@ -111,7 +111,8 @@ theme: anzhiyu
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: git@github.com:Kiritoabc/Kiritoabc.github.io
+  repo: git@github.com:Kiritoabc/Kiritoabc.github.io.git
+  branch: gh-pages
 
 wordcount:
   enable: true
