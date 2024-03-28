@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master # default branch
-  release:
-    types:
-      - published
 
 jobs:
   pages:
@@ -15,17 +12,10 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v2
-
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
           node-version: "16"
-
-      - name: 安装 Hexo
-        run: |
-          export TZ='Asia/Shanghai'
-          npm install hexo-cli -g
-
       - name: Cache NPM dependencies
         uses: actions/cache@v2
         with:
@@ -33,18 +23,10 @@ jobs:
           key: ${{ runner.OS }}-npm-cache
           restore-keys: |
             ${{ runner.OS }}-npm-cache
-
       - name: Install Dependencies
-        run: |
-          npm install --save
-      #          npm install gulp-cli -g #全局安装gulp
-
-      - name: 生成静态文件
-        run: |
-          hexo clean
-          hexo g
-#          gulp
-
+        run: npm install
+      - name: Build
+        run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
