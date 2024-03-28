@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 菠萝萝のBLOG
-subtitle: '可可爱爱，没有脑袋'
-description: '菠萝，博客'
-keywords: '博客, 菠萝, 菠萝的博客, 菠萝的BLOG'
-author: 菠萝
-language: zh-CN
+title: Hexo
+subtitle: ''
+description: ''
+keywords:
+author: John Doe
+language: en
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://Kiritoabc.github.io
+url: http://example.com
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -40,29 +40,20 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
+post_asset_folder: false
 relative_link: false
 future: true
-
-# _config.yml
+syntax_highlighter: highlight.js
 highlight:
-  enable: true
-  line_number: false
+  line_number: true
   auto_detect: false
   tab_replace: ''
   wrap: true
   hljs: false
 prismjs:
-  enable: false
   preprocess: true
-  line_number: false
+  line_number: true
   tab_replace: ''
-
-prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'
-  line_number: false    # default false
-  custom_css:
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -105,43 +96,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-#theme: yun
-theme: anzhiyu
+theme: landscape
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: 'git'
-  repo: git@github.com:Kiritoabc/Kiritoabc.github.io.git
-  branch: gh-pages
-
-wordcount:
-  enable: true
-  post_wordcount: true
-  min2read: true
-  total_wordcount: true
-
-
-#githubEmojis:
-#  enable: true
-#  className: github-emoji
-#  inject: true
-#  styles:
-#  customEmojis:
-#
-#  #permalink: :year/:month/:day/:title/ #主题默认文章链接配置
-#  permalink: post/:abbrlink.html #修改
-#
-#  ## 启用算法生成不重复文件编号，添加
-#  abbrlink:
-#    alg: crc16   #算法： crc16(default) and crc32
-#    rep: hex   #进制： dec(default) and hex: dec #输出进制：十进制和十六进制，默认为10进制。丨dec为十进制，hex为十六进制
-#
-#feed:
-#  type: atom
-#  path: atom.xml
-#  limit: 20
-#  hub:
-#  content:
-#  content_limit: 140
-#  content_limit_delim: ' '
-#  order_by: -date
+  type: ''
