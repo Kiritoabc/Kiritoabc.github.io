@@ -7,9 +7,9 @@ hideTime: true
 cover:
 categories: 安卓开发
 tag: 安卓开发
+date: 2023-10-14 13:04:41
 abbrlink: 15986
 ---
-
 # flutter
 
 ## 网络框架dio v5.3.3
@@ -302,8 +302,6 @@ print(response.requestOptions);
 print(response.statusCode);
 ~~~
 
-
-
 注意，`Response.extra` 与 `RequestOptions.extra` 是不同的实例，互相之间无关。
 
 #### 拦截器
@@ -379,8 +377,6 @@ print(response.data); // 'fake data'
 
 完整的示例代码请点击 [这里](https://github.com/cfug/dio/blob/main/example/lib/queued_interceptor_crsftoken.dart).
 
-
-
 #### 日志拦截器
 
 我们可以添加 `LogInterceptor` 拦截器来自动打印请求和响应等日志：
@@ -392,8 +388,6 @@ print(response.data); // 'fake data'
 ```dart
 dio.interceptors.add(LogInterceptor(responseBody: false)); // 不输出响应内容体
 ```
-
-
 
 **注意：** 默认的 `logPrint` 只会在 DEBUG 模式（启用了断言） 的情况下输出日志。
 
@@ -415,13 +409,9 @@ dio.interceptors.add(
 );
 ~~~
 
-
-
 #### 自定义拦截器
 
 开发者可以通过继承 `Interceptor/QueuedInterceptor` 类来实现自定义拦截器。 这是一个简单的 [缓存拦截器](https://github.com/cfug/dio/blob/main/example/lib/custom_cache_interceptor.dart)。
-
-
 
 #### 错误处理
 
@@ -496,8 +486,6 @@ final formData = FormData.fromMap({
 final response = await dio.post('/info', data: formData);
 ```
 
-
-
 > 通常情况下只有 POST 方法支持发送 FormData。
 
 这里有一个完整的 [示例](https://github.com/cfug/dio/blob/main/example/lib/formdata.dart)。
@@ -515,8 +503,6 @@ final formData = FormData.fromMap({
 });
 ```
 
-
-
 最终编码时会 key 会为 `files[]`， **如果不想添加 []**，可以通过 `Formdata` 的 `files` 来构建：
 
 ```
@@ -532,8 +518,6 @@ formData.files.addAll([
   ),
 ]);
 ```
-
-
 
 #### 复用 `FormData` 和 `MultipartFile`
 
@@ -552,8 +536,6 @@ Future<void> _repeatedlyRequest() async {
   await dio.post('some-url', data: await createFormData());
 }
 ```
-
-
 
 #### 转换器
 
@@ -582,8 +564,6 @@ void main() {
 }
 ```
 
-
-
 #### 其它示例
 
 这里有一个 [自定义 Transformer 的示例](https://github.com/cfug/dio/blob/main/example/lib/transformer.dart)。
@@ -600,8 +580,6 @@ void main() {
 dio.httpClientAdapter = HttpClientAdapter();
 ```
 
-
-
 如果你需要单独使用对应平台的适配器：
 
 - 对于 Web 平台
@@ -611,9 +589,6 @@ dio.httpClientAdapter = HttpClientAdapter();
   // ...
   dio.httpClientAdapter = BrowserClientAdapter();
   ```
-
-  
-
 - 对于原生平台：
 
   ```
@@ -621,8 +596,6 @@ dio.httpClientAdapter = HttpClientAdapter();
   // ...
   dio.httpClientAdapter = IOClientAdapter();
   ```
-
-  
 
 [示例](https://github.com/cfug/dio/blob/main/example/lib/adapter.dart) 中包含了一个简单的自定义桥接。
 
@@ -647,8 +620,6 @@ void initAdapter() {
   );
 }
 ```
-
-
 
 完整的示例请查看 [这里](https://github.com/cfug/dio/blob/main/example/lib/proxy.dart)。
 
@@ -687,8 +658,6 @@ void initAdapter() {
 }
 ```
 
-
-
 你可以使用 OpenSSL 读取密钥的 SHA-256：
 
 ```
@@ -698,8 +667,6 @@ openssl s_client -servername pinning-test.badssl.com -connect pinning-test.badss
 #### SHA256 Fingerprint=EE:5C:E1:DF:A7:A5:36:57:C5:45:C6:2B:65:80:2E:42:72:87:8D:AB:D6:5C:0A:AD:CF:85:78:3E:BB:0B:4D:5C
 # (remove the formatting, keep only lower case hex characters to match the `sha256` above)
 ```
-
-
 
 **证书颁发机构验证**
 
@@ -722,8 +689,6 @@ void initAdapter() {
 }
 ```
 
-
-
 对于自签名的证书，我们也可以将其添加到本地证书信任链中， 这样证书验证时就会自动通过，而不会再走到 `badCertificateCallback` 回调中：
 
 ```
@@ -739,8 +704,6 @@ void initAdapter() {
   );
 }
 ```
-
-
 
 注意，通过 `setTrustedCertificates()` 设置的证书格式必须为 PEM 或 PKCS12， 如果证书格式为 PKCS12，则需将证书密码传入， 这样则会在代码中暴露证书密码，所以客户端证书校验不建议使用 PKCS12 格式的证书。
 
@@ -765,8 +728,6 @@ dio.get(url, cancelToken: cancelToken).catchError((DioException err) {
 token.cancel('cancelled');
 ```
 
-
-
 完整的示例请参考 [取消示例](https://github.com/cfug/dio/blob/main/example/lib/cancel_request.dart).
 
 #### 继承 Dio class
@@ -785,8 +746,6 @@ class Http extends DioForNative {
 }
 ```
 
-
-
 我们也可以直接实现 `Dio` 接口类 :
 
 ```
@@ -795,11 +754,8 @@ class MyDio with DioMixin implements Dio {
 }
 ```
 
-
-
 #### Web 平台跨域资源共享 (CORS)
 
 在 Web 平台上发送网络请求时，如果请求不是一个 [简单请求](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82)， 浏览器会自动向服务器发送 [CORS 预检](https://developer.mozilla.org/zh-CN/docs/Glossary/Preflight_request) (Pre-flight requests)， 用于检查服务器是否支持跨域资源共享。
 
 你可以参考简单请求的定义修改你的请求，或者为你的服务加上 CORS 中间件进行跨域处理。
-

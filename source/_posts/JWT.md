@@ -6,9 +6,9 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端知识
+date: 2023-07-09 13:04:41
 abbrlink: 6430
 ---
-
 > 了解什么是JWT
 
 # JWT
@@ -28,8 +28,6 @@ JWT 自身包含了身份验证所需要的所有信息，因此，我们的服�
 下面是 [RFC 7519](https://tools.ietf.org/html/rfc7519) 对 JWT 做的较为正式的定义。
 
 > JSON Web Token (JWT) is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code (MAC) and/or encrypted. ——[JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
-
-
 
 ## JWT由哪些部分组成
 
@@ -51,15 +49,11 @@ eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
 SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
-
-
 你可以在 [jwt.io](https://jwt.io/) 这个网站上对其 JWT 进行解码，解码之后得到的就是 Header、Payload、Signature 这三部分。
 
 Header 和 Payload 都是 JSON 格式的数据，Signature 由 Payload、Header 和 Secret(密钥)通过特定的计算公式和加密算法得到。
 
 ![1697962095463](JWT/1697962095463.png)
-
-
 
 ### Header
 
@@ -77,11 +71,7 @@ Header 通常由两部分组成：
 }
 ```
 
-
-
 JSON 形式的 Header 被转换成 Base64 编码，成为 JWT 的第一部分。
-
-
 
 ### Payload
 
@@ -116,13 +106,9 @@ Claims 分为三种类型：
 }
 ```
 
-
-
 Payload 部分默认是不加密的，**一定不要将隐私信息存放在 Payload 当中！！！**
 
 JSON 形式的 Payload 被转换成 Base64 编码，成为 JWT 的第二部分。
-
-
 
 ### Signature
 
@@ -143,11 +129,7 @@ HMACSHA256(
   secret)
 ```
 
-
-
 算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用"点"（`.`）分隔，这个字符串就是 JWT 。
-
-
 
 ## 如何基于JWT进行身份验证
 
@@ -167,8 +149,6 @@ HMACSHA256(
 1. 建议将 JWT 存放在 localStorage 中，放在 Cookie 中会有 CSRF 风险。
 2. 请求服务端并携带 JWT 的常见做法是将其放在 HTTP Header 的 `Authorization` 字段中（`Authorization: Bearer Token`）。
 
-
-
 ## 如何防止JWT被篡改
 
 有了签名之后，即使 JWT 被泄露或者截获，黑客也没办法同时篡改 Signature、Header、Payload。
@@ -178,8 +158,6 @@ HMACSHA256(
 不过，如果服务端的秘钥也被泄露的话，黑客就可以同时篡改 Signature、Header、Payload 了。黑客直接修改了 Header 和 Payload 之后，再重新生成一个 Signature 就可以了。
 
 **密钥一定保管好，一定不要泄露出去。JWT 安全的核心在于签名，签名安全的核心在密钥。**
-
-
 
 ## 如何加强JWT的安全性
 

@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: redis
+date: 2023-12-24 13:04:41
 abbrlink: 39217
 ---
 > 这里我想了解Redis的一些基础的类型的具体实现，所有尝试阅读Redis的源码，从源码中学习这些类型的实现。
@@ -401,11 +402,11 @@ Hash数据类型也和String有相似之处，**到达了一定的阈值之后�
  * get filled by a function in order to operate more easily. */
 typedef struct zlentry {
   unsigned int prevrawlensize; //上一个节点的长度 
-    unsigned int prevrawlen;     //存储上一个链表节点长度所需要的的字节数                
-    unsigned int lensize;        //当前节点所需要的的字节数             
-    unsigned int len;            //当前节点占用的长度                                 
+    unsigned int prevrawlen;     //存储上一个链表节点长度所需要的的字节数              
+    unsigned int lensize;        //当前节点所需要的的字节数           
+    unsigned int len;            //当前节点占用的长度                               
     unsigned int headersize;     //当前节点的头大小   
-    unsigned char encoding;      //编码方式          
+    unsigned char encoding;      //编码方式        
     unsigned char *p;            //指向当前节点起始位置   
 } zlentry;
 ~~~

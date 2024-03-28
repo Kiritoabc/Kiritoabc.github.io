@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端开发小技巧
+date: 2023-11-08 13:04:41
 abbrlink: 7284
 ---
 > 由于在项目中对于时间的处理总是能看到不同的处理方式，Java中和go中都有不同的处理方式。每个人对于时间的处理方式也尽相同，主要记录go中对于时间的处理方式。

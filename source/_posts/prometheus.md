@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: go
+date: 2023-12-16 13:04:41
 abbrlink: 54102
 ---
 > Prometheus 是[云原生计算基金会](https://cncf.io/)的一个项目，是一个系统和服务监控系统。它收集指标 从给定时间间隔的配置目标中，评估规则表达式， 显示结果，并可在观察到指定条件时触发警报。

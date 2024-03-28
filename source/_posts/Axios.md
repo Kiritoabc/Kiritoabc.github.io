@@ -6,17 +6,15 @@ readmore: true
 hideTime: true
 categories: 前端
 tag: 前端开发小技巧
+date: 2023-06-12 13:04:41
 abbrlink: 42648
 cover:
 ---
-
 Axios学习
 
 # Axios
 
 ## 项目中对于axios的简单二次封装
-
-
 
 <!-- more -->
 
@@ -25,8 +23,6 @@ Axios学习
 ~~~powershell
 yarn add axios
 ~~~
-
-
 
 - 封装,创建一个request.js文件
 
@@ -84,8 +80,6 @@ const post = function (url, data) {
 export default {get, post}
 ~~~
 
-
-
 - 封装完成后可以在 api 文件夹下创建属于自己的 api 用于发送请求，便于管理。
 
 例如
@@ -98,4 +92,3 @@ export function helloApi(){
     return request.get("/hello",{})
 }
 ~~~
-

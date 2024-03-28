@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: go
+date: 2024-3-16 13:04:41
 abbrlink: 11340
 ---
 > Kubernetes, also known as K8s, is an open source system for managing [containerized applications](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) across multiple hosts. It provides basic mechanisms for the deployment, maintenance, and scaling of applications.

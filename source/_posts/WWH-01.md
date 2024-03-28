@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: why? what? how?
+date: 2023-09-12 13:04:41
 abbrlink: 24331
 ---
 # 我为什么学GO

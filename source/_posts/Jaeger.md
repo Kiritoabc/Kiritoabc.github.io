@@ -6,9 +6,9 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端知识
+date: 2023-11-18 13:04:41
 abbrlink: 50359
 ---
-
 > 分布式追踪系统
 
 # Jaeger
@@ -16,8 +16,6 @@ abbrlink: 50359
 <!-- more -->
 
 ![1697972801877](Jaeger/1697972801877.png)
-
-
 
 Jaeger 受到[Dapper](https://research.google.com/pubs/pub36356.html)和[OpenZipkin的启发，是由](https://zipkin.io/)[Uber Technologies](https://uber.github.io/)创建 。
 
@@ -28,10 +26,6 @@ Jaeger 受到[Dapper](https://research.google.com/pubs/pub36356.html)和[OpenZip
 - 根本原因分析
 - 服务依赖分析
 - 性能/延迟优化
-
-
-
-
 
 ## 入门使用
 
@@ -73,8 +67,6 @@ docker run -d --name 12306-jaeger `
   jaegertracing/all-in-one:1.53
 ~~~
 
-
-
 启动后访问http://localhost:16686，如下
 
 ![1697973439846](Jaeger/1697973439846.png)
@@ -90,13 +82,7 @@ Telemetry:
   Batcher: jaeger
 ~~~
 
-
-
-
-
 ![1705205490517](Jaeger/1705205490517.png)
-
-
 
 ## 服务性能监控
 

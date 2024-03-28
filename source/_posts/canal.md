@@ -6,17 +6,15 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 中间件
+date: 2023-08-12 13:04:41
 abbrlink: 38035
 cover:
 ---
-
 # canal
 
 ## 简介
 
 ![1705492794227](canal/1705492794227.png)
-
-
 
 **canal [kə'næl]**，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费
 
@@ -30,10 +28,6 @@ cover:
 - 业务 cache 刷新
 - 带业务逻辑的增量数据处理
 
-
-
-
-
 ## 工作原理
 
 **MySQL主备复制原理**
@@ -42,15 +36,11 @@ cover:
 - MySQL slave 将 master 的 binary log events 拷贝到它的中继日志(relay log)
 - MySQL slave 重放 relay log 中事件，将数据变更反映它自己的数据
 
-
-
 **canal工作原理**
 
 - canal 模拟 MySQL slave 的交互协议，伪装自己为 MySQL slave ，向 MySQL master 发送dump 协议
 - MySQL master 收到 dump 请求，开始推送 binary log 给 slave (即 canal )
 - canal 解析 binary log 对象(原始为 byte 流)
-
-
 
 ## 使用
 
@@ -62,8 +52,6 @@ cover:
 docker network create canal-test
 ~~~
 
-
-
 **启动mysql**
 
 ~~~powershell
@@ -74,8 +62,6 @@ docker run -d --name mysql-server `
   --network=canal-test `
   mysql:8
 ~~~
-
-
 
 **启动canal**
 
@@ -92,11 +78,8 @@ docker run -d --name canal-instance `
   canal/canal-server:v1.1.1
 ~~~
 
-
-
 **cp容器中canal的配置文件**
 
 ~~~powershell
 docker cp canal-instance:/home/canal/conf/instance.properties D:\docker\go-zero-12306\canal\
 ~~~
-

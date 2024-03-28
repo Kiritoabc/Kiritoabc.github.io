@@ -7,12 +7,10 @@ hideTime: true
 cover:
 categories: 后端
 tag: 后端开发知识
+date: 2023-12-12 13:04:41
 abbrlink: 16621
 ---
-
 > 记录Docker的一些应用
-
-
 
 # 如何编写Dockerfile文件部署go项目
 
@@ -23,17 +21,23 @@ abbrlink: 16621
 <!-- more -->
 
 1. 如何创建网络，使用命令
+
 ~~~Shell
 docker network create networkName
 ~~~
+
 2. 使用docker network connect连接到创建的网络
+
 ~~~Shell
 docker network connect networkName dockerName
 ~~~
+
 3. 我们可以通过以下命令查看该网络下的连接
+
 ~~~Shell
 docker network inspect networkName
 ~~~
+
 通过网络就可以使用容器命进行通信了
 
 > 已经将我们要的容器添加至同一network中后，就可以开始编写我们的dockerfile了。
@@ -70,8 +74,6 @@ HEALTHCHECK                         健康检查
 
 ~~~
 
-
-
 **dockerfilke文件如下**
 
 ~~~dockerfile
@@ -101,8 +103,6 @@ ENTRYPOINT ./server -c config.docker.yaml
 
 ~~~
 
-
-
 > 使用dockerfile文件构建我们的镜像
 
 命令：
@@ -114,8 +114,6 @@ docker build -t qpp-demo -f ./Dockerfile ./
 -t 指定镜像的名称，如果要指定版本，采用 image:tag 的写法。
 
 -f 指定Dockerfile文件，默认当前文件夹下的Dockerfile。
-
-
 
 启动镜像
 
@@ -188,29 +186,4 @@ minio:
   useSSL: false
 ~~~
 
-
-
-
-
-# docker compose的使用 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# docker compose的使用

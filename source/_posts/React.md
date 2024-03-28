@@ -6,11 +6,9 @@ readmore: true
 hideTime: true
 categories: 前端
 tag: 前端知识
+date: 2023-10-11 13:04:41
 abbrlink: 2526
 ---
-
-
-
 > **复习React的相关知识**
 
 <!-- more -->
@@ -70,8 +68,6 @@ function AboutPage() {
 ~~~jsx
 <img className="avatar" />
 ~~~
-
-
 
 ### 4. 显示数据
 
@@ -416,15 +412,11 @@ function MyButton({ count, onClick }) {
 
 ~~~
 
-
-
 ## 安装React
 
 ### 启动一个新的React项目
 
->**你需要安装 Node.js 用于本地开发**。你也可以选择在生产环境中使用 Node.js，但你不一定要这样。许多 React 框架支持导出 HTML/CSS/JS 等静态文件。
-
-
+> **你需要安装 Node.js 用于本地开发**。你也可以选择在生产环境中使用 Node.js，但你不一定要这样。许多 React 框架支持导出 HTML/CSS/JS 等静态文件。
 
 #### 生产级的React框架
 
@@ -452,13 +444,10 @@ npx create-remix
 npx create-gatsby
 ~~~
 
-
-
 ##### 4. Expo(用于原生应用)
 
- **Expo 是一个 React 框架，可以让你创建具有真正原生 UI 的应用，包括 Android、iOS，以及 Web 应用**。它为 [React Native](https://reactnative.dev/) 提供了 SDK，使原生部分更容易使用。要创建一个新的 Expo 项目，请运行：
+**Expo 是一个 React 框架，可以让你创建具有真正原生 UI 的应用，包括 Android、iOS，以及 Web 应用**。它为 [React Native](https://reactnative.dev/) 提供了 SDK，使原生部分更容易使用。要创建一个新的 Expo 项目，请运行：
 
 ~~~Pow
 npx create-expo-app
 ~~~
-

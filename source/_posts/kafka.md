@@ -6,6 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 中间件
+date: 2023-11-8 13:04:41
 abbrlink: 22121
 ---
 > Kafka 结合了三个关键功能，因此您可以使用 一个经过实战检验的解决方案来实现端到端事件流的 [用例：](https://kafka.apache.org/powered-by)
@@ -118,7 +119,7 @@ services:
       #broker单独配置
       KAFKA_CFG_NODE_ID: 3
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:39092
-    
+  
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     network_mode: kafka-learn
@@ -341,7 +342,6 @@ kafka中将消息分类，每一类消息称为一个Topic，生产者通过指�
 ### Consumer
 
 消费者，负责消费broker中topic消息，每个consumer归属于一个consumer group。
-
 
 ### 各组件关系
 

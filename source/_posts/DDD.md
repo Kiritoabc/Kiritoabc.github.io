@@ -7,18 +7,16 @@ hideTime: true
 cover:
 categories: 后端
 tag: 后端开发小技巧
+date: 2023-05-12 13:04:41
 abbrlink: 9843
 ---
-
 > 该思想源于2003年 Eric Evans编写的“Domain-Driven Design领域驱动设计”简称DDD，Evans DDD是一套综合软件系统分析和设计的面向对象建模方法。
-
-
 
 <!-- more -->
 
 # 服务器后端发展三个阶段
 
-![1698295528635](DDD/1698295528635.png)	
+![1698295528635](DDD/1698295528635.png)
 
 服务器后端发展三个阶段：
 
@@ -26,13 +24,9 @@ abbrlink: 9843
 2. 面向**数据库表**：初始难度中，业务复杂后，维护难度延迟后再指数上升。--->目前市面上主流
 3. 面向**业务模型**：DDD+SOA微服务的事件驱动的[CQRS读写分离架构：](https://www.jdon.com/cqrs.html)应付复杂业务逻辑，**以聚合模型替代数据表模型**，以并发的事件驱动替代串联的消息驱动。真正实现以业务实体为核心的灵活拓展。初始难度高，业务复杂后，维护难度**线性上升(已很不错)**。
 
-
-
 # DDD的特点
 
 **DDD革命性在于**：领域模型准确反映了业务语言，而传统微服务数据对象除了简单setter/getter方法外，没有任何业务方法，即失血模型，那么DDD领域模型就是**充血模型（业务方法定义在实体对象中）**。
-
-
 
 # 落地
 
@@ -52,13 +46,11 @@ abbrlink: 9843
 
 ![img](DDD/584866-20211011150951572-155912044.jpg)
 
-
-
 ## 技术实现
 
 整体项目框架分层图如下所示：
 
-![img](DDD/584866-20211011141738741-950766765.png)	
+![img](DDD/584866-20211011141738741-950766765.png)
 
 如上图，4层典型DDD分层结构，
 
@@ -74,7 +66,7 @@ abbrlink: 9843
 
 1.简单查询不涉及业务，是可以直接从应用层直接穿透到PO查询，不需要经过domain层。如下图所示，DDD本身是不限制非业务类操作跨层调用的。
 
-![img](DDD/584866-20211011144310357-948628155.jpg)	
+![img](DDD/584866-20211011144310357-948628155.jpg)
 
 2.DTO是不能存在于domain层的，DDD设计不认为DTO是业务对象，entity才是。或者传值简单数据类型也是可以的。
 
@@ -86,22 +78,18 @@ abbrlink: 9843
 
 ![img](DDD/584866-20211011144810021-115106935.png)
 
- 2.跨域调用
-
- 
+2.跨域调用
 
 ![img](DDD/584866-20211011144924979-96628020.png)
-
- 
 
 跨域分为
 
 - 1.同上下文跨域：ACL层->Adapter适配器层→调用其它域的repository。--->不得已才使用，不推荐使用。
-
 - 推荐：1.使用领域事件 eventbus来做解耦
 
-  ​     2.考虑是否有可能合并为一个领域.
-
+  ```
+  2.考虑是否有可能合并为一个领域.
+  ```
 - 2.跨上下文（肯定跨域）：ACL层->Adapter适配器层->feign调用
 
 ### 包结构
@@ -110,15 +98,9 @@ abbrlink: 9843
 
 ![img](DDD/584866-20211011152422827-1548164745.jpg)
 
- 
-
- 
-
- 展开包结构如下：
+展开包结构如下：
 
 ![img](DDD/584866-20211011152315485-404154610.png)
-
- 
 
 **展现层：Controller，**仅做接口的入口定义和编排转发，不做任何的业务处理；
 
@@ -135,11 +117,7 @@ abbrlink: 9843
 
 **持久层：**与常用DAO定义一致，由仓储层操作实体时调用。
 
-
-
-目前业内没有标杆，github开源地址：<https://github.com/jovezhao/nest>  。这个项目可以练手DDD。
-
-
+目前业内没有标杆，github开源地址：[https://github.com/jovezhao/nest](https://github.com/jovezhao/nest)  。这个项目可以练手DDD。
 
 ```
 http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv
@@ -189,8 +167,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 
 ~~~
 
-
-
 ~~~dart
 import 'package:flutter/material.dart';
 import 'video_player_widget.dart';
@@ -214,8 +190,6 @@ class MyApp extends StatelessWidget {
 ~~~
 
 ---
-
-
 
 使用flutter写一个要求有倍速，全屏，音量调节，暂停播放按钮的视频播放组件，
 
@@ -298,8 +272,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 }
 
 ~~~
-
-
 
 ~~~dart
 import 'dart:io';
@@ -687,4 +659,3 @@ class _DelaySliderState extends State<DelaySlider> {
   }
 }
 ~~~
-

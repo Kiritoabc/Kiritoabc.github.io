@@ -7,11 +7,9 @@ hideTime: true
 categories: 后端
 cover:
 tag: 后端开发小技巧
+date: 2023-10-07 13:04:41
 abbrlink: 13343
 ---
-
-
-
 # 什么是sqlc和sqlx?
 
 > github上有解释，可以自行查找
@@ -53,8 +51,6 @@ func initMysql() (err error) {
 }
 ~~~
 
-
-
 ## sqlx查询数据--Get,Select
 
 > 查询单行记录可以使用
@@ -76,8 +72,6 @@ func QueryRowById(id int64) (user User, err error) {
 }
 ~~~
 
-
-
 > 查询多行记录
 
 ~~~go
@@ -90,8 +84,6 @@ func SelectMData() ([]*User, error) {
 	return list, err
 }
 ~~~
-
-
 
 ## sqlx的Exec执行sql
 
@@ -118,18 +110,12 @@ func ExecSQL() {
 }
 ~~~
 
-
-
 ## sqlx绑定数据
 
 > - MySQL uses the `?` variant shown above
 > - PostgreSQL uses an enumerated `$1`, `$2`, etc bindvar syntax
 > - SQLite accepts both `?` and `$1` syntax
 > - Oracle uses a `:name` syntax
-
-
-
-
 
 ## sqlx查询--Query
 
@@ -177,8 +163,6 @@ func QueryxDemo() {
 }
 ~~~
 
-
-
 ## sqlx的Transactions
 
 > To use transactions, you must create a transaction handle with `DB.Begin()`. Code like this **will not work**:
@@ -203,8 +187,6 @@ tx.MustExec(...)
 err = tx.Commit()
 ~~~
 
-
-
 ## sqlx的Prepared Statements
 
 ~~~go
@@ -220,8 +202,6 @@ stmt, err := db.Preparex(`SELECT * FROM place WHERE telcode=?`)
 var p Place
 err = stmt.Get(&p, 852)
 ~~~
-
-
 
 ## sqlx--Query Helpers
 
@@ -240,8 +220,6 @@ query, args, err := sqlx.In("SELECT * FROM users WHERE level IN (?);", levels)
 query = db.Rebind(query)
 rows, err := db.Query(query, args...)
 ~~~
-
-
 
 Named Queries
 
@@ -274,8 +252,6 @@ query = db.Rebind(query)
 db.Query(query, args...)
 ~~~
 
-
-
 ## sqlx--Controlling Name Mapping
 
 用作StructScans目标的结构字段必须大写，以便sqlx可以访问。因此，sqlx使用NameMapper来应用字符串。降低字段名称以将它们映射到行结果中的列。这并不总是理想的，这取决于您的模式，因此sqlx允许以多种方式定制映射。
@@ -300,8 +276,6 @@ import "github.com/jmoiron/sqlx/reflectx"
 db.Mapper = reflectx.NewMapperFunc("json", strings.ToLower)
 ~~~
 
-
-
 ## sqlx-- Connection Pool
 
 > Statement preparation and query execution require a connection, and the DB object will manage a pool of them so that it can be safely used for concurrent querying. There are two ways to control the size of the connection pool as of Go 1.2:
@@ -314,16 +288,10 @@ db.Mapper = reflectx.NewMapperFunc("json", strings.ToLower)
 一不小心抓住关系不放很容易惹上麻烦。为了防止这种情况:
 
 - 确保Scan()每个Row对象
-
 - 确保使用Close()或通过Next()对每个Rows对象进行完全迭代
-
 - 确保每个事务通过Commit()或Rollback()返回其连接
 
 如果您忽略了这些事情中的一件，它们使用的连接可能会被保留到垃圾收集，并且您的数据库最终将立即创建更多的连接以补偿它使用的连接。注意，Rows.Close()可以安全地调用多次，所以不要害怕在不必要的地方调用它。
-
-
-
-
 
 # sqlx + Squirrel
 
@@ -377,4 +345,3 @@ func main() {
 	fmt.Printf("id:%d, firstname:%s, lastname:%s, age:%d\n", id, firstNam, lastname, age)
 }
 ~~~
-

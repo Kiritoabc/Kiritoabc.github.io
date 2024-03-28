@@ -6,12 +6,10 @@ readmore: true
 hideTime: true
 categories: 后端
 tag: 后端
+date: 2023-10-7 13:04:41
 abbrlink: 51848
 ---
-
 > 由于最近开发碰到了需要调用外部软件程序的任务，对此有一定的兴趣，所以本人翻阅互联网，寻找如何操作，得此文章。
-
-
 
 # Go语言调用外部程序
 
@@ -87,10 +85,6 @@ func main() {
 }
 ~~~
 
-
-
-
-
 > 这是一个使用Go语言编写的Windows系统调用函数，用于创建一个新的进程。以下是代码的详细解释：
 >
 > 1. `func CreateProcess(appName *uint16, commandLine *uint16, procSecurity *SecurityAttributes, threadSecurity *SecurityAttributes, inheritHandles bool, creationFlags uint32, env *uint16, currentDir *uint16, startupInfo *StartupInfo, outProcInfo *ProcessInformation) (err error)`：定义了一个名为`CreateProcess`的函数，该函数接受10个参数，返回一个错误值（`err`）。这些参数的含义如下：
@@ -137,4 +131,3 @@ func CreateProcess(appName *uint16, commandLine *uint16, procSecurity *SecurityA
 	return
 }
 ~~~
-
