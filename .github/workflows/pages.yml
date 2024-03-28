@@ -9,9 +9,7 @@ jobs:
   pages:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      pages: write
-      id-token: write
+      contents: write
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 20.x
