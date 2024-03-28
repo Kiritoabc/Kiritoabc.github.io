@@ -36,14 +36,14 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install gulp-cli -g #全局安装gulp
           npm install --save
+      #          npm install gulp-cli -g #全局安装gulp
 
       - name: 生成静态文件
         run: |
           hexo clean
           hexo g
-          gulp
+#          gulp
 
       - name: 部署到Github
         uses: JamesIves/github-pages-deploy-action@v4
