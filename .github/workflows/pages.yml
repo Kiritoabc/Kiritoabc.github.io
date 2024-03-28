@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master # default branch
+  release:
+    types:
+      - published
 
 jobs:
   pages:
@@ -24,11 +27,18 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
+        run: |
+          npm install gulp-cli -g #全局安装gulp
+          npm install --save
+
+      - name: 生成静态文件
+        run: |
+          hexo clean
+          hexo g
+          gulp
+
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: Kirito/github-pages-deploy-action@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
