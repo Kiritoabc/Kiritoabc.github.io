@@ -4,11 +4,10 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: redis
+categories: 后端
 tag: redis
 abbrlink: 23024
 ---
-
 > 主要记录我对于redis7.2.3源码的阅读
 
 What is Redis?
@@ -29,10 +28,6 @@ Redis server 和一个客户端建立连接后，会在事件驱动框架中注�
 - `命令解析`：对应 processInputBuffer 函数
 - `命令执行`：对应 processCommand 函数
 - `结果返回`：对应 addReply 函数
-
-
-
-
 
 在redis源码的 server.c中定义了一些 dictType
 
@@ -69,7 +64,7 @@ typedef struct dictType {
 } dictType;
 ```
 
- `dictType`是Redis中的一个结构体类型，用于定义字典（dict）的哈希表实现。它包含了一些回调函数指针，这些函数在字典初始化、重新哈希等操作时被调用。以下是各个字段的作用：
+`dictType`是Redis中的一个结构体类型，用于定义字典（dict）的哈希表实现。它包含了一些回调函数指针，这些函数在字典初始化、重新哈希等操作时被调用。以下是各个字段的作用：
 
 1. `hashFunction`：哈希函数，用于计算键的哈希值。
 2. `keyDup`：键复制函数，用于复制字典中的键。
@@ -98,8 +93,6 @@ dictType setDictType = {
 };
 ~~~
 
-
-
 在networking.c中有createClient
 
 这里给conn设置了ReadHandler
@@ -127,8 +120,6 @@ client *createClient(connection *conn) {
     ...
 }
 ~~~
-
-
 
 那么我们知道了我们的读取命令的Handler在创建client的时候设置的，接下来我们来看看**readQueryFormClient**的实现
 
@@ -252,8 +243,6 @@ static inline void *connGetPrivateData(connection *conn) {
 }
 ~~~
 
-
-
 **命令解析processInputBuffer**
 
 ~~~c++
@@ -367,8 +356,6 @@ int processInputBuffer(client *c) {
 > 在整个过程中，函数还会更新客户端的内存使用情况，这在某些情况下是很重要的，例如当查询缓冲区很大且在上述循环中没有被完全消耗时。
 >
 > 总之，这个函数的作用是处理客户端发送到服务器的命令缓冲区，并根据请求类型执行相应的操作。
-
-
 
 **执行命令processCommand**
 
@@ -735,7 +722,7 @@ int processCommand(client *c) {
         ((isPausedActions(PAUSE_ACTION_CLIENT_WRITE)) && is_may_replicate_command)))
     {
         blockPostponeClient(c);
-        return C_OK;       
+        return C_OK;     
     }
 
     /* Exec the command */
@@ -762,7 +749,6 @@ int processCommand(client *c) {
 
 > 这段代码是一个名为`processCommand`的函数，它用于处理客户端发送的命令。函数首先检查命令是否超时，然后根据命令的类型和权限进行相应的处理。接下来，函数会检查命令是否具有可重入性、写权限、读权限等属性，并根据这些属性判断命令是否可以执行。最后，函数会根据命令的类型和执行结果进行相应的操作，如拒绝命令、执行命令等。
 
-​	
 
 **返回响应addReply(c,shared.queued);**
 

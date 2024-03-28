@@ -4,11 +4,10 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: 中间件
+categories: 后端
 tag: 中间件
 abbrlink: 22121
 ---
-
 > Kafka 结合了三个关键功能，因此您可以使用 一个经过实战检验的解决方案来实现端到端事件流的 [用例：](https://kafka.apache.org/powered-by)
 >
 > 1. 发布（写入）和**订阅（读取）**事件流，包括从其他系统持续导入/导出数据。
@@ -119,7 +118,7 @@ services:
       #broker单独配置
       KAFKA_CFG_NODE_ID: 3
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:39092
-      
+    
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     network_mode: kafka-learn
@@ -183,8 +182,6 @@ docker run -d --name kafka-server --hostname kafka-server --network kafka-learn 
      -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER `
      bitnami/kafka:latest
 ~~~
-
-
 
 **kafka-ui**
 
@@ -253,15 +250,11 @@ networks:
     name: kafka-net
 ~~~
 
-
-
 **创建网络**
 
 ~~~powershell
 docker network create app-tier --driver bridge
 ~~~
-
-
 
 **启动服务**
 
@@ -277,8 +270,6 @@ docker run -d --name kafka-server --hostname kafka-server `
     bitnami/kafka:latest
 ~~~
 
-
-
 **kafka客户端**
 
 ~~~powershell
@@ -287,15 +278,9 @@ docker run -it --rm `
 bitnami/kafka:latest kafka-topics.sh --list  --bootstrap-server kafka-server:9092
 ~~~
 
-
-
-
-
 ## 概述
 
 > Apache Kafka 是一款开源分布式流处理平台。可以用来发布和订阅数据以及对数据进行实时或者离线处理。
-
-
 
 **特点**
 
@@ -313,8 +298,6 @@ bitnami/kafka:latest kafka-topics.sh --list  --bootstrap-server kafka-server:909
 
 **多客户端支持**：比如java、golang等；
 
-
-
 **主要应用场景**
 
 消息系统：常规的消息队列中间件，实现异步解耦、削峰等功能
@@ -327,8 +310,6 @@ bitnami/kafka:latest kafka-topics.sh --list  --bootstrap-server kafka-server:909
 
 Kafka经常被用来记录web用户或者app用户的各种活动，如浏览网页、搜索、点击等活动，这些活动信息被各个服务器发布到kafka的topic中，然后订阅者通过订阅这些topic来做实时的监控分析，或者装载到Hadoop、数据仓库中做离线分析和挖掘；
 
-
-
 ## 基本概念
 
 ### Broker
@@ -337,17 +318,9 @@ Kafka经常被用来记录web用户或者app用户的各种活动，如浏览网
 
 在集群中，根据每个kafka实例担任的角色可分为leader(controller)和broker。
 
-
-
-
-
 ### Topic
 
 kafka中将消息分类，每一类消息称为一个Topic，生产者通过指定Topic将消息发送到broker中，消费者通过指定Topic可以针对不同的Topic采取不同的消费逻辑。Topic有点类似于数据库的表。
-
-
-
-
 
 ### Partition
 
@@ -357,37 +330,26 @@ kafka中将消息分类，每一类消息称为一个Topic，生产者通过指�
 
 ![1704789749698](kafka/1704789749698.png)
 
-
-
 ### Replica
 
 为了保证数据安全，partition有多个副本，至少会有一个leader副本和多个follower副本。leader负责处理客户端的读写请求，follower副本只复制leader副本的数据。当leader宕机时，follower会自动接替leader副本的工作，从而保证数据的可用性。
 
-
-
 ### Producer
 
-生产者，负责生产消息，并发送到broker。 
+生产者，负责生产消息，并发送到broker。
 
 ### Consumer
 
 消费者，负责消费broker中topic消息，每个consumer归属于一个consumer group。
 
-​                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
 ### 各组件关系
 
 ![1704788969382](kafka/1704788969382.png)
 
-
-
-
-
 ## Kafka版本变更（重点）
 
 > 在kafka版本2.8以前，kafka集群通过zookeeper进行集群管理，从2.8.0版本开始，kafka提供了另一种管理模式：KRaft。
-
-
 
 ### KRaft模式
 
@@ -397,8 +359,6 @@ KRaft 是 "Kafka" 和 "Raft" 的组合词，其中 Raft 是一个用于管理复
 
 它使得 Kafka 能够在没有 Apache ZooKeeper 的情况下运行。KRaft 模式的主要目标是简化 Kafka 的架构，提高其性能和稳定性。
 
-
-
 ### 两种模式对比
 
 #### 架构复杂性及性能
@@ -406,8 +366,6 @@ KRaft 是 "Kafka" 和 "Raft" 的组合词，其中 Raft 是一个用于管理复
 **zookeeper模式**：部署kafka集群时，必然要部署对应的zookeeper集群，既增加了系统的复杂性，同时也需要对zookeeper进行维护。kafka的性能不仅受到本身资源的限制，也受到zookeeper本身的限制以及kafka与zookeeper通信之间的限制。
 
 **KRaft模式**：KRaft模式消除了kafka集群对zookeeper的依赖，降低了kafka部署及维护的难度；同时也消除了因zookeeper本身限制、通信方面的瓶颈以及由于引入zookeeper带来的系统风险，提高了kafka集群的性能和稳定性。
-
-
 
 #### leader选举
 
@@ -423,18 +381,12 @@ KRaft 是 "Kafka" 和 "Raft" 的组合词，其中 Raft 是一个用于管理复
 
 **KRaft模式**： 在KRaft模式中，可以通过配置文件直接指定broker节点的角色（controller、broker），也可以由集群自己完成。
 
-
-
-
-
 ## gin中接入kafka
 
 > 在 Gin 框架中接入 Kafka 主要涉及两个部分：编写生产者（Producer）用于向 Kafka 发送消息，以及编写消费者（Consumer）用于从 Kafka 接收消息。以下是一个简单的示例流程：
 
 - 参考库: [confluentinc/confluent-kafka-go: Confluent's Apache Kafka Golang client (github.com)](https://github.com/confluentinc/confluent-kafka-go?spm=5176.28103460.0.0.231c3f99xjyESY)
 - 参考库: [IBM/sarama: Sarama is a Go library for Apache Kafka. (github.com)](https://github.com/IBM/sarama?spm=5176.28103460.0.0.231c3f99xjyESY)
-
-
 
 **定义消费者**
 
@@ -494,8 +446,6 @@ func (kc *KafKaConsumer) ConsumeMessages(handler func(message *sarama.ConsumerMe
 	return nil
 }
 ~~~
-
-
 
 **定义producer**
 
@@ -602,8 +552,3 @@ func main() {
 	router.Run(":8080")
 }
 ~~~
-
-
-
-
-

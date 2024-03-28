@@ -1,8 +1,9 @@
 ---
 title: redsync
-date: 2024-03-11 00:04:41
 tags: go
-categories: 后端开发
+categories: 后端
+abbrlink: 11917
+date: 2024-03-11 00:04:41
 ---
 
 # 了解什么是redsync

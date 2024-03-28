@@ -8,16 +8,11 @@ categories: 后端
 tag: 后端go
 abbrlink: 35291
 ---
-
-
-
 # 系统监控
 
 > 很多系统中都有守护进程，它们能够在后台监控系统的运行状态，在出现意外情况时及时响应。系统监控是 Go 语言运行时的重要组成部分，它会每隔一段时间检查 Go 语言运行时，确保程序没有进入异常状态。本节会介绍 Go 语言系统监控的设计与实现原理，包括它的启动、执行过程以及主要职责。
 
 <!-- more -->
-
-
 
 # 设计原理
 
@@ -28,8 +23,6 @@ abbrlink: 35291
 守护进程是很有效的设计，它在整个系统的生命周期中都会存在，会随着系统的启动而启动，系统的结束而结束。在操作系统和 Kubernetes 中，我们经常会将数据库服务、日志服务以及监控服务等进程作为守护进程运行。
 
 Go 语言的系统监控也起到了很重要的作用，它在内部启动了一个不会中止的循环，在循环的内部会轮询网络、抢占长期运行或者处于系统调用的 Goroutine 以及触发垃圾回收，通过这些行为，它能够让系统的运行状态变得更健康。
-
-
 
 # 监控循环
 
@@ -112,8 +105,6 @@ func sysmon() {
 
 我们在这一节中会依次介绍系统监控是如何完成上述几种不同工作的。
 
-
-
 ## 检查死锁
 
 系统监控通过 [`runtime.checkdead`](https://draveness.me/golang/tree/runtime.checkdead) 检查运行时是否发生了死锁，我们可以将检查死锁的过程分成以下三个步骤：
@@ -192,12 +183,6 @@ func checkdead() {
 
 如果处理器中存在等待的计时器，那么所有的 Goroutine 陷入休眠状态是合理的，不过如果不存在等待的计时器，运行时会直接报错并退出程序。
 
-
-
-
-
-
-
 ## 垃圾回收
 
 在最后，系统监控还会决定是否需要触发强制垃圾回收，[`runtime.sysmon`](https://draveness.me/golang/tree/runtime.sysmon) 会构建 [`runtime.gcTrigger`](https://draveness.me/golang/tree/runtime.gcTrigger) 并调用 [`runtime.gcTrigger.test`](https://draveness.me/golang/tree/runtime.gcTrigger.test) 方法判断是否需要触发垃圾回收：
@@ -221,10 +206,6 @@ func sysmon() {
 ```
 
 如果需要触发垃圾回收，我们会将用于垃圾回收的 Goroutine 加入全局队列，让调度器选择合适的处理器去执行。
-
-
-
-
 
 # 总结
 

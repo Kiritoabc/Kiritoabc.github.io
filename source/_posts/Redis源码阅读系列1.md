@@ -4,11 +4,10 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: redis
+categories: 后端
 tag: redis
 abbrlink: 39217
 ---
-
 > 这里我想了解Redis的一些基础的类型的具体实现，所有尝试阅读Redis的源码，从源码中学习这些类型的实现。
 
 - **Strings**
@@ -375,17 +374,11 @@ buf 表示字符串数组，真存数据的。
 
 ![1699875249758](Redis源码阅读系列1/1699875249758.png)
 
-
-
 > 小结：
 >
 > 1.只有整数才会使用int，如果是浮点数，就是用字符串保存。
 >
 > 2.embstr 与 raw 类型底层的数据结构其实都是 SDS (简单动态字符串，Redis 内部定义     sdshdr5， sdshdr8等等)。存储使用的是 char[]的数组。
-
-
-
-
 
 ### Hashes
 
@@ -408,11 +401,11 @@ Hash数据类型也和String有相似之处，**到达了一定的阈值之后�
  * get filled by a function in order to operate more easily. */
 typedef struct zlentry {
   unsigned int prevrawlensize; //上一个节点的长度 
-    unsigned int prevrawlen;     //存储上一个链表节点长度所需要的的字节数                  
-    unsigned int lensize;        //当前节点所需要的的字节数               
-    unsigned int len;            //当前节点占用的长度                                   
+    unsigned int prevrawlen;     //存储上一个链表节点长度所需要的的字节数                
+    unsigned int lensize;        //当前节点所需要的的字节数             
+    unsigned int len;            //当前节点占用的长度                                 
     unsigned int headersize;     //当前节点的头大小   
-    unsigned char encoding;      //编码方式            
+    unsigned char encoding;      //编码方式          
     unsigned char *p;            //指向当前节点起始位置   
 } zlentry;
 ~~~
@@ -427,9 +420,4 @@ typedef struct zlentry {
 **遍历过程：**
 通过指向表尾节点的位置指针zltail,减去节点的previous_entry_length，得到前一个节点的起始地址的指针。如此循环，**从表尾节点遍历到表头节点**。
 
-
-
-
-
 > 由于都是一些基本的数据结构，这里就不再探索了。感兴趣可以自行阅读Redis的源码去了解。
-

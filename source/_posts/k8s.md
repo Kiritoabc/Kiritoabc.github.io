@@ -4,11 +4,10 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: go
+categories: 后端
 tag: go
 abbrlink: 11340
 ---
-
 > Kubernetes, also known as K8s, is an open source system for managing [containerized applications](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) across multiple hosts. It provides basic mechanisms for the deployment, maintenance, and scaling of applications.
 
 <!-- more -->
@@ -17,22 +16,16 @@ abbrlink: 11340
 
 ## Kubernets基础
 
-
-
 **Kubernetes 协调一个高可用计算机集群，每个计算机作为独立单元互相连接工作。** Kubernetes 中的抽象允许你将容器化的应用部署到集群，而无需将它们绑定到某个特定的独立计算机。 为了使用这种新的部署模型，应用需要以将应用与单个主机分离的方式打包：它们需要被容器化。 与过去的那种应用直接以包的方式深度与主机集成的部署模型相比，容器化应用更灵活、更可用。 **Kubernetes 以更高效的方式跨集群自动分发和调度应用容器。** Kubernetes 是一个开源平台，并且可应用于生产环境。
-
-
 
 一个 Kubernetes 集群包含两种类型的资源：
 
 - **控制面**调度整个集群
 - **节点**负责运行应用
 
-
-
 **集群图**
 
-![1704269961726](k8s/1704269961726.png)	
+![1704269961726](k8s/1704269961726.png)
 
 **控制面负责管理整个集群。** 控制面协调集群中的所有活动，例如调度应用、维护应用的所需状态、应用扩容以及推出新的更新。
 
@@ -40,11 +33,7 @@ abbrlink: 11340
 
 在 Kubernetes 上部署应用时，你告诉控制面启动应用容器。 控制面就编排容器在集群的节点上运行。 **节点使用控制面暴露的 Kubernetes API 与控制面通信。**终端用户也可以使用 Kubernetes API 与集群交互。
 
-
-
 - 使用**minikube**模拟https://kubernetes.io/zh-cn/docs/tutorials/hello-minikube/
-
-
 
 ## kubectl的基本命令
 
@@ -89,15 +78,12 @@ kubectl config view
 kubectl logs hello-node-5f76cf6ccf-br9b5
 ```
 
-
-
 ## 部署第一个应用在Kubernetes
 
-![1704271828818](k8s/1704271828818.png)	
+![1704271828818](k8s/1704271828818.png)
 
 采用国内源启动：
 
 ~~~powershell
 
 ~~~
-

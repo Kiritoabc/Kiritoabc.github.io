@@ -4,13 +4,10 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: redis
+categories: 后端
 tag: redis
 abbrlink: 17220
 ---
-
-
-
 # Redis线程模型
 
 > redis 内部使用**文件事件处理器 file event handler**，它是单线程的，所以redis才叫做单线程模型。它采用**IO多路复用机制**同时监听多个 socket，将产生事件的 socket 压入内存队列中，事件分派器根据 socket 上的事件类型来选择对应的事件处理器进行处理。
@@ -30,17 +27,13 @@ abbrlink: 17220
 
 ![1699943712338](Redis线程模型/1699943712338.png)
 
-
-
 ## 一次客户端与redis的完整通信过程
 
 # [深入学习redis 的线程模型](https://www.cnblogs.com/mrmirror/p/13587311.html)
 
-
-
 ## 一、redis 的线程模型[#](https://www.cnblogs.com/mrmirror/p/13587311.html#2457934768)
 
-------
+---
 
 > redis 内部使用**文件事件处理器 file event handler**，它是单线程的，所以redis才叫做单线程模型。它采用**IO多路复用机制**同时监听多个 socket，将产生事件的 socket 压入内存队列中，事件分派器根据 socket 上的事件类型来选择对应的事件处理器进行处理。
 
@@ -55,7 +48,6 @@ abbrlink: 17220
 
 多个 socket 可能会并发产生不同的操作，每个操作对应不同的文件事件，但是 IO多路复用程序会监听多个 socket，会将产生事件的 socket 放入队列中排队，事件分派器每次从队列中取出一个 socket，根据 socket 的事件类型交给对应的事件处理器进行处理。
 [![img](Redis线程模型/2136379-20200830233359116-1537526582.png)](https://img2020.cnblogs.com/blog/2136379/202008/2136379-20200830233359116-1537526582.png)
-
 
  
 
