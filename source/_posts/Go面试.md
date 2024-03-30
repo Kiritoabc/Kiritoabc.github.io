@@ -1,10 +1,10 @@
 ---
-title: 面经
+title: Golang面经
 author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: 后端
+categories: 面试
 tag: 面经
 date: 2024-03-30 13:49:49
 ---
