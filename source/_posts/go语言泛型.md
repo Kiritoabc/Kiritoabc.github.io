@@ -12,6 +12,8 @@ abbrlink: 55519
 # Go 1.18 泛型
 
 > 2022年3月15日，争议非常大但同时也备受期待的泛型终于伴随着Go1.18发布了。
+>
+> 官方文档: [Tutorial: Getting started with generics - The Go Programming Language](https://go.dev/doc/tutorial/generics)
 
 参考文档: [Go 编程语言规范 - Go 编程语言](https://go.dev/ref/spec)
 
@@ -51,6 +53,10 @@ type Float64Slice []float64
 
 ~~~Go
 type Slice[T int|float32|float64 ] []T
+
+type Numbers interface {
+    int64 | float64
+}
 ~~~
 
 ## 泛型函数
@@ -64,3 +70,8 @@ func Add[T int | float32 | float64](a T, b T) T {
     return a + b
 }
 ~~~
+
+
+
+
+
