@@ -8,7 +8,6 @@ categories: 面试
 tag: 面经
 date: 2024-03-30 13:49:49
 ---
-
 <a name="zHxrg"></a>
 
 # 数组和切片
@@ -261,7 +260,7 @@ hash(NAN) != hash(NAN)
 <a name="mYheS"></a>
 ## 5.如何比较2个map是否相等
 map 深度相等的条件：
-​```shell
+```shell
 1、都为 nil
 2、非空、长度相等，指向同一个 map 实体对象
 3、相应的 key 指向的 value “深度”相等
@@ -1270,7 +1269,7 @@ typedef struct quicklist {
     //所有压缩列表中的总元素个数
     unsigned long count;
     //quicklistNodes的个数
-    unsigned long len;     
+    unsigned long len;   
     ...
 } quicklist;
 ```
@@ -1284,9 +1283,9 @@ typedef struct quicklistNode {
     //下一个quicklistNode
     struct quicklistNode *next;     //后一个quicklistNode
     //quicklistNode指向的压缩列表
-    unsigned char *zl;            
+    unsigned char *zl;          
     //压缩列表的的字节大小
-    unsigned int sz;              
+    unsigned int sz;            
     //压缩列表的元素个数
     unsigned int count : 16;        //ziplist中的元素个数 
     ....
@@ -1300,9 +1299,9 @@ typedef struct quicklistNode {
     //下一个quicklistNode
     struct quicklistNode *next;     //后一个quicklistNode
     //quicklistNode指向的压缩列表
-    unsigned char *zl;            
+    unsigned char *zl;          
     //压缩列表的的字节大小
-    unsigned int sz;              
+    unsigned int sz;            
     //压缩列表的元素个数
     unsigned int count : 16;        //ziplist中的元素个数 
     ....
@@ -1624,10 +1623,8 @@ MSS
 
 **对比如下：**
 
-| 
 
-
-| UDP          | TCP                                        |                                                  |
+|              | UDP                                        | TCP                                              |
 | ------------ | ------------------------------------------ | ------------------------------------------------ |
 | 是否连接     | 无连接                                     | 面向连接                                         |
 | 是否可靠     | 不可靠传输，不使用流量控制和拥塞控制       | 可靠传输，使用流量控制和拥塞控制                 |
@@ -3921,8 +3918,7 @@ A调用B，我们针对得是调用方A
 在 Linux 内核版本 2.1 中，提供了一个专门发送文件的系统调用函数 sendfile()
 ![image.png](https://cdn.nlark.com/yuque/0/2024/png/32717568/1709449745613-a52ecf75-05fa-4b2b-a228-888a78f6f815.png#averageHue=%23f2eee4&clientId=ud1a37d8c-afb6-4&from=paste&height=631&id=w8xJs&originHeight=631&originWidth=1073&originalType=binary&ratio=1&rotation=0&showTitle=false&size=195277&status=done&style=none&taskId=uc9e2fef4-a772-4a0f-a989-33ff79c3e22&title=&width=1073)
 
-但是这还不是真正的零拷贝技术，如果网卡支持 SG-DMA（_The Scatter-Gather Direct Memory Access_）技术（和普通的 DMA 有所不同），我们可以进一步减少通过 CPU 把内核缓冲区里的数据拷贝到 socket 缓冲区的过程。                                                     
-于是，从 Linux 内核 2.4 版本开始起，对于支持网卡支持 SG-DMA 技术的情况下， sendfile() 系统调用的过程发生了点变化，具体过程如下：
+但是这还不是真正的零拷贝技术，如果网卡支持 SG-DMA（_The Scatter-Gather Direct Memory Access_）技术（和普通的 DMA 有所不同），我们可以进一步减少通过 CPU 把内核缓冲区里的数据拷贝到 socket 缓冲区的过程。于是，从 Linux 内核 2.4 版本开始起，对于支持网卡支持 SG-DMA 技术的情况下， sendfile() 系统调用的过程发生了点变化，具体过程如下：
 
 - 第一步，通过 DMA 将磁盘上的数据拷贝到内核缓冲区里；
 - 第二步，缓冲区描述符和数据长度传到 socket 缓冲区，这样网卡的 SG-DMA 控制器就可以直接将内核缓存中的数据拷贝到网卡的缓冲区里，此过程不需要将数据从操作系统内核缓冲区拷贝到 socket 缓冲区中，这样就减少了一次数据拷贝；
@@ -4281,6 +4277,7 @@ func (l *FixedWindowLimiter) TryAcquire() bool {
    return true
 }
 ```
+
 该算法的问题：主要是会存在临界问题，如果流量都集中在两个窗口的交界处，那么突发流量会是设置上限的两倍，还是没有避免掉可能的瞬时流量的问题。
 
 <a name="Cfl0F"></a>
@@ -4453,6 +4450,7 @@ func to62RadixString(seq int64) string {
 	return string(ans)
 }
 ```
+
 <a name="G4SuU"></a>
 
 # 奇怪的问题
@@ -4673,6 +4671,7 @@ func to62RadixString(seq int64) string {
 ```sql
 update product set stock=stock-1 where id=123;
 ```
+
 这种写法对于扣减库存是没有问题的，但如何控制库存不足的情况下，不让用户操作呢？
 这就需要在update之前，先查一下库存是否足够了。
 只需将上面的sql稍微调整一下：
@@ -4680,6 +4679,7 @@ update product set stock=stock-1 where id=123;
 ```sql
 update product set stock=stock-1 where id=product and stock > 0;
 ```
+
 在sql最后加上：stock > 0，就能保证不会出现超卖的情况。
 **但需要频繁访问数据库，我们都知道数据库连接是非常昂贵的资源。**在高并发的场景下，可能会造成系统雪崩。而且，容易出现多个请求，同时竞争行锁的情况，造成相互等待，从而出现死锁的问题。
 
@@ -4700,6 +4700,7 @@ redisClient.incrby(productId, -1);
 redisClient.add(productId,userId);
 return 1;
 ```
+
 代码流程如下：
 
 1. 先判断该用户有没有秒杀过该商品，如果已经秒杀过，则直接返回-1。
@@ -4721,6 +4722,7 @@ if(redisClient.incrby(productId, -1)<0) {
 redisClient.add(productId,userId);
 return 1;
 ```
+
 该代码主要流程如下：
 
 1. 先判断该用户有没有秒杀过该商品，如果已经秒杀过，则直接返回-1。
@@ -4751,6 +4753,7 @@ lua脚本有段非常经典的代码：
   lua.append("end;");
   lua.append("return -1;");
 ```
+
 **该代码的主要流程如下：**
 
 1. 先判断商品id是否存在，如果不存在则直接返回。
