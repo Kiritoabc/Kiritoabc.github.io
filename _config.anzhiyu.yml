@@ -767,7 +767,7 @@ preloader:
   source: 3
   # pace theme (see https://codebyzach.github.io/pace/)
   pace_css_url:
-  avatar: https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg # 自定加载动画义头像
+  avatar: https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/avatar1.jpg # 自定加载动画义头像
 
 # aside (侧边栏)
 # --------------------------------------
