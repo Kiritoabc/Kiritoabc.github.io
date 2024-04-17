@@ -125,7 +125,7 @@ favicon: https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/菠萝.png
 
 # Avatar (头像)
 avatar:
-  img: https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/header.jpg
+  img: https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/avatar1.jpg
   effect: false
 
 # Disable all banner image
