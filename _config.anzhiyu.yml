@@ -132,7 +132,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: "background: url(https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/background.jpg) top / cover no-repeat" # "background: url() top / cover no-repeat"
+index_img: "background: url(https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/kokomi.jpg) top / cover no-repeat" # "background: url() top / cover no-repeat"
 
 # If the banner of page not setting, it will show the top_img
 default_top_img: https://cdn.jsdelivr.net/gh/Kiritoabc/my_cdn/img/cover.jpg
