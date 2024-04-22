@@ -6,7 +6,7 @@ readmore: true
 hideTime: true
 categories: 后端
 cover:
-tag: 后端开发小技巧
+tag: golang
 date: 2023-10-07 13:04:41
 abbrlink: 13343
 ---

@@ -5,7 +5,7 @@ email: 2493381254@qq.com
 readmore: true
 hideTime: true
 categories: 后端
-tag: 后端开发小技巧
+tag: 分布式
 date: 2023-07-06 13:04:41
 abbrlink: 35617
 cover:

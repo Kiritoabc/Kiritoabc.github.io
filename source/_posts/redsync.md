@@ -1,7 +1,7 @@
 ---
 title: redsync
-tags: go
 categories: 后端
+tags: golang
 abbrlink: 11917
 date: 2024-03-11 00:04:41
 ---

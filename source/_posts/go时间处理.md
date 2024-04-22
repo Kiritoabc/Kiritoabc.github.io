@@ -5,7 +5,7 @@ email: 2493381254@qq.com
 readmore: true
 hideTime: true
 categories: 后端
-tag: 后端开发小技巧
+tag: golang
 date: 2023-11-08 13:04:41
 abbrlink: 7284
 ---

@@ -4,7 +4,7 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: 生活日常
+categories: 面经
 tag: 面试
 date: 2024-03-06 13:04:41
 abbrlink: 21203

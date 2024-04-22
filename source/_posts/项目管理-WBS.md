@@ -4,8 +4,8 @@ author: 菠萝
 email: 2493381254@qq.com
 readmore: true
 hideTime: true
-categories: 项目管理
-tag: WBS
+categories: 后端
+tag: 项目管理
 date: 2024-3-31 11:30
 ---
 # 项目管理--WBS
