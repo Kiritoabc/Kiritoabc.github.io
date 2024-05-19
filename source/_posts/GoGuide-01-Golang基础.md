@@ -51,8 +51,8 @@ abbrlink:
 
 
 ### [面试题二]、slice和array的区别
->
-> 这个问题基本上是送分的，对于slice简单回答一下就好：
+>**这个问题基本上是送分的，对于slice简单回答一下就好：**
+> 
 > - slice的底层数组就是数组，slcie是对数组的封装，它描述一个数组的片段
 > - 数组是定长的，长度定义好之后，不能再改变
 > - 数组就是一片连续的内存，slcie实际上是一个结构体，它包含三个字段：长度、容量、底层数组。
@@ -71,19 +71,40 @@ type slice struct {
 }
 ~~~
 
-
 ## map
+
+### [面试题一]、map的扩容过程
+
+> 对于Map的扩容，首先我们需要知道map的数据结构：
+>
+> 1. 可以简单介绍一下，map的设计（hamp、bmap,其中hmap的字段：buckets,oldbuckets可以讲一下，这个其实就是 我们所说的桶，它们都是bmap的切片，我们搜索大数据最终存储在bmap上，接着讲一下 bmap的数据结构 ==> tophash、keys、values、pad、overflow这几个可以简单介绍一下）
+> 2. 讲完数据结构，接下来讲一下，**扩容的触发条件** 。其扩容的触发，又和2种扩容有关
+>    1. 双倍扩容：当负载因子大小 > 6.5
+>    2. 等量扩容：当overflow的buckets数量过多的时候，会触发，也就是 bucket 总数 2^B 小于 2^15 时，如果 overflow 的 bucket 数量超过 2^B；当 B >= 15，也就是 bucket 总数 2^B 大于等于 2^15，如果 overflow 的 bucket 数量超过 2^15。
+
+
 
 ## channel
 
+
+
 ## Context
+
+
 
 ## GPM模型
 
+
+
 ## 接口
+
+
 
 ## GC
 
+
+
 ## TCmalloc
 
-## 
+
+
